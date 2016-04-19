@@ -17,6 +17,7 @@ import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
 
+@SuppressWarnings("LossyEncoding")
 public class APIExample {
 	/**
 	 * The concrete language object used for creating output
@@ -37,18 +38,18 @@ public class APIExample {
 		lang.setStepMode(true);
 	}
 
-	private static final String DESCRIPTION = "QuickSort wählt ein Element aus der zu sortierenden Liste aus "
+	private static final String DESCRIPTION = "QuickSort wï¿½hlt ein Element aus der zu sortierenden Liste aus "
 			+ "(Pivotelement) und zerlegt die Liste in zwei Teillisten, eine untere, "
 			+ "die alle Elemente kleiner und eine obere, die alle Elemente gleich oder "
-			+ "größer dem Pivotelement enthält.\nDazu wird zunächst ein Element von unten "
-			+ "gesucht, das größer als (oder gleichgroß wie) das Pivotelement und damit "
-			+ "für die untere Liste zu groß ist. Entsprechend wird von oben ein kleineres "
+			+ "grï¿½ï¿½er dem Pivotelement enthï¿½lt.\nDazu wird zunï¿½chst ein Element von unten "
+			+ "gesucht, das grï¿½ï¿½er als (oder gleichgroï¿½ wie) das Pivotelement und damit "
+			+ "fï¿½r die untere Liste zu groï¿½ ist. Entsprechend wird von oben ein kleineres "
 			+ "Element als das Pivotelement gesucht. Die beiden Elemente werden dann "
 			+ "vertauscht und landen damit in der jeweils richtigen Liste.\nDer Vorgang "
 			+ "wird fortgesetzt, bis sich die untere und obere Suche treffen. Damit sind "
-			+ "die oben erwähnten Teillisten in einem einzigen Durchlauf entstanden. "
-			+ "Suche und Vertauschung können in-place durchgeführt werden."
-			+ "\n\nDie noch unsortierten Teillisten werden über denselben Algorithmus "
+			+ "die oben erwï¿½hnten Teillisten in einem einzigen Durchlauf entstanden. "
+			+ "Suche und Vertauschung kï¿½nnen in-place durchgefï¿½hrt werden."
+			+ "\n\nDie noch unsortierten Teillisten werden ï¿½ber denselben Algorithmus "
 			+ "in noch kleinere Teillisten zerlegt (z. B. mittels Rekursion) und, sobald "
 			+ "nur noch Listen mit je einem Element vorhanden sind, wieder zusammengesetzt. "
 			+ "Die Sortierung ist damit abgeschlossen.";
@@ -400,7 +401,7 @@ public class APIExample {
 	public static void main(String[] args) {
 		// Create a new language object for generating animation code
 		// this requires type, name, author, screen width, screen height
-		Language l = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quicksort Example", "Guido Rößling", 640,
+		Language l = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quicksort Example", "Guido Rï¿½ï¿½ling", 640,
 				480);
 		APIExample s = new APIExample(l);
 		int[] a = { 7, 3, 2, 4, 1, 13, 52, 13, 5, 1 };
