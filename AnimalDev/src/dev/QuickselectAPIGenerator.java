@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 
 import algoanim.exceptions.LineNotExistsException;
+import algoanim.primitives.ArrayMarker;
 import algoanim.primitives.IntArray;
 import algoanim.primitives.SourceCode;
 import algoanim.primitives.generators.Language;
 import algoanim.properties.AnimationPropertiesKeys;
+import algoanim.properties.ArrayMarkerProperties;
 import algoanim.properties.ArrayProperties;
 import algoanim.properties.SourceCodeProperties;
 import algoanim.util.Coordinates;
@@ -124,6 +126,37 @@ public class QuickselectAPIGenerator {
 		code.highlight(0, 0, false);
 		language.nextStep();
 		
+		code.toggleHighlight(0, 0, false, 1, 0);
 		
+		pointerCounter++;
+		ArrayMarkerProperties arrayLeftPointerProperties = new ArrayMarkerProperties();
+		arrayLeftPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "left");
+		arrayLeftPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		ArrayMarker leftMarker = language.newArrayMarker(array, 0, "left" + pointerCounter, null, arrayLeftPointerProperties);
+		
+		pointerCounter++;
+		ArrayMarkerProperties arrayRightPointerProperties = new ArrayMarkerProperties();
+		arrayRightPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "right");
+		arrayRightPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		ArrayMarker rightMarker = language.newArrayMarker(array, array.getLength() - 1, "right", null, arrayRightPointerProperties);
+		
+		int l, r, pivot;
+		
+		language.nextStep();
+		code.toggleHighlight(1, 0, false, 4, 0);
+		
+		pointerCounter++;
+		ArrayMarkerProperties arrayPivotPointerProperties = new ArrayMarkerProperties();
+		arrayPivotPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
+		arrayPivotPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+		ArrayMarker pivotMarker = language.newArrayMarker(array, randomPivot(left, right), "pivot" + pointerCounter, null, arrayPivotPointerProperties);
+		
+		language.nextStep();
+		code.unhighlight(4, 0, false);
+		
+	}
+
+	private int randomPivot(int left, int right) {
+		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 }
