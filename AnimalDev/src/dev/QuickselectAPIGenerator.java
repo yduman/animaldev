@@ -7,6 +7,7 @@ import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.ArrayMarker;
 import algoanim.primitives.IntArray;
 import algoanim.primitives.SourceCode;
+import algoanim.primitives.generators.AnimationType;
 import algoanim.primitives.generators.Language;
 import algoanim.properties.AnimationPropertiesKeys;
 import algoanim.properties.ArrayMarkerProperties;
@@ -252,6 +253,10 @@ public class QuickselectAPIGenerator {
 				code.unhighlight(8, 0, false);
 				code.highlight(9, 0, false);
 				System.out.println("The " + (n + 1) + " smallest element is " + array.getData(n));
+
+				language.nextStep();
+				code.unhighlight(9, 0, false);
+
 				return array.getData(n);
 			}
 			else if (n < pivot) {
@@ -265,6 +270,9 @@ public class QuickselectAPIGenerator {
 				language.nextStep();
 				right = pivot - 1;
 				rightMarker.move(right, null, defaultDuration);
+
+				language.nextStep();
+				code.unhighlight(11, 0, false);
 			}
 			else {
 				language.nextStep();
@@ -277,11 +285,55 @@ public class QuickselectAPIGenerator {
 				language.nextStep();
 				left = pivot + 1;
 				leftMarker.move(left, null, defaultDuration);
+
+				language.nextStep();
+				code.unhighlight(13, 0, false);
 			}
+			language.nextStep();
+			code.highlight(14, 0, false);
+
+			language.nextStep();
+			code.highlight(15, 0, false);
+
+			language.nextStep();
+			array.unhighlightCell(left, right, null, null);
+
+			language.nextStep();
+			leftMarker.hide();
+			rightMarker.hide();
+			pivotMarker.hide();
 		}
+	}
+
+	protected String getAlgorithmDescription() {
+		return QUICKSELECT_DESCRIPTION;
+	}
+
+	protected String getAlgorithmCode() {
+		return QUICKSELECT_SOURCE_CODE;
+	}
+
+	public String getAlgorithmName() {
+		return "Quickselect (pivot = random)";
+	}
+
+	public String getDescription() {
+		return QUICKSELECT_DESCRIPTION;
+	}
+
+	public String getCodeExample() {
+		return QUICKSELECT_SOURCE_CODE;
 	}
 
 	private int randomPivot(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
+	}
+
+	public static void main(String[] args) {
+		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
+		QuickselectAPIGenerator quickselect = new QuickselectAPIGenerator(language);
+		int[] array = { 52, 13, 5, 12, 76, 1 };
+		quickselect.select(array);
+		System.out.println(language);
 	}
 }
