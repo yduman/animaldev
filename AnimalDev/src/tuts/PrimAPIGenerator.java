@@ -30,6 +30,7 @@ import algoanim.util.Coordinates;
 import algoanim.util.Node;
 import algoanim.util.Offset;
 
+@SuppressWarnings("LossyEncoding")
 public class PrimAPIGenerator {
 	/**
 	 * The concrete language object used for creating output
@@ -110,25 +111,25 @@ public class PrimAPIGenerator {
 		language.newText(new Coordinates(10, 100), "Der Algorithmus von Prim berechnet den minimalen Spannbaum eines",
 				"description1", null, textProps);
 		language.newText(new Offset(0, 25, "description1", AnimalScript.DIRECTION_NW),
-				"zusammenhängenden und kantengewichteten Graphen. Ein minimaler", "description2", null, textProps);
+				"zusammenhï¿½ngenden und kantengewichteten Graphen. Ein minimaler", "description2", null, textProps);
 		language.newText(new Offset(0, 25, "description2", AnimalScript.DIRECTION_NW),
 				"Spannbaum ist ein Teilgraph, der alle Knoten des Ursprungsgraphen", "description3", null, textProps);
 		language.newText(new Offset(0, 25, "description3", AnimalScript.DIRECTION_NW),
-				"enthält und sie mit Kanten minimalen Gewichts verbindet.", "description4", null, textProps);
+				"enthï¿½lt und sie mit Kanten minimalen Gewichts verbindet.", "description4", null, textProps);
 
 		language.nextStep();
 		language.newText(new Offset(0, 50, "description4", AnimalScript.DIRECTION_NW),
 				"1. Gegeben sei ein Graph G mit Knotenmenge V und Kantenmenge E.", "algo11", null, textProps);
 		language.newText(new Offset(25, 25, "algo11", AnimalScript.DIRECTION_NW),
-				"Wähle aus der Knotenmenge V einen beliebigen Startknoten v0", "algo12", null, textProps);
-		language.newText(new Offset(0, 25, "algo12", AnimalScript.DIRECTION_NW), "und füge ihn dem Spannbaum hinzu.",
+				"Wï¿½hle aus der Knotenmenge V einen beliebigen Startknoten v0", "algo12", null, textProps);
+		language.newText(new Offset(0, 25, "algo12", AnimalScript.DIRECTION_NW), "und fï¿½ge ihn dem Spannbaum hinzu.",
 				"algo13", null, textProps);
 
 		language.nextStep();
 		language.newText(new Offset(-25, 25, "algo13", AnimalScript.DIRECTION_NW),
 				"2. Betrachte alle Kanten, die von den Knoten aus dem Spannbaum", "algo21", null, textProps);
 		language.newText(new Offset(25, 25, "algo21", AnimalScript.DIRECTION_NW),
-				"abgehen und füge die Kante mit geringstem Gewicht sowie den", "algo22", null, textProps);
+				"abgehen und fï¿½ge die Kante mit geringstem Gewicht sowie den", "algo22", null, textProps);
 		language.newText(new Offset(0, 25, "algo22", AnimalScript.DIRECTION_NW), "Zielknoten zum Spannbaum hinzu.",
 				"algo23", null, textProps);
 
@@ -149,15 +150,15 @@ public class PrimAPIGenerator {
 		src.addCodeLine("Set<Vertex> Vs = {};", null, 1, null);
 		src.addCodeLine("Set<Edge> Es = {}", null, 1, null); // 3
 		src.addCodeLine("", null, 1, null); // 4
-		src.addCodeLine("// wähle beliebigen Startknoten", null, 1, null); // 5
+		src.addCodeLine("// wï¿½hle beliebigen Startknoten", null, 1, null); // 5
 		src.addCodeLine("Vs.add(randomElement(V));", null, 1, null); // 6
 		src.addCodeLine("while (V.size() != Vs.size()) {", null, 1, null); // 7
 		src.addCodeLine("List<Edge> possibleEdges = E.getEdges(Vs);", null, 2, null); // 8
 		src.addCodeLine("// sortiere Kanten aufsteigend nach Gewichten", null, 2, null); // 9
 		src.addCodeLine("possibleEdges.sort();", null, 2, null); // 10
-		src.addCodeLine("// wähle die Kante mit geringstem Gewicht", null, 2, null); // 11
+		src.addCodeLine("// wï¿½hle die Kante mit geringstem Gewicht", null, 2, null); // 11
 		src.addCodeLine("chosenEdge = possibleEdges.first();", null, 2, null); // 12
-		src.addCodeLine("// füge ausgewählte Kante und zugehörige Knoten zum Spannbaum hinzu", null, 2, null); // 13
+		src.addCodeLine("// fï¿½ge ausgewï¿½hlte Kante und zugehï¿½rige Knoten zum Spannbaum hinzu", null, 2, null); // 13
 		src.addCodeLine("Es.add(chosenEdge);", null, 2, null); // 14
 		src.addCodeLine("Vs.addAll(chosenEdge.getVertexes());", null, 2, null); // 15
 		src.addCodeLine("}", null, 1, null); // 16
@@ -280,7 +281,7 @@ public class PrimAPIGenerator {
 		language.hideAllPrimitives();
 		header.show();
 		hRect.show();
-		language.newText(new Coordinates(10, 100), "Der Algorithmus lässt sich auf zusammenhängende, ungerichtete und",
+		language.newText(new Coordinates(10, 100), "Der Algorithmus lï¿½sst sich auf zusammenhï¿½ngende, ungerichtete und",
 				"resultText1", null, textProps);
 		language.newText(new Offset(0, 25, "resultText1", AnimalScript.DIRECTION_NW),
 				"kantengewichtete Graphen anwenden. Eine Alternative zum Prim Algorithmus", "resultText2", null,
@@ -288,9 +289,9 @@ public class PrimAPIGenerator {
 		language.newText(new Offset(0, 25, "resultText2", AnimalScript.DIRECTION_NW),
 				"ist der Algorithmus von Kruskal.", "resultText3", null, textProps);
 		language.newText(new Offset(0, 50, "resultText3", AnimalScript.DIRECTION_NW),
-				"Bei extrem effizienter Implementierung des Algorithmus lässt sich", "resultText4", null, textProps);
+				"Bei extrem effizienter Implementierung des Algorithmus lï¿½sst sich", "resultText4", null, textProps);
 		language.newText(new Offset(0, 25, "resultText4", AnimalScript.DIRECTION_NW),
-				"eine Komplexität von O(|V| + |E|) erreichen, wobei |V| die Anzahl der", "resultText5", null,
+				"eine Komplexitï¿½t von O(|V| + |E|) erreichen, wobei |V| die Anzahl der", "resultText5", null,
 				textProps);
 		language.newText(new Offset(0, 25, "resultText5", AnimalScript.DIRECTION_NW),
 				"Knoten und |E| die Anzahl der Kanten ist.", "resultText6", null, textProps);
@@ -382,7 +383,7 @@ public class PrimAPIGenerator {
 		Graph graph = (Graph) primitives.get("graph");
 
 		System.out.println("-----------------DEBUG-----------------");
-		System.out.println("Warum ist die Adjanzenmatrix mit Nullen gefüllt?");
+		System.out.println("Warum ist die Adjanzenmatrix mit Nullen gefï¿½llt?");
 		int[][] matrix = graph.getAdjacencyMatrix();
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[0].length; j++) {
@@ -504,12 +505,12 @@ public class PrimAPIGenerator {
 	public String getCodeExample() {
 		return "function prim(Set<Vertex> V, Set<Edge> E) {" + "\n" + "    // Knoten und Kanten des Spannbaums" + "\n"
 				+ "    Set<Vertex> Vs = {};" + "\n" + "    Set<Edge> Es = {};" + "\n" + "\n"
-				+ "    // wähle beliebigen Startknoten" + "\n" + "    Vs.add(randomElement(V));" + "\n"
+				+ "    // wï¿½hle beliebigen Startknoten" + "\n" + "    Vs.add(randomElement(V));" + "\n"
 				+ "    while (V.size() != Vs.size()) {" + "\n" + "        possibleEdges = E.getEdges(Vs);" + "\n"
 				+ "        // sortiere Kanten aufsteigend nach Gewichten" + "\n" + "        possibleEdges.sort();"
-				+ "\n" + "        // wähle die Kante mit geringstem Gewicht" + "\n"
+				+ "\n" + "        // wï¿½hle die Kante mit geringstem Gewicht" + "\n"
 				+ "        chosenEdge = possibleEdges.first();" + "\n"
-				+ "        // füge ausgewählte Kante und zugehörige Knoten zum Spannbaum hinzu" + "\n"
+				+ "        // fï¿½ge ausgewï¿½hlte Kante und zugehï¿½rige Knoten zum Spannbaum hinzu" + "\n"
 				+ "        Es.add(chosenEdge);" + "\n" + "        Vs.addAll(chosenEdge.getVertexes());" + "\n" + "    }"
 				+ "\n" + "    return Vs, Es;" + "\n" + "}";
 	}

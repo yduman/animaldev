@@ -22,20 +22,83 @@ import algoanim.util.Timing;
  * @author Yadullah Duman <yadullah.duman@gmail.com>
  *
  */
-public class QuickselectAPIGenerator {
+public class QuickselectGenerator {
 	private Language language;
 	
-	public QuickselectAPIGenerator(Language l) {
+	private QuickselectGenerator(Language l) {
 		language = l;
 		language.setStepMode(true);
 	}
 	
-	private static final String QUICKSELECT_DESCRIPTION = "this will be the qs decription later";
-	private static final String QUICKSELECT_SOURCE_CODE = "this will be the qs source code later";
+	private static final String QUICKSELECT_DESCRIPTION = "In computer science, quickselect is a selection algorithm " +
+			"to find the kth smallest element in an unordered list. It is related to the quicksort sorting algorithm. " +
+			"Like quicksort, it was developed by Tony Hoare, and thus is also known as Hoare's selection algorithm. " +
+			"Like quicksort, it is efficient in practice and has good average-case performance, but has poor " +
+			"worst-case performance. Quickselect and variants is the selection algorithm most often used in efficient " +
+			"real-world implementations.\n" +
+			"\n" +
+			"Quickselect uses the same overall approach as quicksort, choosing one element as a pivot and " +
+			"partitioning the data in two based on the pivot, accordingly as less than or greater than the pivot. " +
+			"However, instead of recursing into both sides, as in quicksort, quickselect only recurses into one " +
+			"side – the side with the element it is searching for. This reduces the average complexity " +
+			"from O(n log n) to O(n).\n" +
+			"\n" +
+			"As with quicksort, quickselect is generally implemented as an in-place algorithm, and beyond selecting " +
+			"the k'th element, it also partially sorts the data. See selection algorithm for further discussion " +
+			"of the connection with sorting." +
+			"\n" +
+			"Worst case performance: O(n^2)\n" +
+			"Best case performance: O(n)\n" +
+			"Average case performance: O(n)" +
+			"\n" +
+			"source: https://en.wikipedia.org/wiki/Quickselect";
+
+	private static final String QUICKSELECT_SOURCE_CODE = "public static int quickselect" +
+			"(int[] array, int left, int right, int n) {\n" +
+			"\t\tif (left == right)\n" +
+			"\t\t\treturn array[left];\n" +
+			"\n" +
+			"\t\tfor (;;) {\n" +
+			"\t\t\tint pivot = randomPivot(left, right);\n" +
+			"\t\t\tpivot = partition(array, left, right, pivot);\n" +
+			"\n" +
+			"\t\t\tif (n == pivot)\n" +
+			"\t\t\t\treturn array[n];\n" +
+			"\t\t\telse if (n < pivot)\n" +
+			"\t\t\t\tright = pivot - 1;\n" +
+			"\t\t\telse\n" +
+			"\t\t\t\tleft = pivot + 1;\n" +
+			"\t\t}\n" +
+			"\t}\n" +
+			"\n" +
+			"\tpublic static int partition(int[] array, int left, int right, int pivot) {\n" +
+			"\t\tint pivotValue = array[pivot];\n" +
+			"\t\tswap(array, pivot, right);\n" +
+			"\t\tint storeIndex = left;\n" +
+			"\n" +
+			"\t\tfor (int i = left; i < right; i++) {\n" +
+			"\t\t\tif (array[i] < pivotValue) {\n" +
+			"\t\t\t\tswap(array, storeIndex, i);\n" +
+			"\t\t\t\tstoreIndex++;\n" +
+			"\t\t\t}\n" +
+			"\t\t}\n" +
+			"\t\tswap(array, right, storeIndex);\n" +
+			"\t\treturn storeIndex;\n" +
+			"\t}\n" +
+			"\n" +
+			"\tpublic static void swap(int[] array, int a, int b) {\n" +
+			"\t\tint tmp = array[a];\n" +
+			"\t\tarray[a] = array[b];\n" +
+			"\t\tarray[b] = tmp;\n" +
+			"\t}\n" +
+			"\n" +
+			"\tpublic static int randomPivot(int left, int right) {\n" +
+			"\t\treturn left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
+			"\t}";
 	
-	public final static Timing defaultDuration = new TicksTiming(30);
+	private final static Timing defaultDuration = new TicksTiming(30);
 	
-	public void select(int[] array)
+	private void select(int[] array)
 	{
 		// generate an ArrayProperty
 		ArrayProperties arrayProperties = new ArrayProperties();
@@ -123,6 +186,7 @@ public class QuickselectAPIGenerator {
 		iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 		try {
 			// start the algorithm
+			// TODO: random value for n
 			quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), 1);
 		} catch (LineNotExistsException e) {
 			e.printStackTrace();
@@ -135,6 +199,7 @@ public class QuickselectAPIGenerator {
 
 	// counter for the number of pointers used
 	private int pointerCounter = 0;
+	private String ordinal = "";
 
 
 	private int quickSelect(IntArray array, SourceCode code, int left, int right, int n) throws LineNotExistsException
@@ -146,30 +211,14 @@ public class QuickselectAPIGenerator {
 		
 		code.toggleHighlight(0, 0, false, 1, 0);
 
-		// TODO: vielleicht left und right marker loeschen
-		pointerCounter++;
-		ArrayMarkerProperties arrayLeftPointerProperties = new ArrayMarkerProperties();
-		arrayLeftPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "left");
-		arrayLeftPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-
-		// Create ArrayMarker for 'left': Array, current index, name, display options, properties
-		ArrayMarker leftMarker = language.newArrayMarker(array, 0, "left" + pointerCounter, null, arrayLeftPointerProperties);
-
-		pointerCounter++;
-		ArrayMarkerProperties arrayRightPointerProperties = new ArrayMarkerProperties();
-		arrayRightPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "right");
-		arrayRightPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-
-		// Create ArrayMarker for 'right'
-		ArrayMarker rightMarker = language.newArrayMarker(array, array.getLength() - 1, "right", null, arrayRightPointerProperties);
-		
 		language.nextStep();
 		code.toggleHighlight(1, 0, false, 2, 0);
 
 		if (left == right) {
 			language.nextStep();
 			code.toggleHighlight(2, 0, false, 3, 0);
-			// TODO: return Fall ?
+			System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
+			return array.getData(n);
 		}
 
 		language.nextStep();
@@ -192,7 +241,7 @@ public class QuickselectAPIGenerator {
 			code.unhighlight(6, 0, false);
 			code.highlight(22, 0, false);
 
-			// ************* PARTITION ************* //
+			// ------------------------ PARTITION ------------------------ //
 			language.nextStep();
 			code.unhighlight(22, 0, false);
 			code.highlight(24, 0, false);
@@ -238,6 +287,8 @@ public class QuickselectAPIGenerator {
 
 			language.nextStep();
 			code.unhighlight(35, 0, false);
+			// ------------------------ PARTITION ------------------------ //
+
 			code.highlight(7, 0, false);
 			pivot = storeIndex;
 			pivotMarker.move(pivot, null, defaultDuration);
@@ -252,7 +303,21 @@ public class QuickselectAPIGenerator {
 				language.nextStep();
 				code.unhighlight(8, 0, false);
 				code.highlight(9, 0, false);
-				System.out.println("The " + (n + 1) + " smallest element is " + array.getData(n));
+
+				switch (n + 1) {
+					case 1: 
+						ordinal = "st";
+						break;
+					case 2:
+						ordinal = "nd";
+						break;
+					case 3:
+						ordinal = "rd";
+						break;
+					default:
+						ordinal = "th";
+				}
+				System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
 
 				language.nextStep();
 				code.unhighlight(9, 0, false);
@@ -269,7 +334,6 @@ public class QuickselectAPIGenerator {
 
 				language.nextStep();
 				right = pivot - 1;
-				rightMarker.move(right, null, defaultDuration);
 
 				language.nextStep();
 				code.unhighlight(11, 0, false);
@@ -284,7 +348,6 @@ public class QuickselectAPIGenerator {
 
 				language.nextStep();
 				left = pivot + 1;
-				leftMarker.move(left, null, defaultDuration);
 
 				language.nextStep();
 				code.unhighlight(13, 0, false);
@@ -299,10 +362,12 @@ public class QuickselectAPIGenerator {
 			array.unhighlightCell(left, right, null, null);
 
 			language.nextStep();
-			leftMarker.hide();
-			rightMarker.hide();
 			pivotMarker.hide();
 		}
+	}
+
+	private int randomPivot(int left, int right) {
+		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
 	protected String getAlgorithmDescription() {
@@ -317,21 +382,10 @@ public class QuickselectAPIGenerator {
 		return "Quickselect (pivot = random)";
 	}
 
-	public String getDescription() {
-		return QUICKSELECT_DESCRIPTION;
-	}
-
-	public String getCodeExample() {
-		return QUICKSELECT_SOURCE_CODE;
-	}
-
-	private int randomPivot(int left, int right) {
-		return left + (int) Math.floor(Math.random() * (right - left + 1));
-	}
-
 	public static void main(String[] args) {
-		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
-		QuickselectAPIGenerator quickselect = new QuickselectAPIGenerator(language);
+		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect",
+				"Yadullah Duman", 640, 480);
+		QuickselectGenerator quickselect = new QuickselectGenerator(language);
 		int[] array = { 52, 13, 5, 12, 76, 1 };
 		quickselect.select(array);
 		System.out.println(language);

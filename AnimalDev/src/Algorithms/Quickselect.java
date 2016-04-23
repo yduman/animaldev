@@ -5,7 +5,7 @@ public class Quickselect {
 	public Quickselect() {
 	}
 
-	public static int selectIterative(int[] array, int left, int right, int n) {
+	public static int quickselect(int[] array, int left, int right, int n) {
 		if (left == right)
 			return array[left];
 
@@ -20,21 +20,6 @@ public class Quickselect {
 			else
 				left = pivot + 1;
 		}
-	}
-
-	public static int selectRecursive(int[] array, int left, int right, int n) {
-		if (left == right)
-			return array[left];
-
-		int pivot = randomPivot(left, right);
-		pivot = partition(array, left, right, pivot);
-
-		if (n == pivot)
-			return array[n];
-		else if (n < pivot)
-			return selectRecursive(array, left, pivot - 1, n);
-		else
-			return selectRecursive(array, pivot + 1, right, n);
 	}
 
 	public static int partition(int[] array, int left, int right, int pivot) {
