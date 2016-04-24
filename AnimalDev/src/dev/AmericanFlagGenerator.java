@@ -11,15 +11,20 @@ import algoanim.properties.SourceCodeProperties;
 import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
+import generators.framework.Generator;
+import generators.framework.GeneratorType;
+import generators.framework.properties.AnimationPropertiesContainer;
 
 import java.awt.*;
+import java.util.Hashtable;
+import java.util.Locale;
 
 /**
  *
  * @author Yadullah Duman <yadullah.duman@gmail.com>
  *
  */
-public class AmericanFlagGenerator {
+public class AmericanFlagGenerator implements Generator {
     private Language language;
 
     private AmericanFlagGenerator(Language l) {
@@ -68,16 +73,20 @@ public class AmericanFlagGenerator {
             "\t\t\t\tdo {\n" +
             "\t\t\t\t\tint to = offsets[num % RADIX]++;\n" +
             "\t\t\t\t\tcounts[num % RADIX]--;\n" +
-            "\t\t\t\t\tint tmp = array[to];\n" +
-            "\t\t\t\t\tarray[to] = num;\n" +
-            "\t\t\t\t\tnum = tmp;\n" +
+            "\t\t\t\t\tswap(array, to, num);\n" +
             "\t\t\t\t\tfrom = to;\n" +
             "\t\t\t\t} while (from != origin);\n" +
             "\t\t\t}\n" +
             "\t\t}\n" +
+            "\t}\n" +
+            "\n" +
+            "\tpublic static void swap(int[] array, int a, int b) {\n" +
+            "\t\tint tmp = array[a];\n" +
+            "\t\tarray[a] = array[b];\n" +
+            "\t\tarray[b] = tmp;\n" +
             "\t}";
 
-    private final static Timing defaultDuration = new TicksTiming(30);
+    private final static Timing defaultDuration = new TicksTiming(50);
 
     private void sort(int[] array) {
         // generate an ArrayProperty
@@ -100,14 +109,39 @@ public class AmericanFlagGenerator {
 
         // set the visual properties
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
-        scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Monospaced", Font.PLAIN, 12));
-        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
+        scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Consolas", Font.BOLD, 12));
+        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
         scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 
         // Create SourceCode: coordinates, name, display options, default properties
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
 
-        // TODO: sourceCode.addCodeLine() here
+        sourceCode.addCodeLine("public void americanFlagSort(int[] array) {", null, 0, null); // 0
+        sourceCode.addCodeLine("final int RADIX = 10;", null, 1, null); // 1
+        sourceCode.addCodeLine("int[] counts = new int[RADIX];", null, 1, null); // 2
+        sourceCode.addCodeLine("for (int num : array)", null, 1, null); // 3
+        sourceCode.addCodeLine("counts[num % RADIX]++;", null, 2, null); // 4
+        sourceCode.addCodeLine("int[] offsets = new int[RADIX];", null, 1, null); // 5
+        sourceCode.addCodeLine("for (int i = 1; i < RADIX; i++)", null, 1, null); // 6
+        sourceCode.addCodeLine("offsets[i] = offsets[i - 1] + counts[i - 1];", null, 2, null); // 7
+        sourceCode.addCodeLine("for (int i = 0; i < RADIX; i++) {", null, 1, null); // 8
+        sourceCode.addCodeLine("while (counts[i] > 0) {", null, 2, null); // 9
+        sourceCode.addCodeLine("int origin = offsets[i];", null, 3, null); // 10
+        sourceCode.addCodeLine("int from = origin;", null, 3, null); // 11
+        sourceCode.addCodeLine("int num = array[from];", null, 3, null); // 12
+        sourceCode.addCodeLine("array[from] = -1;", null, 3, null); // 13
+        sourceCode.addCodeLine("do {", null, 3, null); // 14
+        sourceCode.addCodeLine("int to = offsets[num % RADIX]++;", null, 4, null); // 15
+        sourceCode.addCodeLine("counts[num % RADIX]--;", null, 4, null); // 16
+        sourceCode.addCodeLine("int tmp = array[to];", null, 4, null); // 17
+        sourceCode.addCodeLine("num = tmp;", null, 4, null);
+        sourceCode.addCodeLine("array[to] = num;", null, 4, null);
+        sourceCode.addCodeLine("num = tmp;", null, 4, null);
+        sourceCode.addCodeLine("from = to;", null, 4, null); // 18
+        sourceCode.addCodeLine("} while (from != origin);", null, 3, null); // 19
+        sourceCode.addCodeLine("}", null, 2, null); // 20
+        sourceCode.addCodeLine("}", null, 1, null); // 21
+        sourceCode.addCodeLine("}", null, 0, null); // 22
 
         language.nextStep();
         // Highlight all cells
@@ -125,28 +159,58 @@ public class AmericanFlagGenerator {
     }
 
     private void americanFlagSort(IntArray array) throws LineNotExistsException {
-        // TODO: add code here
-    }
-
-    protected String getAlgorithmDescription() {
-        return AFS_DESCRIPTION;
-    }
-
-    protected String getAlgorithmCode() {
-        return AFS_SOURCE_CODE;
-    }
-
-    public String getAlgorithmName() {
-        return "American Flag Sort";
+        // TODO: implement correct algorithm
     }
 
     public static void main(String[] args) {
         Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort",
                 "Yadullah Duman", 640, 480);
         AmericanFlagGenerator americanFlag = new AmericanFlagGenerator(language);
-        // TODO: choose more appropriate array
-        int[] array = { 52, 13, 5, 12, 76, 1 };
+        int[] array = { 100, 90, 80, 60, 10, 50, 40, 30, 20 };
         americanFlag.sort(array);
         System.out.println(language);
+    }
+
+    public String generate(AnimationPropertiesContainer animationPropertiesContainer, Hashtable<String, Object> hashtable) {
+        return null;
+    }
+
+    public String getAlgorithmName() {
+        return "American Flag Sort";
+    }
+
+    public String getAnimationAuthor() {
+        return "Yadullah Duman";
+    }
+
+    public String getCodeExample() {
+        return AFS_SOURCE_CODE;
+    }
+
+    public Locale getContentLocale() {
+        return Locale.US;
+    }
+
+    public String getDescription() {
+        return AFS_DESCRIPTION;
+    }
+
+    public String getFileExtension() {
+        return ".asu";
+    }
+
+    public GeneratorType getGeneratorType() {
+        return new GeneratorType(GeneratorType.GENERATOR_TYPE_SORT);
+    }
+
+    public String getName() {
+        return "American Flag Sort";
+    }
+
+    public String getOutputLanguage() {
+        return Generator.JAVA_OUTPUT;
+    }
+
+    public void init() {
     }
 }

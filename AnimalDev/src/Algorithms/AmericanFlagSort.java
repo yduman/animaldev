@@ -23,13 +23,19 @@ public class AmericanFlagSort {
 				do {
 					int to = offsets[num % RADIX]++;
 					counts[num % RADIX]--;
-					int tmp = array[to];
-					array[to] = num;
-					num = tmp;
+//					int tmp = array[to];
+//					array[to] = num;
+//					num = tmp;
+					swap(array, to, num);
 					from = to;
 				} while (from != origin);
 			}
 		}
-		System.out.println(java.util.Arrays.toString(array));
+	}
+
+	public static void swap(int[] array, int a, int b) {
+		int tmp = array[a];
+		array[a] = array[b];
+		array[b] = tmp;
 	}
 }

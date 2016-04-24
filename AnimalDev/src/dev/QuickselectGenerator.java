@@ -108,8 +108,6 @@ public class QuickselectGenerator implements Generator {
 		// generate an ArrayProperty
 		ArrayProperties arrayProperties = new ArrayProperties();
 
-
-
 		// set the visual properties
 		arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 		arrayProperties.set(AnimationPropertiesKeys.FILL_PROPERTY, Color.WHITE);
@@ -454,7 +452,7 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	public String getOutputLanguage() {
-		return null;
+		return Generator.JAVA_OUTPUT;
 	}
 
 	public void init() {
