@@ -212,5 +212,6 @@ public class AmericanFlagGenerator implements Generator {
     }
 
     public void init() {
+
     }
 }
