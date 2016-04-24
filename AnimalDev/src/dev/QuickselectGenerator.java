@@ -2,6 +2,8 @@ package dev;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Hashtable;
+import java.util.Locale;
 
 import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.ArrayMarker;
@@ -16,13 +18,16 @@ import algoanim.properties.SourceCodeProperties;
 import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
+import generators.framework.Generator;
+import generators.framework.GeneratorType;
+import generators.framework.properties.AnimationPropertiesContainer;
 
 /**
  * 
  * @author Yadullah Duman <yadullah.duman@gmail.com>
  *
  */
-public class QuickselectGenerator {
+public class QuickselectGenerator implements Generator {
 	private Language language;
 	
 	private QuickselectGenerator(Language l) {
@@ -96,7 +101,7 @@ public class QuickselectGenerator {
 			"\t\treturn left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
 			"\t}";
 	
-	private final static Timing defaultDuration = new TicksTiming(30);
+	private final static Timing defaultDuration = new TicksTiming(50);
 	
 	private void select(int[] array)
 	{
@@ -120,15 +125,14 @@ public class QuickselectGenerator {
 
 		// set the visual properties
 		scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
-		scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Monospaced", Font.PLAIN, 12));
-		scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
+		scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Consolas", Font.BOLD, 12));
+		scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
 		scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 
 		// Create SourceCode: coordinates, name, display options, default properties
 		SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
 
 		// Add the lines to the SourceCode object
-		// quickselect()
 		sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int n)", null, 0, null); // 0
 		sourceCode.addCodeLine("{", null, 0, null); // 1
 		sourceCode.addCodeLine("if (left == right)", null, 1, null); // 2
@@ -146,46 +150,40 @@ public class QuickselectGenerator {
 		sourceCode.addCodeLine("}", null, 1, null); // 14
 		sourceCode.addCodeLine("}", null, 0, null); // 15
 
-		// randomPivot()
-		sourceCode.addCodeLine("\n", null, 0, null); // 16
-		sourceCode.addCodeLine("public int randomPivot(int left, int right)", null, 0, null); // 17
-		sourceCode.addCodeLine("{", null, 0, null); // 18
-		sourceCode.addCodeLine("return left + (int)Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 19
-		sourceCode.addCodeLine("}", null, 0, null); // 20
+		sourceCode.addCodeLine("public int randomPivot(int left, int right)", null, 0, null); // 16
+		sourceCode.addCodeLine("{", null, 0, null); // 17
+		sourceCode.addCodeLine("return left + (int)Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 18
+		sourceCode.addCodeLine("}", null, 0, null); // 19
 
-		// partition()
-		sourceCode.addCodeLine("\n", null, 0, null); // 21
-		sourceCode.addCodeLine("public int partition(int[] array, int left, int right, int pivot)", null, 0, null); // 22
-		sourceCode.addCodeLine("{", null, 0, null); // 23
-		sourceCode.addCodeLine("int pivotValue = array[pivot];", null, 1, null); // 24
-		sourceCode.addCodeLine("swap(array, pivot, right);", null, 1, null); // 25
-		sourceCode.addCodeLine("int storeIndex = left;", null, 1, null); // 26
-		sourceCode.addCodeLine("for (int i = left; i < right; i++)", null, 1, null); // 27
-		sourceCode.addCodeLine("{", null, 1, null); // 28
-		sourceCode.addCodeLine("if (array[i] < pivotValue)", null, 2, null); // 29
-		sourceCode.addCodeLine("{", null, 2, null); // 30
-		sourceCode.addCodeLine("swap(array, storeIndex, i);", null, 3, null); // 31
-		sourceCode.addCodeLine("storeIndex++;", null, 3, null); // 32
-		sourceCode.addCodeLine("}", null, 2, null); // 33
-		sourceCode.addCodeLine("}", null, 1, null); // 34
-		sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 35
-		sourceCode.addCodeLine("}", null, 0, null); // 36
+		sourceCode.addCodeLine("public int partition(int[] array, int left, int right, int pivot)", null, 0, null); // 20
+		sourceCode.addCodeLine("{", null, 0, null); // 21
+		sourceCode.addCodeLine("int pivotValue = array[pivot];", null, 1, null); // 22
+		sourceCode.addCodeLine("swap(array, pivot, right);", null, 1, null); // 23
+		sourceCode.addCodeLine("int storeIndex = left;", null, 1, null); // 24
+		sourceCode.addCodeLine("for (int i = left; i < right; i++)", null, 1, null); // 25
+		sourceCode.addCodeLine("{", null, 1, null); // 26
+		sourceCode.addCodeLine("if (array[i] < pivotValue)", null, 2, null); // 27
+		sourceCode.addCodeLine("{", null, 2, null); // 28
+		sourceCode.addCodeLine("swap(array, storeIndex, i);", null, 3, null); // 29
+		sourceCode.addCodeLine("storeIndex++;", null, 3, null); // 30
+		sourceCode.addCodeLine("}", null, 2, null); // 31
+		sourceCode.addCodeLine("}", null, 1, null); // 32
+		sourceCode.addCodeLine("swap(array, right, storeIndex);", null, 1, null); // 33
+		sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 34
+		sourceCode.addCodeLine("}", null, 0, null); // 35
 
-		// swap()
-		sourceCode.addCodeLine("\n", null, 0, null); // 37
-		sourceCode.addCodeLine("public void swap(int[] array, int a, int b)", null, 0, null); // 38
-		sourceCode.addCodeLine("{", null, 0, null); // 39
-		sourceCode.addCodeLine("int tmp = array[a];", null, 1, null); // 40
-		sourceCode.addCodeLine("array[a] = array[b];", null, 1, null); // 41
-		sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 42
-		sourceCode.addCodeLine("}", null, 0, null); // 43
+		sourceCode.addCodeLine("public void swap(int[] array, int a, int b)", null, 0, null); // 36
+		sourceCode.addCodeLine("{", null, 0, null); // 37
+		sourceCode.addCodeLine("int tmp = array[a];", null, 1, null); // 38
+		sourceCode.addCodeLine("array[a] = array[b];", null, 1, null); // 39
+		sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 40
+		sourceCode.addCodeLine("}", null, 0, null); // 41
 		
 		language.nextStep();
 
 		// Highlight all cells
 		iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 		try {
-			// start the algorithm
 			// TODO: random value for n
 			quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), 1);
 		} catch (LineNotExistsException e) {
@@ -199,195 +197,234 @@ public class QuickselectGenerator {
 
 	// counter for the number of pointers used
 	private int pointerCounter = 0;
-	private String ordinal = "";
-
 
 	private int quickSelect(IntArray array, SourceCode code, int left, int right, int n) throws LineNotExistsException
-	{	
-		// highlight first line
-		// line, column, use context color?, display options, duration
+	{
 		code.highlight(0, 0, false);
 		language.nextStep();
-		
-		code.toggleHighlight(0, 0, false, 1, 0);
 
+		code.unhighlight(0, 0, false);
 		language.nextStep();
-		code.toggleHighlight(1, 0, false, 2, 0);
 
+		code.highlight(2, 0, false);
 		if (left == right) {
 			language.nextStep();
-			code.toggleHighlight(2, 0, false, 3, 0);
-			System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
-			return array.getData(n);
+			code.unhighlight(2, 0, false);
+			code.highlight(3, 0, false);
+			// TODO: return marker and sysout
+			return array.getData(left);
 		}
 
 		language.nextStep();
-		code.toggleHighlight(2, 0, false, 4, 0);
-		language.nextStep();
-		for(;;) {
-			code.toggleHighlight(4, 0, false, 6, 0);
+		code.unhighlight(2, 0, false);
+		code.highlight(4, 0, false);
+
+		pointerCounter++;
+		ArrayMarkerProperties pivotPointerProps = new ArrayMarkerProperties();
+		pivotPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
+		pivotPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+
+		for (;;) {
+			language.nextStep();
+			code.unhighlight(4, 0, false);
+			code.highlight(6, 0, false);
+
 			int pivot = randomPivot(left, right);
-
-			pointerCounter++;
-			ArrayMarkerProperties arrayPivotPointerProperties = new ArrayMarkerProperties();
-			arrayPivotPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
-			arrayPivotPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
-
-			// Create ArrayMarker for 'pivot' and move him to pivot-position
-			ArrayMarker pivotMarker = language.newArrayMarker(array, pivot, "pivot" + pointerCounter, null, arrayPivotPointerProperties);
+			ArrayMarker pivotMarker = language.newArrayMarker(array, pivot, "pivot" + pointerCounter, null, pivotPointerProps);
 			pivotMarker.move(pivot, null, defaultDuration);
 
 			language.nextStep();
 			code.unhighlight(6, 0, false);
-			code.highlight(22, 0, false);
-
-			// ------------------------ PARTITION ------------------------ //
-			language.nextStep();
-			code.unhighlight(22, 0, false);
-			code.highlight(24, 0, false);
-			int pivotValue = array.getData(pivot);
-
-			language.nextStep();
-			code.unhighlight(24, 0, false);
-			code.highlight(25, 0, false);
-			array.swap(pivot, right, null, defaultDuration);
-
-			language.nextStep();
-			code.unhighlight(25, 0, false);
-			code.highlight(26, 0, false);
-			int storeIndex = left;
-
-			language.nextStep();
-			code.unhighlight(26, 0, false);
-
-			pointerCounter++;
-			ArrayMarkerProperties arrayIPointerProperties = new ArrayMarkerProperties();
-			arrayIPointerProperties.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
-			arrayIPointerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
-
-			// Create ArrayMarker for 'i': Array, current index, name, display options, properties
-			ArrayMarker iMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, arrayIPointerProperties);
-
-			for (int i = left; i < right; i++) {
-				code.highlight(27, 0, false);
-				iMarker.move(i, null, defaultDuration);
-
-				language.nextStep();
-				if (array.getData(i) < pivotValue) {
-					code.unhighlight(27, 0, false);
-					code.highlight(29, 0, false);
-					array.swap(storeIndex, i, null, defaultDuration);
-					storeIndex++;
-				}
-			}
-
-			language.nextStep();
-			code.unhighlight(27, 0, false);
-			code.highlight(35, 0, false);
-
-			language.nextStep();
-			code.unhighlight(35, 0, false);
-			// ------------------------ PARTITION ------------------------ //
-
 			code.highlight(7, 0, false);
-			pivot = storeIndex;
+
+			pivot = partition(array, left, right, pivot, code);
+
+			language.nextStep();
+			code.unhighlight(33, 0, false);
+			code.highlight(7, 0, false);
+
 			pivotMarker.move(pivot, null, defaultDuration);
 
 			language.nextStep();
 			code.unhighlight(7, 0, false);
+			code.highlight(8, 0, false);
 
 			if (n == pivot) {
-				language.nextStep();
-				code.highlight(8, 0, false);
-
 				language.nextStep();
 				code.unhighlight(8, 0, false);
 				code.highlight(9, 0, false);
 
-				switch (n + 1) {
-					case 1: 
-						ordinal = "st";
-						break;
-					case 2:
-						ordinal = "nd";
-						break;
-					case 3:
-						ordinal = "rd";
-						break;
-					default:
-						ordinal = "th";
-				}
-				System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
-
-				language.nextStep();
+				// TODO: marker ?
 				code.unhighlight(9, 0, false);
-
 				return array.getData(n);
-			}
-			else if (n < pivot) {
+
+			} else if (n < pivot) {
 				language.nextStep();
+				code.unhighlight(8, 0, false);
 				code.highlight(10, 0, false);
 
 				language.nextStep();
 				code.unhighlight(10, 0, false);
 				code.highlight(11, 0, false);
 
-				language.nextStep();
 				right = pivot - 1;
 
-				language.nextStep();
 				code.unhighlight(11, 0, false);
-			}
-			else {
+			} else {
 				language.nextStep();
+				code.unhighlight(8, 0, false);
 				code.highlight(12, 0, false);
 
 				language.nextStep();
 				code.unhighlight(12, 0, false);
 				code.highlight(13, 0, false);
 
-				language.nextStep();
 				left = pivot + 1;
 
-				language.nextStep();
 				code.unhighlight(13, 0, false);
 			}
 			language.nextStep();
-			code.highlight(14, 0, false);
-
-			language.nextStep();
-			code.highlight(15, 0, false);
-
-			language.nextStep();
-			array.unhighlightCell(left, right, null, null);
-
-			language.nextStep();
+			array.unhighlightCell(0, array.getLength() - 1, null, null);
+			array.highlightCell(left, right, null, null);
 			pivotMarker.hide();
 		}
+	}
+
+	private int partition(IntArray array, int left, int right, int pivot, SourceCode code) {
+		language.nextStep();
+		code.unhighlight(7, 0, false);
+		code.highlight(20, 0, false);
+
+		language.nextStep();
+		code.unhighlight(20, 0, false);
+		code.highlight(22, 0, false);
+
+		int pivotValue = array.getData(pivot);
+
+		language.nextStep();
+		code.unhighlight(22, 0, false);
+		code.highlight(23, 0, false);
+
+		language.nextStep();
+		code.unhighlight(23, 0, false);
+		code.highlight(36, 0, false);
+
+		swap(array, pivot, right, code);
+
+		language.nextStep();
+		code.unhighlight(36, 0, false);
+		code.highlight(24, 0, false);
+
+		int storeIndex = left;
+
+		language.nextStep();
+		pointerCounter++;
+		ArrayMarkerProperties loopPointerProps = new ArrayMarkerProperties();
+		loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
+		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
+		code.unhighlight(24, 0, false);
+		code.highlight(25, 0, false);
+
+		for (int i = left; i < right; i++) {
+			language.nextStep();
+			loopMarker.move(i, null, defaultDuration);
+
+			if (array.getData(i) < pivotValue) {
+				language.nextStep();
+				code.unhighlight(25, 0, false);
+				code.highlight(27, 0, false);
+
+				language.nextStep();
+				code.unhighlight(27, 0, false);
+				code.highlight(29, 0, false);
+
+				language.nextStep();
+				code.unhighlight(29, 0, false);
+				code.highlight(36, 0, false);
+
+				swap(array, storeIndex, i, code);
+
+				language.nextStep();
+				code.unhighlight(36, 0, false);
+				code.highlight(30, 0, false);
+
+				storeIndex++;
+
+				code.unhighlight(30, 0, false);
+			}
+		}
+
+		language.nextStep();
+		loopMarker.hide();
+		code.highlight(36, 0, false);
+		swap(array, right, storeIndex, code);
+
+		language.nextStep();
+		code.unhighlight(36, 0, false);
+		code.highlight(33, 0, false);
+		return storeIndex;
+	}
+
+	private void swap(IntArray array, int a, int b, SourceCode code) {
+		// TODO: code hightlight properly?
+		array.swap(a, b, null, defaultDuration);
 	}
 
 	private int randomPivot(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
-	protected String getAlgorithmDescription() {
-		return QUICKSELECT_DESCRIPTION;
-	}
-
-	protected String getAlgorithmCode() {
-		return QUICKSELECT_SOURCE_CODE;
-	}
-
-	public String getAlgorithmName() {
-		return "Quickselect (pivot = random)";
-	}
-
 	public static void main(String[] args) {
 		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect",
 				"Yadullah Duman", 640, 480);
 		QuickselectGenerator quickselect = new QuickselectGenerator(language);
-		int[] array = { 52, 13, 5, 12, 76, 1 };
+		int[] array = { 100, 90, 80, 60, 10, 50, 40, 30, 20 };
 		quickselect.select(array);
 		System.out.println(language);
+	}
+
+	public String generate(AnimationPropertiesContainer animationPropertiesContainer, Hashtable<String, Object> hashtable) {
+		return null;
+	}
+
+	public String getAlgorithmName() {
+		return "Quickselect";
+	}
+
+	public String getAnimationAuthor() {
+		return "Yadullah Duman";
+	}
+
+	public String getCodeExample() {
+		return QUICKSELECT_SOURCE_CODE;
+	}
+
+	public Locale getContentLocale() {
+		return Locale.US;
+	}
+
+	public String getDescription() {
+		return QUICKSELECT_DESCRIPTION;
+	}
+
+	public String getFileExtension() {
+		return ".asu";
+	}
+
+	public GeneratorType getGeneratorType() {
+		return new GeneratorType(GeneratorType.GENERATOR_TYPE_SEARCH);
+	}
+
+	public String getName() {
+		return "Quickselect";
+	}
+
+	public String getOutputLanguage() {
+		return null;
+	}
+
+	public void init() {
+		// code ?
 	}
 }
