@@ -29,7 +29,7 @@ import generators.framework.properties.AnimationPropertiesContainer;
  */
 public class QuickselectGenerator implements Generator {
 	private Language language;
-	
+
 	private QuickselectGenerator(Language l) {
 		language = l;
 		language.setStepMode(true);
@@ -108,6 +108,8 @@ public class QuickselectGenerator implements Generator {
 		// generate an ArrayProperty
 		ArrayProperties arrayProperties = new ArrayProperties();
 
+
+
 		// set the visual properties
 		arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 		arrayProperties.set(AnimationPropertiesKeys.FILL_PROPERTY, Color.WHITE);
@@ -184,8 +186,7 @@ public class QuickselectGenerator implements Generator {
 		// Highlight all cells
 		iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 		try {
-			// TODO: random value for n
-			quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), 1);
+			quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), randomKSmallest(0, iArray.getLength() - 1));
 		} catch (LineNotExistsException e) {
 			e.printStackTrace();
 		}
@@ -197,6 +198,7 @@ public class QuickselectGenerator implements Generator {
 
 	// counter for the number of pointers used
 	private int pointerCounter = 0;
+	private String ordinal;
 
 	private int quickSelect(IntArray array, SourceCode code, int left, int right, int n) throws LineNotExistsException
 	{
@@ -207,11 +209,8 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 
 		code.highlight(2, 0, false);
+
 		if (left == right) {
-			language.nextStep();
-			code.unhighlight(2, 0, false);
-			code.highlight(3, 0, false);
-			// TODO: return marker and sysout
 			return array.getData(left);
 		}
 
@@ -251,10 +250,31 @@ public class QuickselectGenerator implements Generator {
 
 			if (n == pivot) {
 				language.nextStep();
+				pivotMarker.hide();
 				code.unhighlight(8, 0, false);
 				code.highlight(9, 0, false);
 
-				// TODO: marker ?
+				switch (n + 1) {
+					case 1:
+						ordinal = "st";
+						break;
+					case 2:
+						ordinal = "nd";
+						break;
+					case 3:
+						ordinal = "rd";
+						break;
+					default:
+						ordinal = "th";
+				}
+
+				pointerCounter++;
+				ArrayMarkerProperties kSmallestProps = new ArrayMarkerProperties();
+				kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (n + 1) + ordinal + " smallest");
+				kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+				ArrayMarker kSmallestMarker = language.newArrayMarker(array, n + 1, "kSmallest" + pointerCounter, null, kSmallestProps);
+				kSmallestMarker.move(n + 1, null, defaultDuration);
+
 				code.unhighlight(9, 0, false);
 				return array.getData(n);
 
@@ -317,12 +337,20 @@ public class QuickselectGenerator implements Generator {
 
 		int storeIndex = left;
 
+		pointerCounter++;
+		ArrayMarkerProperties storeIndexProps = new ArrayMarkerProperties();
+		storeIndexProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "storeIndex");
+		storeIndexProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
+
 		language.nextStep();
+
 		pointerCounter++;
 		ArrayMarkerProperties loopPointerProps = new ArrayMarkerProperties();
 		loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
 		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 		ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
+
 		code.unhighlight(24, 0, false);
 		code.highlight(25, 0, false);
 
@@ -350,6 +378,7 @@ public class QuickselectGenerator implements Generator {
 				code.highlight(30, 0, false);
 
 				storeIndex++;
+				storeIndexMarker.move(storeIndex, null, defaultDuration);
 
 				code.unhighlight(30, 0, false);
 			}
@@ -363,15 +392,19 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 		code.unhighlight(36, 0, false);
 		code.highlight(33, 0, false);
+		storeIndexMarker.hide();
 		return storeIndex;
 	}
 
 	private void swap(IntArray array, int a, int b, SourceCode code) {
-		// TODO: code hightlight properly?
 		array.swap(a, b, null, defaultDuration);
 	}
 
 	private int randomPivot(int left, int right) {
+		return left + (int) Math.floor(Math.random() * (right - left + 1));
+	}
+
+	private int randomKSmallest(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
@@ -425,6 +458,5 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	public void init() {
-		// code ?
 	}
 }
