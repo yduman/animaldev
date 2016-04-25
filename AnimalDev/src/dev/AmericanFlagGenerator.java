@@ -49,7 +49,9 @@ public class AmericanFlagGenerator implements Generator {
             "where each bucket should begin and end. American flag sort gets around this problem by making two " +
             "passes through the array. The first pass counts the number of objects that belong in each of the N " +
             "buckets. The beginning and end of each bucket in the original array is then computed as the sum of " +
-            "sizes of preceding buckets. The second pass swaps each object into place.";
+            "sizes of preceding buckets. The second pass swaps each object into place." +
+            "\n" +
+            "source: https://en.wikipedia.org/wiki/American_flag_sort";
 
     private static final String AFS_SOURCE_CODE = "" +
             "public static void sort(int[] array) {\n" +
@@ -86,9 +88,9 @@ public class AmericanFlagGenerator implements Generator {
             "\t\tarray[b] = tmp;\n" +
             "\t}";
 
-    private final static Timing defaultDuration = new TicksTiming(50);
+    private final static Timing defaultDuration = new TicksTiming(30);
 
-    private void sort(int[] array) {
+    private void sort(int[] array, int[] counts, int[] offsets, int radix) {
         // generate an ArrayProperty
         ArrayProperties arrayProperties = new ArrayProperties();
 
@@ -102,6 +104,8 @@ public class AmericanFlagGenerator implements Generator {
 
         // Create Array: coordinates, data, name, display options, default properties
         IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
+        IntArray countsArray = language.newIntArray(new Coordinates(70, 100), counts, "countsArray", null, arrayProperties);
+        IntArray offsetsArray = language.newIntArray(new Coordinates(120, 100), counts, "offsetsArray", null, arrayProperties);
         language.nextStep();
 
         // generate a SourceCodeProperty
@@ -144,11 +148,10 @@ public class AmericanFlagGenerator implements Generator {
         sourceCode.addCodeLine("}", null, 0, null); // 22
 
         language.nextStep();
-        // Highlight all cells
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
         try {
-            americanFlagSort(iArray);
+            americanFlagSort(iArray, countsArray, offsetsArray, radix);
         } catch (LineNotExistsException e) {
             e.printStackTrace();
         }
@@ -158,8 +161,36 @@ public class AmericanFlagGenerator implements Generator {
         language.nextStep();
     }
 
-    private void americanFlagSort(IntArray array) throws LineNotExistsException {
-        // TODO: implement correct algorithm
+    private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, int radix) throws LineNotExistsException {
+        for (int i = 0; i < array.getLength(); i++) {
+            int number = array.getData(i);
+            int increment = counts.getData(number % radix) + 1;
+            counts.put(number % radix, increment, null, defaultDuration);
+        }
+
+        for (int i = 1; i < radix; i++) {
+            int sum = offsets.getData(i - 1) + counts.getData(i - 1);
+            offsets.put(i, sum, null, defaultDuration);
+        }
+
+        for (int i = 0; i < radix; i++) {
+            while (counts.getData(i) > 0) {
+                int origin = offsets.getData(i);
+                int from = origin;
+                int num = array.getData(from);
+                array.put(from, -1, null, defaultDuration);
+
+                do {
+                    int to = offsets.getData(num % radix) + 1;
+                    int decr = counts.getData(num % radix) - 1;
+                    counts.put(num % radix, decr, null, defaultDuration);
+                    int tmp = array.getData(to);
+                    array.put(to, num, null, defaultDuration);
+                    num = tmp;
+                    from = to;
+                } while (from != origin);
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -167,7 +198,11 @@ public class AmericanFlagGenerator implements Generator {
                 "Yadullah Duman", 640, 480);
         AmericanFlagGenerator americanFlag = new AmericanFlagGenerator(language);
         int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
-        americanFlag.sort(array);
+        final int RADIX = 10;
+        int[] counts = new int[RADIX];
+        int[] offsets = new int[RADIX];
+        americanFlag.sort(array, counts, offsets, RADIX);
+        System.out.println(java.util.Arrays.toString(array));
         System.out.println(language);
     }
 

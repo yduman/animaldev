@@ -3,17 +3,17 @@ package Algorithms;
 public class AmericanFlagSort {
 
 	public static void sort(int[] array) {
-		final int RADIX = 4;
+		final int M = 4;
 
-		int[] counts = new int[RADIX];
+		int[] counts = new int[M];
 		for (int num : array)
-			counts[num % RADIX]++;
+			counts[num % M]++;
 
-		int[] offsets = new int[RADIX];
-		for (int i = 1; i < RADIX; i++)
+		int[] offsets = new int[M];
+		for (int i = 1; i < M; i++)
 			offsets[i] = offsets[i - 1] + counts[i - 1];
 
-		for (int i = 0; i < RADIX; i++) {
+		for (int i = 0; i < M; i++) {
 			while (counts[i] > 0) {
 				int origin = offsets[i];
 				int from = origin;
@@ -21,21 +21,14 @@ public class AmericanFlagSort {
 				array[from] = -1;
 
 				do {
-					int to = offsets[num % RADIX]++;
-					counts[num % RADIX]--;
-//					int tmp = array[to];
-//					array[to] = num;
-//					num = tmp;
-					swap(array, to, num);
+					int to = offsets[num % M]++;
+					counts[num % M]--;
+					int tmp = array[to];
+					array[to] = num;
+					num = tmp;
 					from = to;
 				} while (from != origin);
 			}
 		}
-	}
-
-	public static void swap(int[] array, int a, int b) {
-		int tmp = array[a];
-		array[a] = array[b];
-		array[b] = tmp;
 	}
 }
