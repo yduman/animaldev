@@ -166,7 +166,7 @@ public class AmericanFlagGenerator implements Generator {
         Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort",
                 "Yadullah Duman", 640, 480);
         AmericanFlagGenerator americanFlag = new AmericanFlagGenerator(language);
-        int[] array = { 100, 90, 80, 60, 10, 50, 40, 30, 20 };
+        int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
         americanFlag.sort(array);
         System.out.println(language);
     }

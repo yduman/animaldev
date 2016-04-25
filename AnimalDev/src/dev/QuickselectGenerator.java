@@ -34,7 +34,7 @@ public class QuickselectGenerator implements Generator {
 		language = l;
 		language.setStepMode(true);
 	}
-	
+
 	private static final String QUICKSELECT_DESCRIPTION = "In computer science, quickselect is a selection algorithm " +
 			"to find the kth smallest element in an unordered list. It is related to the quicksort sorting algorithm. " +
 			"Like quicksort, it was developed by Tony Hoare, and thus is also known as Hoare's selection algorithm. " +
@@ -101,8 +101,12 @@ public class QuickselectGenerator implements Generator {
 			"\t\treturn left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
 			"\t}";
 	
-	private final static Timing defaultDuration = new TicksTiming(50);
-	
+	private final static Timing defaultDuration = new TicksTiming(30);
+
+	/**
+	 * running the algorithm
+	 * @param array - our array we are working with
+     */
 	private void select(int[] array)
 	{
 		// generate an ArrayProperty
@@ -198,8 +202,32 @@ public class QuickselectGenerator implements Generator {
 	private int pointerCounter = 0;
 	private String ordinal;
 
+	/**
+	 * the quickselect algorithm wrapped by the ANIMAL API
+	 * @param array - the array we are working with
+	 * @param code - the source code ANIMAL is working with
+	 * @param left - the left boundary of the array
+	 * @param right - the right boundary of the array
+	 * @param n - the k smallest element you are searching for (0 = 1st smallest)
+	 * @return k smallest element of the array
+	 * @throws LineNotExistsException
+     */
 	private int quickSelect(IntArray array, SourceCode code, int left, int right, int n) throws LineNotExistsException
 	{
+		switch (n + 1) {
+			case 1:
+				ordinal = "st";
+				break;
+			case 2:
+				ordinal = "nd";
+				break;
+			case 3:
+				ordinal = "rd";
+				break;
+			default:
+				ordinal = "th";
+		}
+
 		code.highlight(0, 0, false);
 		language.nextStep();
 
@@ -220,6 +248,13 @@ public class QuickselectGenerator implements Generator {
 		ArrayMarkerProperties pivotPointerProps = new ArrayMarkerProperties();
 		pivotPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
 		pivotPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+		pivotPointerProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
+
+		pointerCounter++;
+		ArrayMarkerProperties kSmallestProps = new ArrayMarkerProperties();
+		kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (n + 1) + ordinal + " smallest");
+		kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
+		kSmallestProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
 
 		for (;;) {
 			language.nextStep();
@@ -246,34 +281,25 @@ public class QuickselectGenerator implements Generator {
 			code.unhighlight(7, 0, false);
 			code.highlight(8, 0, false);
 
+			ArrayMarker kSmallestMarker = language.newArrayMarker(array, pivot, "kSmallest" + pointerCounter, null, kSmallestProps);
+			kSmallestMarker.hide();
+
+			if (n == pivot) {
+				pivotMarker.hide();
+				kSmallestMarker.move(pivot, null, defaultDuration);
+				kSmallestMarker.show();
+			}
+
 			if (n == pivot) {
 				language.nextStep();
 				pivotMarker.hide();
 				code.unhighlight(8, 0, false);
 				code.highlight(9, 0, false);
-
-				switch (n + 1) {
-					case 1:
-						ordinal = "st";
-						break;
-					case 2:
-						ordinal = "nd";
-						break;
-					case 3:
-						ordinal = "rd";
-						break;
-					default:
-						ordinal = "th";
-				}
-
-				pointerCounter++;
-				ArrayMarkerProperties kSmallestProps = new ArrayMarkerProperties();
-				kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (n + 1) + ordinal + " smallest");
-				kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
-				ArrayMarker kSmallestMarker = language.newArrayMarker(array, n + 1, "kSmallest" + pointerCounter, null, kSmallestProps);
-				kSmallestMarker.move(n + 1, null, defaultDuration);
-
 				code.unhighlight(9, 0, false);
+
+				kSmallestMarker.hide();
+
+				System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
 				return array.getData(n);
 
 			} else if (n < pivot) {
@@ -308,6 +334,15 @@ public class QuickselectGenerator implements Generator {
 		}
 	}
 
+	/**
+	 *
+	 * @param array - the array we are working with
+	 * @param left - the left boundary of the array
+	 * @param right - the right boundary of the array
+	 * @param pivot - the pivot element
+	 * @param code - the source code ANIMAL is working with
+     * @return storeIndex
+     */
 	private int partition(IntArray array, int left, int right, int pivot, SourceCode code) {
 		language.nextStep();
 		code.unhighlight(7, 0, false);
@@ -327,7 +362,7 @@ public class QuickselectGenerator implements Generator {
 		code.unhighlight(23, 0, false);
 		code.highlight(36, 0, false);
 
-		swap(array, pivot, right, code);
+		swap(array, pivot, right);
 
 		language.nextStep();
 		code.unhighlight(36, 0, false);
@@ -339,6 +374,7 @@ public class QuickselectGenerator implements Generator {
 		ArrayMarkerProperties storeIndexProps = new ArrayMarkerProperties();
 		storeIndexProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "storeIndex");
 		storeIndexProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		storeIndexProps.set(AnimationPropertiesKeys.SHORT_MARKER_PROPERTY, true);
 		ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
 
 		language.nextStep();
@@ -346,7 +382,7 @@ public class QuickselectGenerator implements Generator {
 		pointerCounter++;
 		ArrayMarkerProperties loopPointerProps = new ArrayMarkerProperties();
 		loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
-		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.MAGENTA);
 		ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
 
 		code.unhighlight(24, 0, false);
@@ -369,7 +405,7 @@ public class QuickselectGenerator implements Generator {
 				code.unhighlight(29, 0, false);
 				code.highlight(36, 0, false);
 
-				swap(array, storeIndex, i, code);
+				swap(array, storeIndex, i);
 
 				language.nextStep();
 				code.unhighlight(36, 0, false);
@@ -385,7 +421,7 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 		loopMarker.hide();
 		code.highlight(36, 0, false);
-		swap(array, right, storeIndex, code);
+		swap(array, right, storeIndex);
 
 		language.nextStep();
 		code.unhighlight(36, 0, false);
@@ -394,23 +430,47 @@ public class QuickselectGenerator implements Generator {
 		return storeIndex;
 	}
 
-	private void swap(IntArray array, int a, int b, SourceCode code) {
+	/**
+	 *
+	 * @param array - the array we are working with
+	 * @param a - element A you want to swap with element B
+	 * @param b - element B you want to swap with elemen A
+     */
+	private void swap(IntArray array, int a, int b) {
 		array.swap(a, b, null, defaultDuration);
 	}
 
+	/**
+	 *
+	 * @param left - the left boundary of the array
+	 * @param right - the right boundary of the array
+     * @return a random pivot in the boundary left <= pivot <= right
+     */
 	private int randomPivot(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
+	/**
+	 *
+	 * @param left - the left boundary of the array
+	 * @param right - the right boundary of the array
+     * @return a random n for k smallest element
+     */
 	private int randomKSmallest(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
+	/**
+	 * - init language
+	 * - create quickselect object
+	 * - create array you want to work with
+	 * - run the algorithm
+	 * - print AnimalScript
+     */
 	public static void main(String[] args) {
-		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect",
-				"Yadullah Duman", 640, 480);
+		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
 		QuickselectGenerator quickselect = new QuickselectGenerator(language);
-		int[] array = { 100, 90, 80, 60, 10, 50, 40, 30, 20 };
+		int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
 		quickselect.select(array);
 		System.out.println(language);
 	}
