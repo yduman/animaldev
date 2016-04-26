@@ -1,4 +1,4 @@
-package dev;
+package generators.searching;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,6 +20,7 @@ import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
 import generators.framework.Generator;
 import generators.framework.GeneratorType;
+import generators.framework.ValidatingGenerator;
 import generators.framework.properties.AnimationPropertiesContainer;
 
 /**
@@ -27,12 +28,17 @@ import generators.framework.properties.AnimationPropertiesContainer;
  * @author Yadullah Duman <yadullah.duman@gmail.com>
  *
  */
-public class QuickselectGenerator implements Generator {
+public class QuickselectGenerator implements ValidatingGenerator {
 	private Language language;
+	private ArrayMarkerProperties kSmallestProps;
+	private ArrayMarkerProperties storeIndexProps;
+	private int[] array;
+	private ArrayMarkerProperties loopPointerProps;
+	private ArrayProperties arrayProperties;
+	private ArrayMarkerProperties pivotPointerProps;
+	private SourceCodeProperties scProperties;
 
-	private QuickselectGenerator(Language l) {
-		language = l;
-		language.setStepMode(true);
+	public QuickselectGenerator() {
 	}
 
 	private static final String QUICKSELECT_DESCRIPTION = "In computer science, quickselect is a selection algorithm " +
@@ -110,7 +116,7 @@ public class QuickselectGenerator implements Generator {
 	private void select(int[] array)
 	{
 		// generate an ArrayProperty
-		ArrayProperties arrayProperties = new ArrayProperties();
+		arrayProperties = new ArrayProperties();
 
 		// set the visual properties
 		arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -125,7 +131,7 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 
 		// generate a SourceCodeProperty
-		SourceCodeProperties scProperties = new SourceCodeProperties();
+		scProperties = new SourceCodeProperties();
 
 		// set the visual properties
 		scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
@@ -245,13 +251,13 @@ public class QuickselectGenerator implements Generator {
 		code.highlight(4, 0, false);
 
 		pointerCounter++;
-		ArrayMarkerProperties pivotPointerProps = new ArrayMarkerProperties();
+		pivotPointerProps = new ArrayMarkerProperties();
 		pivotPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
 		pivotPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
 		pivotPointerProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
 
 		pointerCounter++;
-		ArrayMarkerProperties kSmallestProps = new ArrayMarkerProperties();
+		kSmallestProps = new ArrayMarkerProperties();
 		kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (n + 1) + ordinal + " smallest");
 		kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
 		kSmallestProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
@@ -371,7 +377,7 @@ public class QuickselectGenerator implements Generator {
 		int storeIndex = left;
 
 		pointerCounter++;
-		ArrayMarkerProperties storeIndexProps = new ArrayMarkerProperties();
+		storeIndexProps = new ArrayMarkerProperties();
 		storeIndexProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "storeIndex");
 		storeIndexProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 		storeIndexProps.set(AnimationPropertiesKeys.SHORT_MARKER_PROPERTY, true);
@@ -380,7 +386,7 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 
 		pointerCounter++;
-		ArrayMarkerProperties loopPointerProps = new ArrayMarkerProperties();
+		loopPointerProps = new ArrayMarkerProperties();
 		loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
 		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.MAGENTA);
 		ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
@@ -467,16 +473,29 @@ public class QuickselectGenerator implements Generator {
 	 * - run the algorithm
 	 * - print AnimalScript
      */
-	public static void main(String[] args) {
-		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
-		QuickselectGenerator quickselect = new QuickselectGenerator(language);
-		int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
-		quickselect.select(array);
-		System.out.println(language);
-	}
+//	public static void main(String[] args) {
+//		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
+//		QuickselectGenerator quickselect = new QuickselectGenerator();
+//		int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
+//		quickselect.init();
+//		quickselect.select(array);
+//		// System.out.println(language);
+//	}
 
-	public String generate(AnimationPropertiesContainer animationPropertiesContainer, Hashtable<String, Object> hashtable) {
-		return null;
+	public String generate(AnimationPropertiesContainer props, Hashtable<String, Object> primitives) {
+		kSmallestProps = (ArrayMarkerProperties)props.getPropertiesByName("kSmallestProps");
+		storeIndexProps = (ArrayMarkerProperties)props.getPropertiesByName("storeIndexProps");
+		array = (int[])primitives.get("array");
+		loopPointerProps = (ArrayMarkerProperties)props.getPropertiesByName("loopPointerProps");
+		arrayProperties = (ArrayProperties)props.getPropertiesByName("arrayProperties");
+		pivotPointerProps = (ArrayMarkerProperties)props.getPropertiesByName("pivotPointerProps");
+		scProperties = (SourceCodeProperties)props.getPropertiesByName("scProperties");
+
+		QuickselectGenerator quickselect = new QuickselectGenerator();
+		quickselect.init();
+		quickselect.select(array);
+
+		return language.toString();
 	}
 
 	public String getAlgorithmName() {
@@ -516,5 +535,11 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	public void init() {
+		language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
+		language.setStepMode(true);
+	}
+
+	public boolean validateInput(AnimationPropertiesContainer props, Hashtable<String, Object> primitives) throws IllegalArgumentException {
+		return true;
 	}
 }

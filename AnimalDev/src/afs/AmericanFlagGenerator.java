@@ -1,4 +1,4 @@
-package dev;
+package afs;
 
 import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.IntArray;
