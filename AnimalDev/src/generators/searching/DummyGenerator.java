@@ -249,9 +249,9 @@ public class DummyGenerator implements GeneratorBundle {
     generators.add(new LocalSearchTSP("resources/LocalSearchTSP", Locale.US)); // sehr gut
 	generators.add(new LocalSearchTSP("resources/LocalSearchTSP", Locale.GERMANY)); // sehr gut
 	generators.add(new SimulatedAnnealingGenerator());
-
-    // Generators from the AlgoAnim course in summer semester 2016
-    generators.add(new QuickselectGenerator());
+	
+	// Generators from the AlgoAnim course in summer semester 2016.
+	generators.add(new QuickselectGenerator());
 
     return generators;
   }
