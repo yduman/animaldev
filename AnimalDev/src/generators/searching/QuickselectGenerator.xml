@@ -329,5 +329,9 @@
 			<name>array</name>
 			<value><intArray>100, 90, 80, 70, 10, 60, 50, 40, 30, 20</intArray></value>
 		</Primitive>
+		<Primitive type="int">
+			<name>kSmallest</name>
+			<value><int>2</int></value>
+		</Primitive>
 	</Folder>
 </PropertiesTreeModel>

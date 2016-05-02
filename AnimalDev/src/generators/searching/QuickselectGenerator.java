@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.util.Hashtable;
 import java.util.Locale;
 
-import algoanim.animalscript.AnimalScript;
 import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.ArrayMarker;
 import algoanim.primitives.IntArray;
@@ -37,6 +36,7 @@ public class QuickselectGenerator implements Generator {
 	private ArrayMarkerProperties pivotPointerProps;
 	private SourceCodeProperties scProperties;
 	private int[] array;
+	private int kSmallest;
 	private int pointerCounter = 0;
 	private String ordinal;
 
@@ -49,7 +49,7 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	public static final String QUICKSELECT_DESCRIPTION = "In computer science, quickselect is a selection algorithm " +
-			"to find the kth smallest element in an unordered list. It is related to the quicksort sorting algorithm. " +
+			"to find the k-th smallest element in an unordered list. It is related to the quicksort sorting algorithm. " +
 			"Like quicksort, it was developed by Tony Hoare, and thus is also known as Hoare's selection algorithm. " +
 			"Like quicksort, it is efficient in practice and has good average-case performance, but has poor " +
 			"worst-case performance. Quickselect and variants is the selection algorithm most often used in efficient " +
@@ -67,51 +67,52 @@ public class QuickselectGenerator implements Generator {
 			"\n" +
 			"Worst case performance: O(n^2)\n" +
 			"Best case performance: O(n)\n" +
-			"Average case performance: O(n)" +
+			"Average case performance: O(n)\n" +
 			"\n" +
 			"source: https://en.wikipedia.org/wiki/Quickselect";
 
-	public static final String QUICKSELECT_SOURCE_CODE = "public int quickselect" +
-			"(int[] array, int left, int right, int n) {\n" +
-			"\tif (left == right)\n" +
-			"\t\treturn array[left];\n" +
+	public static final String QUICKSELECT_SOURCE_CODE = ""
+			+ "// kSmallest = 0 equals 1st smallest\n"
+			+ "public int quickselect (int[] array, int left, int right, int kSmallest) {\n" +
+			"    if (left == right) \n" +
+			"        return array[left]; \n" +
 			"\n" +
-			"\tfor (;;) {\n" +
-			"\t\tint pivot = randomPivot(left, right);\n" +
-			"\t\tpivot = partition(array, left, right, pivot);\n" +
+			"    for (;;) { \n" +
+			"        int pivot = randomPivot(left, right); \n" +
+			"        pivot = partition(array, left, right, pivot); \n" +
 			"\n" +
-			"\t\tif (n == pivot)\n" +
-			"\t\t\treturn array[n];\n" +
-			"\t\telse if (n < pivot)\n" +
-			"\t\t\tright = pivot - 1;\n" +
-			"\t\telse\n" +
-			"\t\t\tleft = pivot + 1;\n" +
-			"\t}\n" +
+			"        if (kSmallest == pivot) \n" +
+			"            return array[kSmallest]; \n" +
+			"        else if (kSmallest < pivot) \n" +
+			"            right = pivot - 1; \n" +
+			"        else \n" +
+			"            left = pivot + 1; \n" +
+			"    } \n" +
+			"} \n" +
+			" \n" +
+			"public int partition(int[] array, int left, int right, int pivot) { \n" +
+			"    int pivotValue = array[pivot]; \n" +
+			"    swap(array, pivot, right); \n" +
+			"    int storeIndex = left; \n" +
+			"\n" +
+			"    for (int i = left; i < right; i++) { \n" +
+			"        if (array[i] < pivotValue) { \n" +
+			"            swap(array, storeIndex, i); \n" +
+			"            storeIndex++; \n" +
+			"        } \n" +
+			"    } \n" +
+			"    swap(array, right, storeIndex); \n" +
+			"    return storeIndex; \n" +
+			"} \n" +
+			"\n" +
+			"public void swap(int[] array, int a, int b) { \n" +
+			"    int tmp = array[a]; \n" +
+			"    array[a] = array[b]; \n" +
+			"    array[b] = tmp; \n" +
 			"}\n" +
 			"\n" +
-			"public int partition(int[] array, int left, int right, int pivot) {\n" +
-			"\tint pivotValue = array[pivot];\n" +
-			"\tswap(array, pivot, right);\n" +
-			"\tint storeIndex = left;\n" +
-			"\n" +
-			"\tfor (int i = left; i < right; i++) {\n" +
-			"\t\tif (array[i] < pivotValue) {\n" +
-			"\t\t\tswap(array, storeIndex, i);\n" +
-			"\t\t\tstoreIndex++;\n" +
-			"\t\t}\n" +
-			"\t}\n" +
-			"\tswap(array, right, storeIndex);\n" +
-			"\treturn storeIndex;\n" +
-			"}\n" +
-			"\n" +
-			"public void swap(int[] array, int a, int b) {\n" +
-			"\tint tmp = array[a];\n" +
-			"\tarray[a] = array[b];\n" +
-			"\tarray[b] = tmp;\n" +
-			"}\n" +
-			"\n" +
-			"public int randomPivot(int left, int right) {\n" +
-			"\treturn left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
+			"public int randomPivot(int left, int right) { \n" +
+			"    return return left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
 			"}";
 	
 	public final static Timing defaultDuration = new TicksTiming(30);
@@ -135,7 +136,7 @@ public class QuickselectGenerator implements Generator {
 
 		scProperties = new SourceCodeProperties();
 		scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
-		scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Consolas", Font.BOLD, 12));
+		scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
 		scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
 		scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 		
@@ -147,7 +148,7 @@ public class QuickselectGenerator implements Generator {
 
 		pointerCounter++;
 		kSmallestProps = new ArrayMarkerProperties();
-		kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (randomKSmallest(0, iArray.getLength() - 1)) + ordinal + " smallest");
+		kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (kSmallest + 1) + ordinal + " smallest");
 		kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
 		kSmallestProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
 		
@@ -163,7 +164,7 @@ public class QuickselectGenerator implements Generator {
 		loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.MAGENTA);
 
 		SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
-		sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int n)", null, 0, null); // 0
+		sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int kSmallest)", null, 0, null); // 0
 		sourceCode.addCodeLine("{", null, 0, null); // 1
 		sourceCode.addCodeLine("if (left == right)", null, 1, null); // 2
 		sourceCode.addCodeLine("return array[left];", null, 2, null); // 3
@@ -171,9 +172,9 @@ public class QuickselectGenerator implements Generator {
 		sourceCode.addCodeLine("{", null, 1, null); // 5
 		sourceCode.addCodeLine("int pivot = randomPivot(left, right);", null, 2, null); // 6
 		sourceCode.addCodeLine("pivot = partition(array, left, right, pivot);", null, 2, null); // 7
-		sourceCode.addCodeLine("if (n == pivot)", null, 2, null); // 8
-		sourceCode.addCodeLine("return array[n];", null, 3, null); // 9
-		sourceCode.addCodeLine("else if (n < pivot)", null, 2, null); // 10
+		sourceCode.addCodeLine("if (kSmallest == pivot)", null, 2, null); // 8
+		sourceCode.addCodeLine("return array[kSmallest];", null, 3, null); // 9
+		sourceCode.addCodeLine("else if (kSmallest < pivot)", null, 2, null); // 10
 		sourceCode.addCodeLine("right = pivot - 1;", null, 3, null); // 11
 		sourceCode.addCodeLine("else", null, 2, null); // 12
 		sourceCode.addCodeLine("left = pivot + 1;", null, 3, null); // 13
@@ -181,7 +182,7 @@ public class QuickselectGenerator implements Generator {
 		sourceCode.addCodeLine("}", null, 0, null); // 15
 		sourceCode.addCodeLine("public int randomPivot(int left, int right)", null, 0, null); // 16
 		sourceCode.addCodeLine("{", null, 0, null); // 17
-		sourceCode.addCodeLine("return left + (int)Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 18
+		sourceCode.addCodeLine("return return left + (int) Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 18
 		sourceCode.addCodeLine("}", null, 0, null); // 19
 		sourceCode.addCodeLine("public int partition(int[] array, int left, int right, int pivot)", null, 0, null); // 20
 		sourceCode.addCodeLine("{", null, 0, null); // 21
@@ -210,7 +211,7 @@ public class QuickselectGenerator implements Generator {
 
 		iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 			
-		quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), randomKSmallest(0, iArray.getLength() - 1));
+		quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), this.kSmallest);
 		
 		sourceCode.hide();
 		iArray.hide();
@@ -223,13 +224,13 @@ public class QuickselectGenerator implements Generator {
 	 * @param code - the source code ANIMAL is working with
 	 * @param left - the left boundary of the array
 	 * @param right - the right boundary of the array
-	 * @param n - the k smallest element you are searching for (0 = 1st smallest)
+	 * @param kSmallest - the k smallest element you are searching for (0 = 1st smallest)
 	 * @return k smallest element of the array
 	 * @throws LineNotExistsException
      */
-	public int quickSelect(IntArray array, SourceCode code, int left, int right, int n)
+	public int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest)
 	{
-		switch (n + 1) {
+		switch (kSmallest + 1) {
 			case 1:
 				ordinal = "st";
 				break;
@@ -288,13 +289,13 @@ public class QuickselectGenerator implements Generator {
 			ArrayMarker kSmallestMarker = language.newArrayMarker(array, pivot, "kSmallest" + pointerCounter, null, kSmallestProps);
 			kSmallestMarker.hide();
 
-			if (n == pivot) {
+			if (kSmallest == pivot) {
 				pivotMarker.hide();
 				kSmallestMarker.move(pivot, null, defaultDuration);
 				kSmallestMarker.show();
 			}
 
-			if (n == pivot) {
+			if (kSmallest == pivot) {
 				language.nextStep();
 				pivotMarker.hide();
 				
@@ -303,10 +304,9 @@ public class QuickselectGenerator implements Generator {
 				code.unhighlight(9, 0, false);
 
 				kSmallestMarker.hide();
-				System.out.println("The " + (n + 1) + ordinal + " smallest element is " + array.getData(n));
-				return array.getData(n);
+				return array.getData(kSmallest);
 
-			} else if (n < pivot) {
+			} else if (kSmallest < pivot) {
 				language.nextStep();
 				code.unhighlight(8, 0, false);
 				code.highlight(10, 0, false);
@@ -434,32 +434,16 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	/**
-	 *
-	 * @param left - the left boundary of the array
-	 * @param right - the right boundary of the array
-     * @return a random pivot in the boundary left <= pivot <= right
-     */
+	 * 
+	 * @param left - left border of array
+	 * @param right - right border of array
+	 * @return a random pivot element
+	 */
 	public int randomPivot(int left, int right) {
 		return left + (int) Math.floor(Math.random() * (right - left + 1));
 	}
 
-	/**
-	 *
-	 * @param left - the left boundary of the array
-	 * @param right - the right boundary of the array
-     * @return a random n for k smallest element
-     */
-	public int randomKSmallest(int left, int right) {
-		return left + (int) Math.floor(Math.random() * (right - left + 1));
-	}
-
-	/**
-	 * - init language
-	 * - create quickselect object
-	 * - create array you want to work with
-	 * - run the algorithm
-	 * - print AnimalScript
-     */
+	
 //	public static void main(String[] args) {
 //		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
 //		QuickselectGenerator quickselect = new QuickselectGenerator();
@@ -477,11 +461,11 @@ public class QuickselectGenerator implements Generator {
 		pivotPointerProps	= (ArrayMarkerProperties)props.getPropertiesByName("pivotPointerProps");
 		scProperties 		= (SourceCodeProperties)props.getPropertiesByName("scProperties");
 		array 				= (int[])primitives.get("array");
+		kSmallest			= (int)primitives.get("kSmallest");
 
 		init();
 		start(array);
 		
-		System.out.println(language.toString());
 		return language.toString();
 	}
 
