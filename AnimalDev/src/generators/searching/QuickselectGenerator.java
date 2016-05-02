@@ -10,6 +10,7 @@ import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.ArrayMarker;
 import algoanim.primitives.IntArray;
 import algoanim.primitives.SourceCode;
+import algoanim.primitives.generators.AnimationType;
 import algoanim.primitives.generators.Language;
 import algoanim.properties.AnimationPropertiesKeys;
 import algoanim.properties.ArrayMarkerProperties;
@@ -29,19 +30,17 @@ import generators.framework.properties.AnimationPropertiesContainer;
  */
 public class QuickselectGenerator implements Generator {
 	private Language language;
+	private ArrayProperties arrayProperties;
 	private ArrayMarkerProperties kSmallestProps;
 	private ArrayMarkerProperties storeIndexProps;
-	private int[] array;
 	private ArrayMarkerProperties loopPointerProps;
-	private ArrayProperties arrayProperties;
 	private ArrayMarkerProperties pivotPointerProps;
 	private SourceCodeProperties scProperties;
+	private int[] array;
 	private int pointerCounter = 0;
 	private String ordinal;
 
 	public QuickselectGenerator() {
-		language = new AnimalScript(getAlgorithmName(), getAnimationAuthor(), 800, 600);
-		language.setStepMode(true);
 	}
 	
 	public QuickselectGenerator(Language language) {
@@ -121,7 +120,7 @@ public class QuickselectGenerator implements Generator {
 	 * running the algorithm
 	 * @param array - our array we are working with
      */
-	public void select(int[] array)
+	public void start(int[] array)
 	{
 		arrayProperties = new ArrayProperties();
 		arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -479,19 +478,10 @@ public class QuickselectGenerator implements Generator {
 		scProperties 		= (SourceCodeProperties)props.getPropertiesByName("scProperties");
 		array 				= (int[])primitives.get("array");
 
-		QuickselectGenerator quickselect = new QuickselectGenerator();
+		init();
+		start(array);
 		
-		// init is empty
-		// quickselect.init();
-		
-		System.out.println("INITIALIZED");
-		
-		System.out.println("EXECUTING ALGORITHM...");
-		quickselect.select(array);
-		
-		System.out.println("THIS IS THE LANG:\n");
 		System.out.println(language.toString());
-		
 		return language.toString();
 	}
 
@@ -532,6 +522,7 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	public void init() {
-		
+		language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);
+		language.setStepMode(true);
 	}
 }
