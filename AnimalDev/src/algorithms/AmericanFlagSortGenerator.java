@@ -26,6 +26,8 @@ import java.util.Locale;
  */
 public class AmericanFlagSortGenerator implements Generator {
     private Language language;
+    private ArrayProperties arrayProperties;
+    private SourceCodeProperties scProperties;
 
     public AmericanFlagSortGenerator(Language l) {
         language = l;
@@ -91,120 +93,136 @@ public class AmericanFlagSortGenerator implements Generator {
 
     private final static Timing defaultDuration = new TicksTiming(30);
 
-    private void sort(int[] array, int[] counts, int[] offsets, int radix) 
+    private void sort(int[] array, int radix) 
     {
-        ArrayProperties arrayProperties = new ArrayProperties();
+        arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
         arrayProperties.set(AnimationPropertiesKeys.FILL_PROPERTY, Color.WHITE);
         arrayProperties.set(AnimationPropertiesKeys.FILLED_PROPERTY, Boolean.TRUE);
         arrayProperties.set(AnimationPropertiesKeys.ELEMENTCOLOR_PROPERTY, Color.BLACK);
         arrayProperties.set(AnimationPropertiesKeys.ELEMHIGHLIGHT_PROPERTY, Color.RED);
         arrayProperties.set(AnimationPropertiesKeys.CELLHIGHLIGHT_PROPERTY, Color.YELLOW);
-
-        IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
-        IntArray countsArray = language.newIntArray(new Coordinates(70, 100), counts, "countsArray", null, arrayProperties);
-        IntArray offsetsArray = language.newIntArray(new Coordinates(120, 100), counts, "offsetsArray", null, arrayProperties);
-        language.nextStep();
-
-        SourceCodeProperties scProperties = new SourceCodeProperties();
+        
+        scProperties = new SourceCodeProperties();
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
         scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Consolas", Font.BOLD, 12));
         scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
         scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-        
+
+        IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
-        sourceCode.addCodeLine("public void americanFlagSort(int[] array) {", null, 0, null); // 0
-        sourceCode.addCodeLine("final int RADIX = 10;", null, 1, null); // 1
-        sourceCode.addCodeLine("int[] counts = new int[RADIX];", null, 1, null); // 2
-        sourceCode.addCodeLine("for (int num : array)", null, 1, null); // 3
-        sourceCode.addCodeLine("counts[num % RADIX]++;", null, 2, null); // 4
-        sourceCode.addCodeLine("int[] offsets = new int[RADIX];", null, 1, null); // 5
-        sourceCode.addCodeLine("for (int i = 1; i < RADIX; i++)", null, 1, null); // 6
-        sourceCode.addCodeLine("offsets[i] = offsets[i - 1] + counts[i - 1];", null, 2, null); // 7
-        sourceCode.addCodeLine("for (int i = 0; i < RADIX; i++) {", null, 1, null); // 8
-        sourceCode.addCodeLine("while (counts[i] > 0) {", null, 2, null); // 9
-        sourceCode.addCodeLine("int origin = offsets[i];", null, 3, null); // 10
-        sourceCode.addCodeLine("int from = origin;", null, 3, null); // 11
-        sourceCode.addCodeLine("int num = array[from];", null, 3, null); // 12
-        sourceCode.addCodeLine("array[from] = -1;", null, 3, null); // 13
-        sourceCode.addCodeLine("do {", null, 3, null); // 14
-        sourceCode.addCodeLine("int to = offsets[num % RADIX]++;", null, 4, null); // 15
-        sourceCode.addCodeLine("counts[num % RADIX]--;", null, 4, null); // 16
-        sourceCode.addCodeLine("int tmp = array[to];", null, 4, null); // 17
-        sourceCode.addCodeLine("num = tmp;", null, 4, null);
-        sourceCode.addCodeLine("array[to] = num;", null, 4, null);
-        sourceCode.addCodeLine("num = tmp;", null, 4, null);
-        sourceCode.addCodeLine("from = to;", null, 4, null); // 18
-        sourceCode.addCodeLine("} while (from != origin);", null, 3, null); // 19
-        sourceCode.addCodeLine("}", null, 2, null); // 20
-        sourceCode.addCodeLine("}", null, 1, null); // 21
-        sourceCode.addCodeLine("}", null, 0, null); // 22
+        
+        language.nextStep();
+        
+        sourceCode.addCodeLine("public void americanFlagSort(int[] array, int radix) {", null, 0, null); 	// 0
+        sourceCode.addCodeLine("int[] counts = new int[radix];", null, 1, null); 							// 1
+        sourceCode.addCodeLine("int[] offsets = new int[radix];", null, 1, null); 							// 2
+        sourceCode.addCodeLine("for (int num : array)", null, 1, null); 									// 3
+        sourceCode.addCodeLine("counts[num % radix]++;", null, 2, null); 									// 4
+        sourceCode.addCodeLine("for (int i = 1; i < radix; i++)", null, 1, null); 							// 5
+        sourceCode.addCodeLine("offsets[i] = offsets[i - 1] + counts[i - 1];", null, 2, null); 				// 6
+        sourceCode.addCodeLine("for (int i = 0; i < radix; i++) {", null, 1, null); 						// 7
+        sourceCode.addCodeLine("while (counts[i] > 0) {", null, 2, null); 									// 8
+        sourceCode.addCodeLine("int origin = offsets[i];", null, 3, null); 									// 9
+        sourceCode.addCodeLine("int from = origin;", null, 3, null); 										// 10
+        sourceCode.addCodeLine("int num = array[from];", null, 3, null); 									// 11
+        sourceCode.addCodeLine("array[from] = -1;", null, 3, null); 										// 12
+        sourceCode.addCodeLine("do {", null, 3, null); 														// 13
+        sourceCode.addCodeLine("int to = offsets[num % radix]++;", null, 4, null); 							// 14
+        sourceCode.addCodeLine("counts[num % radix]--;", null, 4, null); 									// 15
+        sourceCode.addCodeLine("int tmp = array[to];", null, 4, null); 										// 16
+        sourceCode.addCodeLine("num = tmp;", null, 4, null); 												// 17
+        sourceCode.addCodeLine("array[to] = num;", null, 4, null); 											// 18
+        sourceCode.addCodeLine("num = tmp;", null, 4, null); 												// 19
+        sourceCode.addCodeLine("from = to;", null, 4, null); 												// 20
+        sourceCode.addCodeLine("} while (from != origin);", null, 3, null); 								// 21
+        sourceCode.addCodeLine("}", null, 2, null); 														// 22
+        sourceCode.addCodeLine("}", null, 1, null); 														// 23
+        sourceCode.addCodeLine("}", null, 0, null); 														// 24
 
         language.nextStep();
+        
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
-
-       
-        americanFlagSort(iArray, countsArray, offsetsArray, radix);
+        americanFlagSort(iArray, sourceCode, radix);
 
         sourceCode.hide();
         iArray.hide();
+        
         language.nextStep();
     }
 
-    private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, int radix) throws LineNotExistsException 
-    {
-        for (int i = 0; i < array.getLength(); i++) 
+    private void americanFlagSort(IntArray array, SourceCode code, int radix) throws LineNotExistsException 
+    {	
+    	code.highlight(0, 0, false);
+    	language.nextStep();
+    	
+    	code.unhighlight(0, 0, false);
+    	language.nextStep();
+    	
+    	code.highlight(1, 0, false);
+        int[] counts = new int[radix];
+        
+        language.nextStep();
+        code.unhighlight(1, 0, false);
+        code.highlight(2, 0, false);
+        int[] offsets = new int[radix];
+        
+        language.nextStep();
+        code.unhighlight(2, 0, false);
+        for (int i = 0; i < array.getLength(); i++)
         {	
         	language.nextStep();
-            int number = array.getData(i);
-            int increment = counts.getData(number % radix) + 1;
-            counts.put(number % radix, increment, null, defaultDuration);
-        }
-
-        for (int i = 1; i < radix; i++) 
-        {
-            language.nextStep();
-        	int sum = offsets.getData(i - 1) + counts.getData(i - 1);
-            offsets.put(i, sum, null, defaultDuration);
-        }
-
-        for (int i = 0; i < radix; i++) 
-        {	
+        	code.highlight(3, 0, false);
+        	code.unhighlight(3, 0, false);
+        	
         	language.nextStep();
-            while (counts.getData(i) > 0) 
-            {	
-            	language.nextStep();
-                int origin = offsets.getData(i);
-                int from = origin;
-                int num = array.getData(from);
-                array.put(from, -1, null, defaultDuration);
-
-                do 
-                {	
-                	System.out.println(language.toString());
-                	language.nextStep();
-                    int to = offsets.getData(num % radix) + 1;
-                    int decr = counts.getData(num % radix) - 1;
-                    counts.put(num % radix, decr, null, defaultDuration);
-                    int tmp = array.getData(to);
-                    array.put(to, num, null, defaultDuration);
-                    num = tmp;
-                    from = to;
-                } while (from != origin);
-            }
+        	code.highlight(4, 0, false);
+        	code.unhighlight(4, 0, false);
+        	counts[array.getData(i) % radix]++;
         }
+		
+        
+		for (int i = 1; i < radix; i++) 
+		{	
+			language.nextStep();
+			code.highlight(5, 0, false);
+			code.unhighlight(5, 0, false);
+			
+			language.nextStep();
+			code.highlight(6, 0, false);
+			code.unhighlight(6, 0, false);
+			offsets[i] = offsets[i - 1] + counts[i - 1];
+		}
+		
+		
+		for (int i = 0; i < radix; i++) 
+		{
+			while (counts[i] > 0) 
+			{
+				int origin = offsets[i];
+				int from = origin;
+				int num = array.getData(from);
+				array.put(from, -1, null, defaultDuration);
+
+				do {
+					int to = offsets[num % radix]++;
+					counts[num % radix]--;
+					array.swap(to, from, null, defaultDuration);
+					from = to;
+				} while (from != origin);
+			}
+		}
     }
 
     public static void main(String[] args) 
     {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort",
-                "Yadullah Duman", 640, 480);
-        AmericanFlagSortGenerator americanFlag = new AmericanFlagSortGenerator(language);
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
+        AmericanFlagSortGenerator americanFlagSort = new AmericanFlagSortGenerator(language);
+        
         int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
-        final int RADIX = 10;
-        int[] counts = new int[RADIX];
-        int[] offsets = new int[RADIX];
-        americanFlag.sort(array, counts, offsets, RADIX);
+        int radix = 10;
+        
+        americanFlagSort.sort(array, radix);
         System.out.println(java.util.Arrays.toString(array));
         System.out.println(language);
     }
