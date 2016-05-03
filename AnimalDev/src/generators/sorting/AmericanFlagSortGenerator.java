@@ -1,41 +1,50 @@
-package algorithms;
+/*
+ * AmericanFlagSortGenerator.java
+ * Yadullah Duman, 2016 for the Animal project at TU Darmstadt.
+ * Copying this file for educational purposes is permitted without further authorization.
+ */
+package generators.sorting;
 
-import algoanim.exceptions.LineNotExistsException;
 import algoanim.primitives.IntArray;
 import algoanim.primitives.SourceCode;
 import algoanim.primitives.generators.AnimationType;
-import algoanim.primitives.generators.Language;
 import algoanim.properties.AnimationPropertiesKeys;
-import algoanim.properties.ArrayProperties;
-import algoanim.properties.SourceCodeProperties;
 import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
 import generators.framework.Generator;
 import generators.framework.GeneratorType;
-import generators.framework.properties.AnimationPropertiesContainer;
 
 import java.awt.*;
-import java.util.Hashtable;
 import java.util.Locale;
+import algoanim.primitives.generators.Language;
+import java.util.Hashtable;
+import generators.framework.properties.AnimationPropertiesContainer;
+import algoanim.animalscript.AnimalScript;
+import algoanim.properties.ArrayProperties;
+import algoanim.properties.SourceCodeProperties;
 
 /**
- *
- * @author Yadullah Duman <yadullah.duman@gmail.com>
- *
+ * @author Yadullah Duman
  */
 public class AmericanFlagSortGenerator implements Generator {
     private Language language;
+    private int radix;
+    private int[] array;
     private ArrayProperties arrayProperties;
     private SourceCodeProperties scProperties;
+    private final static Timing defaultDuration = new TicksTiming(30);
+
+    public AmericanFlagSortGenerator(){
+    }
 
     public AmericanFlagSortGenerator(Language l) {
-        language = l;
+        this.language = l;
         language.setStepMode(true);
     }
 
     private static final String AFS_DESCRIPTION = ""
-    		+ "An American flag sort is an efficient, in-place variant of radix " +
+            + "An American flag sort is an efficient, in-place variant of radix " +
             "sort that distributes items into hundreds of buckets. [...] With some optimizations, it is twice as fast " +
             "as quicksort. [...] The name comes by analogy with the Dutch national flag problem in the last step: " +
             "efficiently partition the array into many \"stripes\"." +
@@ -91,9 +100,13 @@ public class AmericanFlagSortGenerator implements Generator {
             "    array[b] = tmp;\n" +
             "}";
 
-    private final static Timing defaultDuration = new TicksTiming(30);
-
-    private void sort(int[] array, int radix) 
+    /**
+     * initializing all properties, creating all primitives and executing the algorithm
+     *
+     * @param array - the array which will be manipulated
+     * @param radix - the radix value
+     */
+    private void start(int[] array, int radix)
     {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -102,18 +115,23 @@ public class AmericanFlagSortGenerator implements Generator {
         arrayProperties.set(AnimationPropertiesKeys.ELEMENTCOLOR_PROPERTY, Color.BLACK);
         arrayProperties.set(AnimationPropertiesKeys.ELEMHIGHLIGHT_PROPERTY, Color.RED);
         arrayProperties.set(AnimationPropertiesKeys.CELLHIGHLIGHT_PROPERTY, Color.YELLOW);
-        
+
         scProperties = new SourceCodeProperties();
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
-        scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("Consolas", Font.BOLD, 12));
-        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
+        scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
+        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
         scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 
         IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
+
+        IntArray counts = language.newIntArray(new Coordinates(220, 100), new int[radix], "counts", null, arrayProperties);
+        counts.hide();
+
+        IntArray offsets = language.newIntArray(new Coordinates(420, 100), new int[radix], "offsets", null, arrayProperties);
+        offsets.hide();
+
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
-        
-        language.nextStep();
-        
+
         sourceCode.addCodeLine("public void americanFlagSort(int[] array, int radix) {", null, 0, null); 	// 0
         sourceCode.addCodeLine("int[] counts = new int[radix];", null, 1, null); 							// 1
         sourceCode.addCodeLine("int[] offsets = new int[radix];", null, 1, null); 							// 2
@@ -139,68 +157,217 @@ public class AmericanFlagSortGenerator implements Generator {
         sourceCode.addCodeLine("}", null, 1, null); 														// 22
         sourceCode.addCodeLine("}", null, 0, null); 														// 23
 
-        language.nextStep();
-        
-        iArray.highlightCell(0, iArray.getLength() - 1, null, null);
-        americanFlagSort(iArray, sourceCode, radix);
+        americanFlagSort(iArray, counts, offsets, sourceCode, radix);
 
-        sourceCode.hide();
+        language.nextStep();
         iArray.hide();
-        
+        counts.hide();
+        offsets.hide();
+        sourceCode.hide();
+
         language.nextStep();
     }
 
-    private void americanFlagSort(IntArray array, SourceCode code, int radix) throws LineNotExistsException 
+    /**
+     * The American Flag Sort Algorithm wrapped up by the ANIMAL API
+     *
+     * @param array - the array which will be manipulated
+     * @param counts - an array of length radix, where the counts are hold
+     * @param offsets - an array of length radix, where the offsets are hold
+     * @param code - the source code ANIMAL is working with
+     * @param radix - the radix value
+     */
+    private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, SourceCode code, int radix)
     {
-        IntArray counts = language.newIntArray(new Coordinates(70, 150), new int[radix], "counts", null, arrayProperties);
-        IntArray offsets = language.newIntArray(new Coordinates(120, 200), new int[radix], "offsets", null, arrayProperties);
+        language.nextStep();
+        code.highlight(0);
+        code.unhighlight(0);
 
-        for (int i = 0; i < array.getLength(); i++) {
+        language.nextStep();
+        code.highlight(1);
+
+        language.nextStep();
+        counts.show();
+        code.unhighlight(1);
+
+        language.nextStep();
+        code.highlight(2);
+
+        language.nextStep();
+        offsets.show();
+        code.unhighlight(2);
+
+        language.nextStep();
+        code.highlight(3);
+
+        for (int i = 0; i < array.getLength(); i++)
+        {
+            language.nextStep();
+            code.unhighlight(3);
+
             int num = array.getData(i);
             int pos = num % radix;
+
+            language.nextStep();
+            code.highlight(4);
+            counts.highlightCell(pos, null, defaultDuration);
             counts.put(pos, counts.getData(pos) + 1, null, defaultDuration);
+            counts.unhighlightCell(pos, null, defaultDuration);
+
+            language.nextStep();
+            code.unhighlight(4);
         }
 
-        for (int i = 1; i < radix; i++) {
+        language.nextStep();
+        code.unhighlight(3);
+        code.highlight(5);
+
+        for (int i = 1; i < radix; i++)
+        {
+            language.nextStep();
+            code.unhighlight(5);
+
             int sum = offsets.getData(i - 1) + counts.getData(i - 1);
+
+            code.unhighlight(5);
+
+            language.nextStep();
+            code.highlight(6);
+            offsets.highlightCell(i, null, defaultDuration);
             offsets.put(i, sum, null, defaultDuration);
+            offsets.unhighlightCell(i, null, defaultDuration);
+
+            language.nextStep();
+            code.unhighlight(6);
         }
 
-        for (int i = 0; i < radix; i++) {
-            while (counts.getData(i) > 0) {
-                int origin = offsets.getData(i);
-                int from = origin;
-                int num = array.getData(from);
-                array.put(from, -1, null, defaultDuration);
+        language.nextStep();
+        code.highlight(7);
 
-                do {
+        for (int i = 0; i < radix; i++)
+        {
+            language.nextStep();
+            code.unhighlight(7);
+            code.highlight(8);
+
+            while (counts.getData(i) > 0)
+            {
+                language.nextStep();
+                code.unhighlight(8);
+                code.highlight(9);
+
+                int origin = offsets.getData(i);
+
+                language.nextStep();
+                code.unhighlight(9);
+                code.highlight(10);
+
+                int from = origin;
+
+                language.nextStep();
+                code.unhighlight(10);
+                code.highlight(11);
+
+                int num = array.getData(from);
+
+                language.nextStep();
+                code.unhighlight(11);
+                code.highlight(12);
+
+                language.nextStep();
+                array.highlightCell(from, null, defaultDuration);
+                array.put(from, -1, null, defaultDuration);
+                array.unhighlightCell(from, null, defaultDuration);
+
+                language.nextStep();
+                code.unhighlight(12);
+                code.highlight(13);
+
+                do
+                {
+                    language.nextStep();
+                    code.unhighlight(13);
+                    code.highlight(14);
+
                     int to = offsets.getData(num % radix);
+
+                    language.nextStep();
+                    offsets.highlightCell(num % radix, null, defaultDuration);
                     offsets.put(num % radix, offsets.getData(num % radix) + 1, null, defaultDuration);
+                    offsets.unhighlightCell(num % radix, null, defaultDuration);
+
+                    language.nextStep();
+                    code.unhighlight(14);
+                    code.highlight(15);
+
+                    language.nextStep();
+                    counts.highlightCell(num % radix, null, defaultDuration);
                     counts.put(num % radix, counts.getData(num % radix) - 1, null, defaultDuration);
+                    counts.unhighlightCell(num % radix, null, defaultDuration);
+
+                    language.nextStep();
+                    code.unhighlight(15);
+                    code.highlight(16);
+
                     int tmp = array.getData(to);
+
+                    language.nextStep();
+                    code.unhighlight(16);
+                    code.highlight(17);
+
+                    language.nextStep();
+                    array.highlightCell(to, null, defaultDuration);
                     array.put(to, num, null, defaultDuration);
+                    array.unhighlightCell(to, null, defaultDuration);
+
+                    language.nextStep();
+                    code.unhighlight(17);
+                    code.highlight(18);
+
                     num = tmp;
+
+                    language.nextStep();
+                    code.unhighlight(18);
+                    code.highlight(19);
+
                     from = to;
+
+                    code.unhighlight(19);
                 } while (from != origin);
             }
         }
     }
 
-    public static void main(String[] args) 
-    {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
-        AmericanFlagSortGenerator americanFlagSort = new AmericanFlagSortGenerator(language);
-        
-        int[] array = { 9,8,7,6,5,4,3,2,1,0 };
-        int radix = 10;
-        
-        americanFlagSort.sort(array, radix);
-
-        System.out.println(language);
+    /**
+     * initializing the language object
+     */
+    public void init() {
+        language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(),
+                this.getAnimationAuthor(), 800, 600);
+        language.setStepMode(true);
     }
 
-    public String generate(AnimationPropertiesContainer animationPropertiesContainer, Hashtable<String, Object> hashtable) {
-        return null;
+    /**
+     * executing the algorithm and generating everything for the ANIMAL Generator
+     *
+     * @param props - ANIMAL properties
+     * @param primitives - ANIMAL primitives
+     * @return AnimalScript Code
+     */
+    public String generate(AnimationPropertiesContainer props,Hashtable<String, Object> primitives) {
+        radix           = (Integer)primitives.get("radix");
+        array           = (int[])primitives.get("array");
+        arrayProperties = (ArrayProperties)props.getPropertiesByName("arrayProperties");
+        scProperties    = (SourceCodeProperties)props.getPropertiesByName("scProperties");
+
+        init();
+        start(array, radix);
+
+        return language.toString();
+    }
+
+    public String getName() {
+        return "American Flag Sort";
     }
 
     public String getAlgorithmName() {
@@ -211,35 +378,28 @@ public class AmericanFlagSortGenerator implements Generator {
         return "Yadullah Duman";
     }
 
-    public String getCodeExample() {
-        return AFS_SOURCE_CODE;
-    }
-
-    public Locale getContentLocale() {
-        return Locale.US;
-    }
-
-    public String getDescription() {
+    public String getDescription(){
         return AFS_DESCRIPTION;
     }
 
-    public String getFileExtension() {
+    public String getCodeExample(){
+        return AFS_SOURCE_CODE;
+    }
+
+    public String getFileExtension(){
         return "asu";
+    }
+
+    public Locale getContentLocale() {
+        return Locale.ENGLISH;
     }
 
     public GeneratorType getGeneratorType() {
         return new GeneratorType(GeneratorType.GENERATOR_TYPE_SORT);
     }
 
-    public String getName() {
-        return "American Flag Sort";
-    }
-
     public String getOutputLanguage() {
         return Generator.JAVA_OUTPUT;
     }
 
-    public void init() {
-
-    }
 }

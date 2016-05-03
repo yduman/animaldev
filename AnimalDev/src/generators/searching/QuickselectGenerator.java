@@ -1,3 +1,8 @@
+/*
+ * QuickselectGenerator.java
+ * Yadullah Duman, 2016 for the Animal project at TU Darmstadt.
+ * Copying this file for educational purposes is permitted without further authorization.
+ */
 package generators.searching;
 
 import java.awt.Color;
@@ -24,7 +29,7 @@ import generators.framework.properties.AnimationPropertiesContainer;
 
 /**
  * 
- * @author Yadullah Duman <yadullah.duman@gmail.com>
+ * @author Yadullah Duman
  *
  */
 public class QuickselectGenerator implements Generator {
@@ -39,6 +44,7 @@ public class QuickselectGenerator implements Generator {
 	private int kSmallest;
 	private int pointerCounter = 0;
 	private String ordinal;
+	public final static Timing defaultDuration = new TicksTiming(30);
 
 	public QuickselectGenerator() {
 	}
@@ -114,11 +120,10 @@ public class QuickselectGenerator implements Generator {
 			"public int randomPivot(int left, int right) { \n" +
 			"    return return left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
 			"}";
-	
-	public final static Timing defaultDuration = new TicksTiming(30);
 
 	/**
-	 * running the algorithm
+	 * initializing all properties, creating all primitives and executing the algorithm
+	 *
 	 * @param array - our array we are working with
      */
 	public void start(int[] array)
@@ -219,7 +224,8 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	/**
-	 * the quickselect algorithm wrapped by the ANIMAL API
+	 * the quickselect algorithm wrapped up by the ANIMAL API
+	 *
 	 * @param array - the array we are working with
 	 * @param code - the source code ANIMAL is working with
 	 * @param left - the left boundary of the array
