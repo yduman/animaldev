@@ -131,14 +131,13 @@ public class AmericanFlagSortGenerator implements Generator {
         sourceCode.addCodeLine("int to = offsets[num % radix]++;", null, 4, null); 							// 14
         sourceCode.addCodeLine("counts[num % radix]--;", null, 4, null); 									// 15
         sourceCode.addCodeLine("int tmp = array[to];", null, 4, null); 										// 16
-        sourceCode.addCodeLine("num = tmp;", null, 4, null); 												// 17
-        sourceCode.addCodeLine("array[to] = num;", null, 4, null); 											// 18
-        sourceCode.addCodeLine("num = tmp;", null, 4, null); 												// 19
-        sourceCode.addCodeLine("from = to;", null, 4, null); 												// 20
-        sourceCode.addCodeLine("} while (from != origin);", null, 3, null); 								// 21
-        sourceCode.addCodeLine("}", null, 2, null); 														// 22
-        sourceCode.addCodeLine("}", null, 1, null); 														// 23
-        sourceCode.addCodeLine("}", null, 0, null); 														// 24
+        sourceCode.addCodeLine("array[to] = num;", null, 4, null); 											// 17
+        sourceCode.addCodeLine("num = tmp;", null, 4, null); 												// 18
+        sourceCode.addCodeLine("from = to;", null, 4, null); 												// 19
+        sourceCode.addCodeLine("} while (from != origin);", null, 3, null); 								// 20
+        sourceCode.addCodeLine("}", null, 2, null); 														// 21
+        sourceCode.addCodeLine("}", null, 1, null); 														// 22
+        sourceCode.addCodeLine("}", null, 0, null); 														// 23
 
         language.nextStep();
         
@@ -152,66 +151,39 @@ public class AmericanFlagSortGenerator implements Generator {
     }
 
     private void americanFlagSort(IntArray array, SourceCode code, int radix) throws LineNotExistsException 
-    {	
-    	code.highlight(0, 0, false);
-    	language.nextStep();
-    	
-    	code.unhighlight(0, 0, false);
-    	language.nextStep();
-    	
-    	code.highlight(1, 0, false);
-        int[] counts = new int[radix];
-        
-        language.nextStep();
-        code.unhighlight(1, 0, false);
-        code.highlight(2, 0, false);
-        int[] offsets = new int[radix];
-        
-        language.nextStep();
-        code.unhighlight(2, 0, false);
-        for (int i = 0; i < array.getLength(); i++)
-        {	
-        	language.nextStep();
-        	code.highlight(3, 0, false);
-        	code.unhighlight(3, 0, false);
-        	
-        	language.nextStep();
-        	code.highlight(4, 0, false);
-        	code.unhighlight(4, 0, false);
-        	counts[array.getData(i) % radix]++;
-        }
-		
-        
-		for (int i = 1; i < radix; i++) 
-		{	
-			language.nextStep();
-			code.highlight(5, 0, false);
-			code.unhighlight(5, 0, false);
-			
-			language.nextStep();
-			code.highlight(6, 0, false);
-			code.unhighlight(6, 0, false);
-			offsets[i] = offsets[i - 1] + counts[i - 1];
-		}
-		
-		
-		for (int i = 0; i < radix; i++) 
-		{
-			while (counts[i] > 0) 
-			{
-				int origin = offsets[i];
-				int from = origin;
-				int num = array.getData(from);
-				array.put(from, -1, null, defaultDuration);
+    {
+        IntArray counts = language.newIntArray(new Coordinates(70, 150), new int[radix], "counts", null, arrayProperties);
+        IntArray offsets = language.newIntArray(new Coordinates(120, 200), new int[radix], "offsets", null, arrayProperties);
 
-				do {
-					int to = offsets[num % radix]++;
-					counts[num % radix]--;
-					array.swap(to, from, null, defaultDuration);
-					from = to;
-				} while (from != origin);
-			}
-		}
+        for (int i = 0; i < array.getLength(); i++) {
+            int num = array.getData(i);
+            int pos = num % radix;
+            counts.put(pos, counts.getData(pos) + 1, null, defaultDuration);
+        }
+
+        for (int i = 1; i < radix; i++) {
+            int sum = offsets.getData(i - 1) + counts.getData(i - 1);
+            offsets.put(i, sum, null, defaultDuration);
+        }
+
+        for (int i = 0; i < radix; i++) {
+            while (counts.getData(i) > 0) {
+                int origin = offsets.getData(i);
+                int from = origin;
+                int num = array.getData(from);
+                array.put(from, -1, null, defaultDuration);
+
+                do {
+                    int to = offsets.getData(num % radix);
+                    offsets.put(num % radix, offsets.getData(num % radix) + 1, null, defaultDuration);
+                    counts.put(num % radix, counts.getData(num % radix) - 1, null, defaultDuration);
+                    int tmp = array.getData(to);
+                    array.put(to, num, null, defaultDuration);
+                    num = tmp;
+                    from = to;
+                } while (from != origin);
+            }
+        }
     }
 
     public static void main(String[] args) 
@@ -219,11 +191,11 @@ public class AmericanFlagSortGenerator implements Generator {
         Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
         AmericanFlagSortGenerator americanFlagSort = new AmericanFlagSortGenerator(language);
         
-        int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
+        int[] array = { 9,8,7,6,5,4,3,2,1,0 };
         int radix = 10;
         
         americanFlagSort.sort(array, radix);
-        System.out.println(java.util.Arrays.toString(array));
+
         System.out.println(language);
     }
 

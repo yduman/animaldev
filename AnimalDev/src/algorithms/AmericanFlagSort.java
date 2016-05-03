@@ -25,6 +25,7 @@ public class AmericanFlagSort {
 
 				do {
 					int to = offsets[num % radix]++;
+					System.out.println("to = " + to);
 					counts[num % radix]--;
 					int tmp = array[to];
 					array[to] = num;
@@ -37,7 +38,7 @@ public class AmericanFlagSort {
 	
 	public static void main(String[] args) {
 		int[] a = {9,8,7,6,5,4,3,2,1,0};
-		sort(a, 10);
+		sort(a, 4);
 		System.out.println(java.util.Arrays.toString(a));
 	}
 }
