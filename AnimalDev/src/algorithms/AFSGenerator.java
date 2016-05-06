@@ -22,6 +22,7 @@ public class AFSGenerator {
     private Language language;
     private ArrayProperties arrayProperties;
     private SourceCodeProperties scProperties;
+    private final static Timing defaultDuration = new TicksTiming(30);
 
     public AFSGenerator(Language l) {
         language = l;
@@ -85,8 +86,6 @@ public class AFSGenerator {
             "    array[b] = tmp;\n" +
             "}";
 
-    private final static Timing defaultDuration = new TicksTiming(30);
-
     private void sort(int[] array, int radix) 
     {
         arrayProperties = new ArrayProperties();
@@ -138,6 +137,7 @@ public class AFSGenerator {
         sourceCode.addCodeLine("}", null, 1, null); 														// 22
         sourceCode.addCodeLine("}", null, 0, null); 														// 23
 
+        // run algo
         americanFlagSort(iArray, counts, offsets, sourceCode, radix);
 
         language.nextStep();
@@ -174,7 +174,6 @@ public class AFSGenerator {
 
         for (int i = 0; i < array.getLength(); i++)
         {
-            language.nextStep();
             code.unhighlight(3);
 
             int num = array.getData(i);
@@ -182,6 +181,8 @@ public class AFSGenerator {
 
             language.nextStep();
             code.highlight(4);
+
+            // fill counts array
             counts.highlightCell(pos, null, defaultDuration);
             counts.put(pos, counts.getData(pos) + 1, null, defaultDuration);
             counts.unhighlightCell(pos, null, defaultDuration);
@@ -196,7 +197,6 @@ public class AFSGenerator {
 
         for (int i = 1; i < radix; i++)
         {
-            language.nextStep();
             code.unhighlight(5);
 
             int sum = offsets.getData(i - 1) + counts.getData(i - 1);
@@ -205,6 +205,8 @@ public class AFSGenerator {
 
             language.nextStep();
             code.highlight(6);
+
+            // fill offsets array
             offsets.highlightCell(i, null, defaultDuration);
             offsets.put(i, sum, null, defaultDuration);
             offsets.unhighlightCell(i, null, defaultDuration);

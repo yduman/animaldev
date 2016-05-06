@@ -202,7 +202,6 @@ public class AmericanFlagSortGenerator implements Generator {
 
         for (int i = 0; i < array.getLength(); i++)
         {
-            language.nextStep();
             code.unhighlight(3);
 
             int num = array.getData(i);
@@ -210,12 +209,15 @@ public class AmericanFlagSortGenerator implements Generator {
 
             language.nextStep();
             code.highlight(4);
+
+            // fill counts array
+            language.nextStep();
             counts.highlightCell(pos, null, defaultDuration);
             counts.put(pos, counts.getData(pos) + 1, null, defaultDuration);
-            counts.unhighlightCell(pos, null, defaultDuration);
 
             language.nextStep();
             code.unhighlight(4);
+            counts.unhighlightCell(pos, null, defaultDuration);
         }
 
         language.nextStep();
@@ -224,7 +226,6 @@ public class AmericanFlagSortGenerator implements Generator {
 
         for (int i = 1; i < radix; i++)
         {
-            language.nextStep();
             code.unhighlight(5);
 
             int sum = offsets.getData(i - 1) + counts.getData(i - 1);
@@ -233,6 +234,8 @@ public class AmericanFlagSortGenerator implements Generator {
 
             language.nextStep();
             code.highlight(6);
+
+            // fill offsets array
             offsets.highlightCell(i, null, defaultDuration);
             offsets.put(i, sum, null, defaultDuration);
             offsets.unhighlightCell(i, null, defaultDuration);
@@ -364,6 +367,16 @@ public class AmericanFlagSortGenerator implements Generator {
         start(array, radix);
 
         return language.toString();
+    }
+
+    // TODO: DELETE THIS ONE LATER!
+    public static void main(String[] args) {
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
+        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+        int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+        int radix = 10;
+        afs.start(array, radix);
+        System.out.println(language);
     }
 
     public String getName() {

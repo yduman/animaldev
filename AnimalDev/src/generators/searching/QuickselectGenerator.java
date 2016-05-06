@@ -44,7 +44,7 @@ public class QuickselectGenerator implements Generator {
 	private int kSmallest;
 	private int pointerCounter = 0;
 	private String ordinal;
-	public final static Timing defaultDuration = new TicksTiming(30);
+	private final static Timing defaultDuration = new TicksTiming(30);
 
 	public QuickselectGenerator() {
 	}
@@ -215,7 +215,6 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 
 		iArray.highlightCell(0, iArray.getLength() - 1, null, null);
-			
 		quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), this.kSmallest);
 		
 		sourceCode.hide();
@@ -272,7 +271,7 @@ public class QuickselectGenerator implements Generator {
 			code.highlight(6, 0, false);
 
 			int pivot = randomPivot(left, right);
-			
+
 			ArrayMarker pivotMarker = language.newArrayMarker(array, pivot, "pivot" + pointerCounter, null, pivotPointerProps);
 			pivotMarker.move(pivot, null, defaultDuration);
 
@@ -357,7 +356,6 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 		code.unhighlight(7, 0, false);
 		code.highlight(20, 0, false);
-
 		language.nextStep();
 		code.unhighlight(20, 0, false);
 		code.highlight(22, 0, false);
@@ -367,7 +365,6 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 		code.unhighlight(22, 0, false);
 		code.highlight(23, 0, false);
-
 		language.nextStep();
 		code.unhighlight(23, 0, false);
 		code.highlight(36, 0, false);
@@ -379,11 +376,10 @@ public class QuickselectGenerator implements Generator {
 		code.highlight(24, 0, false);
 
 		int storeIndex = left;
-		ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
 
+		ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
 		language.nextStep();
 		ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
-
 		code.unhighlight(24, 0, false);
 		code.highlight(25, 0, false);
 
@@ -395,11 +391,9 @@ public class QuickselectGenerator implements Generator {
 				language.nextStep();
 				code.unhighlight(25, 0, false);
 				code.highlight(27, 0, false);
-
 				language.nextStep();
 				code.unhighlight(27, 0, false);
 				code.highlight(29, 0, false);
-
 				language.nextStep();
 				code.unhighlight(29, 0, false);
 				code.highlight(36, 0, false);
@@ -411,8 +405,8 @@ public class QuickselectGenerator implements Generator {
 				code.highlight(30, 0, false);
 
 				storeIndex++;
-				storeIndexMarker.move(storeIndex, null, defaultDuration);
 
+				storeIndexMarker.move(storeIndex, null, defaultDuration);
 				code.unhighlight(30, 0, false);
 			}
 		}
@@ -420,12 +414,14 @@ public class QuickselectGenerator implements Generator {
 		language.nextStep();
 		loopMarker.hide();
 		code.highlight(36, 0, false);
+
 		swap(array, right, storeIndex);
 
 		language.nextStep();
 		code.unhighlight(36, 0, false);
 		code.highlight(33, 0, false);
 		storeIndexMarker.hide();
+
 		return storeIndex;
 	}
 
@@ -450,14 +446,18 @@ public class QuickselectGenerator implements Generator {
 	}
 
 	
-//	public static void main(String[] args) {
-//		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
-//		QuickselectGenerator quickselect = new QuickselectGenerator();
-//		int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
-//		quickselect.init();
-//		quickselect.select(array);
-//		// System.out.println(language);
-//	}
+	public static void main(String[] args) {
+		Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
+		QuickselectGenerator qs = new QuickselectGenerator(language);
+		int[] array = { 100, 90, 80, 70, 10, 60, 50, 40, 30, 20 };
+		qs.start(array);
+		System.out.println(language);
+	}
+
+	public void init() {
+		language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);
+		language.setStepMode(true);
+	}
 
 	public String generate(AnimationPropertiesContainer props, Hashtable<String, Object> primitives) {
 		kSmallestProps 		= (ArrayMarkerProperties)props.getPropertiesByName("kSmallestProps");
@@ -509,10 +509,5 @@ public class QuickselectGenerator implements Generator {
 
 	public String getOutputLanguage() {
 		return Generator.JAVA_OUTPUT;
-	}
-
-	public void init() {
-		language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);
-		language.setStepMode(true);
 	}
 }
