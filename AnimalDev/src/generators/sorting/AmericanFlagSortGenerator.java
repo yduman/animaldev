@@ -5,8 +5,6 @@
  */
 package generators.sorting;
 
-import algoanim.counter.model.TwoValueCounter;
-import algoanim.counter.view.TwoValueView;
 import algoanim.primitives.IntArray;
 import algoanim.primitives.SourceCode;
 import algoanim.primitives.Text;
@@ -16,13 +14,10 @@ import algoanim.properties.*;
 import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
-import algoanim.variables.Variable;
 import generators.framework.Generator;
 import generators.framework.GeneratorType;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Locale;
 
 import algoanim.primitives.generators.Language;
@@ -30,9 +25,6 @@ import algoanim.primitives.generators.Language;
 import java.util.Hashtable;
 
 import generators.framework.properties.AnimationPropertiesContainer;
-import algoanim.animalscript.AnimalScript;
-import generators.maths.Heun;
-import generators.maths.northwestcornerrule.Animation;
 
 /**
  * @author Yadullah Duman
@@ -47,11 +39,11 @@ public class AmericanFlagSortGenerator implements Generator {
     private Variables varTable;
     private Text arrayHeader, countsHeader, offsetsHeader, description;
     private final static Timing defaultDuration = new TicksTiming(30);
-    private final String ORIGIN_KEY = "origin";
-    private final String FROM_KEY = "from";
-    private final String NUM_KEY = "num";
-    private final String TO_KEY = "to";
-    private final String TMP_KEY = "tmp";
+    private final String ORIGIN_KEY = "origin-key";
+    private final String FROM_KEY = "from-key";
+    private final String NUM_KEY = "num-key";
+    private final String TO_KEY = "to-key";
+    private final String TMP_KEY = "tmp-key";
 
     public AmericanFlagSortGenerator() {
     }
@@ -145,8 +137,8 @@ public class AmericanFlagSortGenerator implements Generator {
         this.varTable = this.language.newVariables();
 
         this.varTable.declare("int", ORIGIN_KEY);
-        this.varTable.declare("int", FROM_KEY);
         this.varTable.declare("int", NUM_KEY);
+        this.varTable.declare("int", FROM_KEY);
         this.varTable.declare("int", TO_KEY);
         this.varTable.declare("int", TMP_KEY);
 
@@ -197,6 +189,7 @@ public class AmericanFlagSortGenerator implements Generator {
 
         language.nextStep();
         language.hideAllPrimitives();
+        arrayHeader.hide();
         language.nextStep();
     }
 
@@ -410,10 +403,6 @@ public class AmericanFlagSortGenerator implements Generator {
         int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
         int radix = 4;
         afs.start(array, radix);
-
-        File file = new File("C:\\Users\\yduman\\Desktop\\AFSScript.asu");
-        FileWriter writer = new FileWriter(file);
-        writer.write(language.toString());
 
         System.out.println(language);
     }
