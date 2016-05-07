@@ -194,7 +194,7 @@ public class AmericanFlagSortGenerator implements Generator {
     }
 
     /**
-     * The American Flag Sort Algorithm wrapped up by the ANIMAL API
+     * The American Flag Sort algorithm wrapped up by the ANIMAL API
      *
      * @param array   - the array which will be manipulated
      * @param counts  - an array of length radix, where the counts are hold
