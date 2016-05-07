@@ -44,6 +44,7 @@ import generators.sorting.shakersort.Shakersorter2;
 import generators.sorting.swapsort.SwapSort;
 import generators.sorting.swapsort.SwapSort3;
 import generators.sorting.swapsort.SwapSortBZ;
+import generators.sorting.AmericanFlagSortGenerator;
 
 public class DummyGenerator implements GeneratorBundle {
 
@@ -292,6 +293,9 @@ public class DummyGenerator implements GeneratorBundle {
     generators.add(new TopoSort());
     generators.add(new TopoSort(new Locale("de")));
     generators.add(new CocktailSortDutschka());
+
+    // Generators from the AlgoAnim course in summer semester 2016.
+    generators.add(new AmericanFlagSortGenerator());
 
     // GR
     generators.add(new HybridsortGenerator());

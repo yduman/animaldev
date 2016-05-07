@@ -220,8 +220,6 @@ public class QuickselectGenerator implements Generator {
 
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
-        // TODO: delete the following line later (this is just for testing purposes)
-        this.kSmallest = 3;
         quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), this.kSmallest);
 
         language.nextStep();
@@ -462,13 +460,13 @@ public class QuickselectGenerator implements Generator {
     }
 
 
-    public static void main(String[] args) {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
-        QuickselectGenerator qs = new QuickselectGenerator(language);
-        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
-        qs.start(array);
-        System.out.println(language);
-    }
+//    public static void main(String[] args) {
+//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
+//        QuickselectGenerator qs = new QuickselectGenerator(language);
+//        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
+//        qs.start(array);
+//        System.out.println(language);
+//    }
 
     public void init() {
         language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);
