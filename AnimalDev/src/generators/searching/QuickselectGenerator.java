@@ -146,7 +146,7 @@ public class QuickselectGenerator implements Generator {
         scProperties = new SourceCodeProperties();
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
         scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
-        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.BLUE);
+        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
         scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
 
         pointerCounter++;
@@ -181,56 +181,52 @@ public class QuickselectGenerator implements Generator {
         this.varTable.declare("int", STORE_INDEX_KEY);
 
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
-        sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int kSmallest)", null, 0, null); // 0
-        sourceCode.addCodeLine("{", null, 0, null); // 1
-        sourceCode.addCodeLine("if (left == right)", null, 1, null); // 2
-        sourceCode.addCodeLine("return array[left];", null, 2, null); // 3
-        sourceCode.addCodeLine("for (;;)", null, 1, null); // 4
-        sourceCode.addCodeLine("{", null, 1, null); // 5
-        sourceCode.addCodeLine("int pivot = randomPivot(left, right);", null, 2, null); // 6
-        sourceCode.addCodeLine("pivot = partition(array, left, right, pivot);", null, 2, null); // 7
-        sourceCode.addCodeLine("if (kSmallest == pivot)", null, 2, null); // 8
-        sourceCode.addCodeLine("return array[kSmallest];", null, 3, null); // 9
-        sourceCode.addCodeLine("else if (kSmallest < pivot)", null, 2, null); // 10
-        sourceCode.addCodeLine("right = pivot - 1;", null, 3, null); // 11
-        sourceCode.addCodeLine("else", null, 2, null); // 12
-        sourceCode.addCodeLine("left = pivot + 1;", null, 3, null); // 13
-        sourceCode.addCodeLine("}", null, 1, null); // 14
-        sourceCode.addCodeLine("}", null, 0, null); // 15
-        sourceCode.addCodeLine("public int randomPivot(int left, int right)", null, 0, null); // 16
-        sourceCode.addCodeLine("{", null, 0, null); // 17
-        sourceCode.addCodeLine("return return left + (int) Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 18
-        sourceCode.addCodeLine("}", null, 0, null); // 19
-        sourceCode.addCodeLine("public int partition(int[] array, int left, int right, int pivot)", null, 0, null); // 20
-        sourceCode.addCodeLine("{", null, 0, null); // 21
-        sourceCode.addCodeLine("int pivotValue = array[pivot];", null, 1, null); // 22
-        sourceCode.addCodeLine("swap(array, pivot, right);", null, 1, null); // 23
-        sourceCode.addCodeLine("int storeIndex = left;", null, 1, null); // 24
-        sourceCode.addCodeLine("for (int i = left; i < right; i++)", null, 1, null); // 25
-        sourceCode.addCodeLine("{", null, 1, null); // 26
-        sourceCode.addCodeLine("if (array[i] < pivotValue)", null, 2, null); // 27
-        sourceCode.addCodeLine("{", null, 2, null); // 28
-        sourceCode.addCodeLine("swap(array, storeIndex, i);", null, 3, null); // 29
-        sourceCode.addCodeLine("storeIndex++;", null, 3, null); // 30
-        sourceCode.addCodeLine("}", null, 2, null); // 31
-        sourceCode.addCodeLine("}", null, 1, null); // 32
-        sourceCode.addCodeLine("swap(array, right, storeIndex);", null, 1, null); // 33
-        sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 34
-        sourceCode.addCodeLine("}", null, 0, null); // 35
-        sourceCode.addCodeLine("public void swap(int[] array, int a, int b)", null, 0, null); // 36
-        sourceCode.addCodeLine("{", null, 0, null); // 37
-        sourceCode.addCodeLine("int tmp = array[a];", null, 1, null); // 38
-        sourceCode.addCodeLine("array[a] = array[b];", null, 1, null); // 39
-        sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 40
-        sourceCode.addCodeLine("}", null, 0, null); // 41
+        sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int kSmallest) {", null, 0, null); // 0
+        sourceCode.addCodeLine("if (left == right)", null, 1, null); // 1
+        sourceCode.addCodeLine("return array[left];", null, 2, null); // 2
+        sourceCode.addCodeLine("for (;;) {", null, 1, null); // 3
+        sourceCode.addCodeLine("int pivot = randomPivot(left, right);", null, 2, null); // 4
+        sourceCode.addCodeLine("pivot = partition(array, left, right, pivot);", null, 2, null); // 5
+        sourceCode.addCodeLine("if (kSmallest == pivot)", null, 2, null); // 6
+        sourceCode.addCodeLine("return array[kSmallest];", null, 3, null); // 7
+        sourceCode.addCodeLine("else if (kSmallest < pivot)", null, 2, null); // 8
+        sourceCode.addCodeLine("right = pivot - 1;", null, 3, null); // 9
+        sourceCode.addCodeLine("else", null, 2, null); // 10
+        sourceCode.addCodeLine("left = pivot + 1;", null, 3, null); // 11
+        sourceCode.addCodeLine("}", null, 1, null); // 12
+        sourceCode.addCodeLine("}", null, 0, null); // 13
+        sourceCode.addCodeLine("public int partition(int[] array, int left, int right, int pivot) {", null, 0, null); // 14
+        sourceCode.addCodeLine("int pivotValue = array[pivot];", null, 1, null); // 15
+        sourceCode.addCodeLine("swap(array, pivot, right);", null, 1, null); // 16
+        sourceCode.addCodeLine("int storeIndex = left;", null, 1, null); // 17
+        sourceCode.addCodeLine("for (int i = left; i < right; i++) {", null, 1, null); // 18
+        sourceCode.addCodeLine("if (array[i] < pivotValue) {", null, 2, null); // 19
+        sourceCode.addCodeLine("swap(array, storeIndex, i);", null, 3, null); // 20
+        sourceCode.addCodeLine("storeIndex++;", null, 3, null); // 21
+        sourceCode.addCodeLine("}", null, 2, null); // 22
+        sourceCode.addCodeLine("}", null, 1, null); // 23
+        sourceCode.addCodeLine("swap(array, right, storeIndex);", null, 1, null); // 24
+        sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 25
+        sourceCode.addCodeLine("}", null, 0, null); // 26
+        sourceCode.addCodeLine("public int randomPivot(int left, int right) {", null, 0, null); // 27
+        sourceCode.addCodeLine("return return left + (int) Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 28
+        sourceCode.addCodeLine("}", null, 0, null); // 29
+        sourceCode.addCodeLine("public void swap(int[] array, int a, int b) {", null, 0, null); // 30
+        sourceCode.addCodeLine("int tmp = array[a];", null, 1, null); // 31
+        sourceCode.addCodeLine("array[a] = array[b];", null, 1, null); // 32
+        sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 33
+        sourceCode.addCodeLine("}", null, 0, null); // 34
 
-        language.nextStep();
 
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
+
+        // TODO: delete the following line later (this is just for testing purposes)
+        this.kSmallest = 3;
         quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), this.kSmallest);
 
-        sourceCode.hide();
-        iArray.hide();
+        language.nextStep();
+        sourceCode.unhighlight(7);
+        language.hideAllPrimitives();
         language.nextStep();
     }
 
@@ -260,26 +256,27 @@ public class QuickselectGenerator implements Generator {
                 ordinal = "th";
         }
 
-        code.highlight(0, 0, false);
         language.nextStep();
+        code.highlight(0);
 
-        code.unhighlight(0, 0, false);
         language.nextStep();
-
-        code.highlight(2, 0, false);
+        code.unhighlight(0);
+        code.highlight(1);
 
         if (left == right) {
             return array.getData(left);
         }
 
         language.nextStep();
-        code.unhighlight(2, 0, false);
-        code.highlight(4, 0, false);
+        code.unhighlight(1);
 
         for (; ; ) {
             language.nextStep();
-            code.unhighlight(4, 0, false);
-            code.highlight(6, 0, false);
+            code.highlight(3);
+
+            language.nextStep();
+            code.unhighlight(3);
+            code.highlight(4);
 
             int pivot = randomPivot(left, right);
             this.varTable.set(PIVOT_KEY, String.valueOf(pivot));
@@ -288,24 +285,20 @@ public class QuickselectGenerator implements Generator {
             pivotMarker.move(pivot, null, defaultDuration);
 
             language.nextStep();
-            code.unhighlight(6, 0, false);
-            code.highlight(7, 0, false);
+            code.unhighlight(4);
+            code.highlight(5);
 
             pivot = partition(array, left, right, pivot, code);
             this.varTable.set(PIVOT_KEY, String.valueOf(pivot));
 
             language.nextStep();
-            code.unhighlight(33, 0, false);
-            code.highlight(7, 0, false);
-
             pivotMarker.move(pivot, null, defaultDuration);
-
-            language.nextStep();
-            code.unhighlight(7, 0, false);
-            code.highlight(8, 0, false);
 
             ArrayMarker kSmallestMarker = language.newArrayMarker(array, pivot, "kSmallest" + pointerCounter, null, kSmallestProps);
             kSmallestMarker.hide();
+
+            language.nextStep();
+            code.highlight(6);
 
             if (kSmallest == pivot) {
                 pivotMarker.hide();
@@ -316,40 +309,40 @@ public class QuickselectGenerator implements Generator {
             if (kSmallest == pivot) {
                 language.nextStep();
                 pivotMarker.hide();
-
-                code.unhighlight(8, 0, false);
-                code.highlight(9, 0, false);
-                code.unhighlight(9, 0, false);
+                code.unhighlight(6);
+                code.highlight(7);
 
                 kSmallestMarker.hide();
                 return array.getData(kSmallest);
 
             } else if (kSmallest < pivot) {
                 language.nextStep();
-                code.unhighlight(8, 0, false);
-                code.highlight(10, 0, false);
+                code.unhighlight(6);
+                code.highlight(8);
 
                 language.nextStep();
-                code.unhighlight(10, 0, false);
-                code.highlight(11, 0, false);
+                code.unhighlight(8);
+                code.highlight(9);
 
                 right = pivot - 1;
                 this.varTable.set(RIGHT_KEY, String.valueOf(right));
 
-                code.unhighlight(11, 0, false);
+                language.nextStep();
+                code.unhighlight(9);
             } else {
                 language.nextStep();
-                code.unhighlight(8, 0, false);
-                code.highlight(12, 0, false);
+                code.unhighlight(6);
+                code.highlight(10);
 
                 language.nextStep();
-                code.unhighlight(12, 0, false);
-                code.highlight(13, 0, false);
+                code.unhighlight(10);
+                code.highlight(11);
 
                 left = pivot + 1;
                 this.varTable.set(LEFT_KEY, String.valueOf(left));
 
-                code.unhighlight(13, 0, false);
+                language.nextStep();
+                code.unhighlight(11);
             }
             language.nextStep();
             array.unhighlightCell(0, array.getLength() - 1, null, null);
@@ -368,76 +361,83 @@ public class QuickselectGenerator implements Generator {
      */
     private int partition(IntArray array, int left, int right, int pivot, SourceCode code) {
         language.nextStep();
-        code.unhighlight(7, 0, false);
-        code.highlight(20, 0, false);
+        code.unhighlight(5);
+        code.highlight(14);
+
         language.nextStep();
-        code.unhighlight(20, 0, false);
-        code.highlight(22, 0, false);
+        code.unhighlight(14);
+        code.highlight(15);
 
         int pivotValue = array.getData(pivot);
         this.varTable.set(PIVOT_VALUE_KEY, String.valueOf(pivotValue));
 
         language.nextStep();
-        code.unhighlight(22, 0, false);
-        code.highlight(23, 0, false);
-        language.nextStep();
-        code.unhighlight(23, 0, false);
-        code.highlight(36, 0, false);
+        code.unhighlight(15);
+        code.highlight(16);
 
         swap(array, pivot, right);
 
         language.nextStep();
-        code.unhighlight(36, 0, false);
-        code.highlight(24, 0, false);
+        code.unhighlight(16);
+        code.highlight(17);
 
         int storeIndex = left;
         this.varTable.set(STORE_INDEX_KEY, String.valueOf(storeIndex));
 
         ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
-        language.nextStep();
+        storeIndexMarker.move(storeIndex, null, defaultDuration);
+
         ArrayMarker loopMarker = language.newArrayMarker(array, left, "i" + pointerCounter, null, loopPointerProps);
-        code.unhighlight(24, 0, false);
-        code.highlight(25, 0, false);
+        loopMarker.hide();
+
+        language.nextStep();
+        code.unhighlight(17);
 
         for (int i = left; i < right; i++) {
             language.nextStep();
+            code.highlight(18);
+            loopMarker.show();
             loopMarker.move(i, null, defaultDuration);
+
+            language.nextStep();
+            code.unhighlight(18);
+            code.highlight(19);
+
+            if (array.getData(i) >= pivotValue)
+                code.unhighlight(19);
 
             if (array.getData(i) < pivotValue) {
                 language.nextStep();
-                code.unhighlight(25, 0, false);
-                code.highlight(27, 0, false);
-                language.nextStep();
-                code.unhighlight(27, 0, false);
-                code.highlight(29, 0, false);
-                language.nextStep();
-                code.unhighlight(29, 0, false);
-                code.highlight(36, 0, false);
+                code.unhighlight(19);
+                code.highlight(20);
 
                 swap(array, storeIndex, i);
 
                 language.nextStep();
-                code.unhighlight(36, 0, false);
-                code.highlight(30, 0, false);
+                code.unhighlight(20);
+                code.highlight(21);
 
                 storeIndex++;
                 this.varTable.set(STORE_INDEX_KEY, String.valueOf(storeIndex));
 
+                language.nextStep();
                 storeIndexMarker.move(storeIndex, null, defaultDuration);
-                code.unhighlight(30, 0, false);
+
+                language.nextStep();
+                code.unhighlight(21);
             }
         }
-
         language.nextStep();
         loopMarker.hide();
-        code.highlight(36, 0, false);
-
-        swap(array, right, storeIndex);
 
         language.nextStep();
-        code.unhighlight(36, 0, false);
-        code.highlight(33, 0, false);
+        code.highlight(24);
+
+        swap(array, right, storeIndex);
         storeIndexMarker.hide();
+
+        language.nextStep();
+        code.unhighlight(24);
 
         return storeIndex;
     }
@@ -448,6 +448,7 @@ public class QuickselectGenerator implements Generator {
      * @param b     - element B you want to swap with elemen A
      */
     private void swap(IntArray array, int a, int b) {
+        language.nextStep();
         array.swap(a, b, null, defaultDuration);
     }
 
@@ -462,7 +463,7 @@ public class QuickselectGenerator implements Generator {
 
 
     public static void main(String[] args) {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 640, 480);
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
         QuickselectGenerator qs = new QuickselectGenerator(language);
         int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
         qs.start(array);
