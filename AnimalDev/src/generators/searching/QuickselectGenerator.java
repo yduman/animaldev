@@ -126,11 +126,6 @@ public class QuickselectGenerator implements Generator {
             "    return return left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
             "}";
 
-    /**
-     * initializing all properties, creating all primitives and executing the algorithm
-     *
-     * @param array - our array we are working with
-     */
     private void start(int[] array) {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -228,17 +223,6 @@ public class QuickselectGenerator implements Generator {
         language.nextStep();
     }
 
-    /**
-     * the quickselect algorithm wrapped up by the ANIMAL API
-     *
-     * @param array     - the array we are working with
-     * @param code      - the source code ANIMAL is working with
-     * @param left      - the left boundary of the array
-     * @param right     - the right boundary of the array
-     * @param kSmallest - the k smallest element you are searching for (0 = 1st smallest)
-     * @return k smallest element of the array
-     * @throws LineNotExistsException
-     */
     private int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest) {
         switch (kSmallest + 1) {
             case 1:
@@ -349,14 +333,6 @@ public class QuickselectGenerator implements Generator {
         }
     }
 
-    /**
-     * @param array - the array we are working with
-     * @param left  - the left boundary of the array
-     * @param right - the right boundary of the array
-     * @param pivot - the pivot element
-     * @param code  - the source code ANIMAL is working with
-     * @return storeIndex
-     */
     private int partition(IntArray array, int left, int right, int pivot, SourceCode code) {
         language.nextStep();
         code.unhighlight(5);
@@ -424,11 +400,10 @@ public class QuickselectGenerator implements Generator {
                 language.nextStep();
                 code.unhighlight(21);
             }
+            loopMarker.hide();
         }
         language.nextStep();
         loopMarker.hide();
-
-        language.nextStep();
         code.highlight(24);
 
         swap(array, right, storeIndex);
@@ -440,33 +415,23 @@ public class QuickselectGenerator implements Generator {
         return storeIndex;
     }
 
-    /**
-     * @param array - the array we are working with
-     * @param a     - element A you want to swap with element B
-     * @param b     - element B you want to swap with elemen A
-     */
     private void swap(IntArray array, int a, int b) {
         language.nextStep();
         array.swap(a, b, null, defaultDuration);
     }
 
-    /**
-     * @param left  - left border of array
-     * @param right - right border of array
-     * @return a random pivot element
-     */
     private int randomPivot(int left, int right) {
         return left + (int) Math.floor(Math.random() * (right - left + 1));
     }
 
 
-//    public static void main(String[] args) {
-//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
-//        QuickselectGenerator qs = new QuickselectGenerator(language);
-//        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
-//        qs.start(array);
-//        System.out.println(language);
-//    }
+    public static void main(String[] args) {
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
+        QuickselectGenerator qs = new QuickselectGenerator(language);
+        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
+        qs.start(array);
+        System.out.println(language);
+    }
 
     public void init() {
         language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);
