@@ -354,7 +354,6 @@ public class AmericanFlagSortGenerator implements Generator {
                     num = tmp;
                     this.varTable.set(NUM_KEY, String.valueOf(num));
 
-                    language.nextStep();
                     code.unhighlight(18);
 
                     language.nextStep();
@@ -363,6 +362,7 @@ public class AmericanFlagSortGenerator implements Generator {
                     from = to;
                     this.varTable.set(FROM_KEY, String.valueOf(from));
 
+                    language.nextStep();
                     code.unhighlight(19);
                 } while (from != origin);
             }
@@ -397,15 +397,15 @@ public class AmericanFlagSortGenerator implements Generator {
         return language.toString();
     }
 
-//    public static void main(String[] args) throws Exception {
-//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
-//        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
-//        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-//        int radix = 4;
-//        afs.start(array, radix);
-//
-//        System.out.println(language);
-//    }
+    public static void main(String[] args) throws Exception {
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
+        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int radix = 4;
+        afs.start(array, radix);
+
+        System.out.println(language);
+    }
 
     public String getName() {
         return "American Flag Sort";

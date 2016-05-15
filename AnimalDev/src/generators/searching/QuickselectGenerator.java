@@ -45,6 +45,7 @@ public class QuickselectGenerator implements Generator {
     private Variables varTable;
     private String ordinal;
     private final static Timing defaultDuration = new TicksTiming(30);
+    private final static Timing swapDuration = new TicksTiming(120);
     private final String LEFT_KEY = "left";
     private final String RIGHT_KEY = "right";
     private final String PIVOT_KEY = "pivot";
@@ -417,7 +418,7 @@ public class QuickselectGenerator implements Generator {
 
     private void swap(IntArray array, int a, int b) {
         language.nextStep();
-        array.swap(a, b, null, defaultDuration);
+        array.swap(a, b, null, swapDuration);
     }
 
     private int randomPivot(int left, int right) {
