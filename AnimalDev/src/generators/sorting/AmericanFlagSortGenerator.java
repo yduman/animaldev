@@ -110,12 +110,6 @@ public class AmericanFlagSortGenerator implements Generator {
             "    array[b] = tmp;\n" +
             "}";
 
-    /**
-     * initializing all properties, creating all primitives and executing the algorithm
-     *
-     * @param array - the array which will be manipulated
-     * @param radix - the radix value
-     */
     private void start(int[] array, int radix) {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -185,6 +179,9 @@ public class AmericanFlagSortGenerator implements Generator {
         sourceCode.addCodeLine("}", null, 1, null);                                                        // 22
         sourceCode.addCodeLine("}", null, 0, null);                                                        // 23
 
+        // TODO: add topic name
+        // TODO: add intro and outro
+
         americanFlagSort(iArray, counts, offsets, sourceCode, radix);
 
         language.nextStep();
@@ -193,16 +190,9 @@ public class AmericanFlagSortGenerator implements Generator {
         language.nextStep();
     }
 
-    /**
-     * The American Flag Sort algorithm wrapped up by the ANIMAL API
-     *
-     * @param array   - the array which will be manipulated
-     * @param counts  - an array of length radix, where the counts are hold
-     * @param offsets - an array of length radix, where the offsets are hold
-     * @param code    - the source code ANIMAL is working with
-     * @param radix   - the radix value
-     */
     private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, SourceCode code, int radix) {
+        // TODO: choose radix internally, as biggest abs in array
+
         language.nextStep("start of algorithm");
         arrayHeader.show();
         code.highlight(0);
@@ -229,6 +219,9 @@ public class AmericanFlagSortGenerator implements Generator {
             code.highlight(3);
             language.nextStep();
             code.unhighlight(3);
+
+
+
 
             int num = array.getData(i);
             int pos = num % radix;
@@ -286,6 +279,8 @@ public class AmericanFlagSortGenerator implements Generator {
                 code.unhighlight(9);
                 code.highlight(10);
 
+                // TODO: refactor variable from and to
+                // TODO: add counter for number of accesses
                 int from = origin;
                 this.varTable.set(FROM_KEY, String.valueOf(from));
 
@@ -369,22 +364,12 @@ public class AmericanFlagSortGenerator implements Generator {
         }
     }
 
-    /**
-     * Initializing the language object
-     */
     public void init() {
         language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(),
                 this.getAnimationAuthor(), 800, 600);
         language.setStepMode(true);
     }
 
-    /**
-     * executing the algorithm and generating everything for the ANIMAL Generator
-     *
-     * @param props      - ANIMAL properties
-     * @param primitives - ANIMAL primitives
-     * @return AnimalScript Code
-     */
     public String generate(AnimationPropertiesContainer props, Hashtable<String, Object> primitives) {
         radix = (Integer) primitives.get("radix");
         array = (int[]) primitives.get("array");
@@ -401,7 +386,7 @@ public class AmericanFlagSortGenerator implements Generator {
         Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
         AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
         int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-        int radix = 4;
+        int radix = 10;
         afs.start(array, radix);
 
         System.out.println(language);

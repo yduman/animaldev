@@ -213,6 +213,12 @@ public class QuickselectGenerator implements Generator {
         sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 33
         sourceCode.addCodeLine("}", null, 0, null); // 34
 
+        // TODO: add topic name
+        // TODO: add intro and outro
+        // TODO: fix storeIndex with openContext() and closeContext()
+        // TODO: add kSmallest in varTable and animation slides
+        // TODO: fix kSmallest as 1 = 1st smallest, no zero!
+        // TODO: delete randomPivot() and swap() from source code but give a hint in source code description of ANIMAL
 
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
