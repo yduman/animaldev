@@ -35,23 +35,16 @@ public class AmericanFlagSortGenerator implements Generator {
     private int[] array;
     private ArrayProperties arrayProperties;
     private SourceCodeProperties scProperties;
-    private TextProperties textProperties;
+    private TextProperties textProperties, headerProperties, introAndOutroProperties, notificationProperties;
     private Variables varTable;
-    private Text arrayHeader, countsHeader, offsetsHeader, description;
+    private Text header, arrayHeader, countsHeader, offsetsHeader;
+    private Text[] introLines, outroLines;
     private final static Timing defaultDuration = new TicksTiming(30);
     private final String ORIGIN_KEY = "origin-key";
     private final String FROM_KEY = "from-key";
     private final String NUM_KEY = "num-key";
     private final String TO_KEY = "to-key";
     private final String TMP_KEY = "tmp-key";
-
-    public AmericanFlagSortGenerator() {
-    }
-
-    public AmericanFlagSortGenerator(Language l) {
-        this.language = l;
-        language.setStepMode(true);
-    }
 
     private static final String AFS_DESCRIPTION = ""
             + "An American flag sort is an efficient, in-place variant of radix " +
@@ -110,6 +103,49 @@ public class AmericanFlagSortGenerator implements Generator {
             "    array[b] = tmp;\n" +
             "}";
 
+    private String[] descriptionLines = {
+            "An American flag sort is an efficient, in-place variant of radix sort that distributes items into buckets.",
+            "With some optimizations, it is twice as fast as quicksort.",
+            "The name comes by analogy with the Dutch national flag problem in the last step:",
+            "efficiently partition the array into many stripes.",
+            "American flag sort can only sort integers (or objects that can be interpreted as integers).",
+            "In-place sorting algorithms, including American flag sort, run without allocating a significant",
+            "amount of memory beyond that used by the original array. This is a significant advantage, both in",
+            "memory savings and in time saved copying the array.",
+            "American flag sort works by successively dividing a list of objects into buckets based on the first",
+            "digit of their base-N representation (the base used is referred to as the radix). When N is 2, each",
+            "object can be swapped into the correct bucket by using the Dutch national flag algorithm.",
+            "where each bucket should begin and end. American flag sort gets around this problem by making two",
+            "passes through the array. The first pass counts the number of objects that belong in each of the N",
+            "buckets. The beginning and end of each bucket in the original array is then computed as the sum of",
+            "sizes of preceding buckets. The second pass swaps each object into place.",
+            "source: https://en.wikipedia.org/wiki/American_flag_sort"
+    };
+
+    private String[] summaryLines = {
+            "After the execution of American Flag Sort, with radix equal to the highest absolute value of the array,",
+            "your array should be sorted in ascending order.",
+            "The asymptotic time complexity is O(n log n) for worst, average and best case performance."
+    };
+
+    public AmericanFlagSortGenerator() {
+    }
+
+    public AmericanFlagSortGenerator(Language l) {
+        this.language = l;
+        language.setStepMode(true);
+    }
+
+    private Text[] getIntroOutroText(String[] descriptionLines, Coordinates coordinates, TextProperties properties, int offset) {
+        Text[] text = new Text[descriptionLines.length];
+
+        for (int i = 0; i < descriptionLines.length; i++) {
+            text[i] = language.newText(new Coordinates(coordinates.getX(), coordinates.getY() + offset * i),
+                    descriptionLines[i], "introLines", null, properties);
+        }
+        return text;
+    }
+
     private void start(int[] array, int radix) {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -128,6 +164,26 @@ public class AmericanFlagSortGenerator implements Generator {
         textProperties = new TextProperties();
         textProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
 
+        headerProperties = new TextProperties();
+        headerProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 14));
+        headerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+
+        introAndOutroProperties = new TextProperties();
+        introAndOutroProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.PLAIN, 14));
+
+        notificationProperties = new TextProperties();
+        notificationProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 20));
+        notificationProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
+
+        language.nextStep("description of algorithm");
+        header = language.newText(new Coordinates(20, 30), "American Flag Sort", "header", null, headerProperties);
+        introLines = this.getIntroOutroText(descriptionLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+
+        language.nextStep();
+        for (Text intro : introLines) {
+            intro.hide();
+        }
+
         this.varTable = this.language.newVariables();
 
         this.varTable.declare("int", ORIGIN_KEY);
@@ -137,7 +193,6 @@ public class AmericanFlagSortGenerator implements Generator {
         this.varTable.declare("int", TMP_KEY);
 
         arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrayHeader", null, textProperties);
-
         countsHeader = language.newText(new Coordinates(220, 80), "counts", "countsHeader", null, textProperties);
         countsHeader.hide();
 
@@ -179,14 +234,22 @@ public class AmericanFlagSortGenerator implements Generator {
         sourceCode.addCodeLine("}", null, 1, null);                                                        // 22
         sourceCode.addCodeLine("}", null, 0, null);                                                        // 23
 
-        // TODO: add topic name
-        // TODO: add intro and outro
-
         americanFlagSort(iArray, counts, offsets, sourceCode, radix);
 
         language.nextStep();
         language.hideAllPrimitives();
         arrayHeader.hide();
+        header.show();
+
+        language.nextStep("outro");
+        outroLines = this.getIntroOutroText(summaryLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+
+        language.nextStep();
+        for (Text outro : outroLines) {
+            outro.hide();
+        }
+
+        language.hideAllPrimitives();
         language.nextStep();
     }
 
@@ -362,6 +425,8 @@ public class AmericanFlagSortGenerator implements Generator {
                 } while (from != origin);
             }
         }
+        language.nextStep();
+        language.newText(new Coordinates(500, 250), "The Array is sorted!", "sortedNotification", null, notificationProperties);
     }
 
     public void init() {
@@ -427,5 +492,4 @@ public class AmericanFlagSortGenerator implements Generator {
     public String getOutputLanguage() {
         return Generator.JAVA_OUTPUT;
     }
-
 }

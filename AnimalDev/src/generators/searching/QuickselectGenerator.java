@@ -137,7 +137,6 @@ public class QuickselectGenerator implements Generator {
         arrayProperties.set(AnimationPropertiesKeys.CELLHIGHLIGHT_PROPERTY, Color.YELLOW);
 
         IntArray iArray = language.newIntArray(new Coordinates(40, 100), array, "intArray", null, arrayProperties);
-        language.nextStep();
 
         scProperties = new SourceCodeProperties();
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
