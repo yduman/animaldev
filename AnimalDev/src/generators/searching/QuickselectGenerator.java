@@ -10,17 +10,10 @@ import java.awt.Font;
 import java.util.Hashtable;
 import java.util.Locale;
 
-import algoanim.exceptions.LineNotExistsException;
-import algoanim.primitives.ArrayMarker;
-import algoanim.primitives.IntArray;
-import algoanim.primitives.SourceCode;
-import algoanim.primitives.Variables;
+import algoanim.primitives.*;
 import algoanim.primitives.generators.AnimationType;
 import algoanim.primitives.generators.Language;
-import algoanim.properties.AnimationPropertiesKeys;
-import algoanim.properties.ArrayMarkerProperties;
-import algoanim.properties.ArrayProperties;
-import algoanim.properties.SourceCodeProperties;
+import algoanim.properties.*;
 import algoanim.util.Coordinates;
 import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
@@ -34,33 +27,25 @@ import generators.framework.properties.AnimationPropertiesContainer;
 public class QuickselectGenerator implements Generator {
     private Language language;
     private ArrayProperties arrayProperties;
-    private ArrayMarkerProperties kSmallestProps;
-    private ArrayMarkerProperties storeIndexProps;
-    private ArrayMarkerProperties loopPointerProps;
-    private ArrayMarkerProperties pivotPointerProps;
+    private ArrayMarkerProperties kSmallestProps, storeIndexProps, loopPointerProps, pivotPointerProps;
+    private TextProperties headerProperties, introAndOutroProperties, notificationProperties;
     private SourceCodeProperties scProperties;
     private int[] array;
     private int kSmallest;
     private int pointerCounter = 0;
     private Variables varTable;
-    private String ordinal;
+    private Text header, info;
+    private Text[] introLines, outroLines;
     private final static Timing defaultDuration = new TicksTiming(30);
-    private final static Timing swapDuration = new TicksTiming(120);
+    private final static Timing swapDuration = new TicksTiming(130);
     private final String LEFT_KEY = "left";
     private final String RIGHT_KEY = "right";
     private final String PIVOT_KEY = "pivot";
     private final String PIVOT_VALUE_KEY = "pivotValue";
     private final String STORE_INDEX_KEY = "storeIndex";
-
-    public QuickselectGenerator() {
-    }
-
-    public QuickselectGenerator(Language language) {
-        this.language = language;
-        language.setStepMode(true);
-    }
-
-    private static final String QUICKSELECT_DESCRIPTION = "In computer science, quickselect is a selection algorithm " +
+    private final String K_SMALLEST_KEY = "kSmallest";
+    private static final String QUICKSELECT_DESCRIPTION = "" +
+            "In computer science, quickselect is a selection algorithm " +
             "to find the k-th smallest element in an unordered list. It is related to the quicksort sorting algorithm. " +
             "Like quicksort, it was developed by Tony Hoare, and thus is also known as Hoare's selection algorithm. " +
             "Like quicksort, it is efficient in practice and has good average-case performance, but has poor " +
@@ -127,6 +112,49 @@ public class QuickselectGenerator implements Generator {
             "    return return left + (int) Math.floor(Math.random() * (right - left + 1));\n" +
             "}";
 
+    private String[] descriptionLines = {
+            "In computer science, quickselect is a selection algorithm",
+            "to find the k-th smallest element in an unordered list. It is related to the quicksort sorting algorithm.",
+            "Like quicksort, it was developed by Tony Hoare, and thus is also known as Hoare's selection algorithm.",
+            "Like quicksort, it is efficient in practice and has good average-case performance, but has poor",
+            "worst-case performance. Quickselect and variants is the selection algorithm most often used in efficient",
+            "real-world implementations.",
+            "Quickselect uses the same overall approach as quicksort, choosing one element as a pivot and",
+            "partitioning the data in two based on the pivot, accordingly as less than or greater than the pivot.",
+            "However, instead of recursing into both sides, as in quicksort, quickselect only recurses into one",
+            "side – the side with the element it is searching for. This reduces the average complexity",
+            "from O(n log n) to O(n).",
+            "As with quicksort, quickselect is generally implemented as an in-place algorithm, and beyond selecting",
+            "the k'th element, it also partially sorts the data. See selection algorithm for further discussion",
+            "of the connection with sorting.",
+            "source: https://en.wikipedia.org/wiki/Quickselect"
+    };
+
+    private String[] summaryLines = {
+            "The complexity of Quickselect:",
+            "Worst case performance: O(n^2)",
+            "Best case performance: O(n)",
+            "Average case performance: O(n)"
+    };
+
+    public QuickselectGenerator() {
+    }
+
+    public QuickselectGenerator(Language language) {
+        this.language = language;
+        language.setStepMode(true);
+    }
+
+    private Text[] getIntroOutroText(String[] descriptionLines, Coordinates coordinates, TextProperties properties, int offset) {
+        Text[] text = new Text[descriptionLines.length];
+
+        for (int i = 0; i < descriptionLines.length; i++) {
+            text[i] = language.newText(new Coordinates(coordinates.getX(), coordinates.getY() + offset * i),
+                    descriptionLines[i], "introOutroLines", null, properties);
+        }
+        return text;
+    }
+
     private void start(int[] array) {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -136,13 +164,22 @@ public class QuickselectGenerator implements Generator {
         arrayProperties.set(AnimationPropertiesKeys.ELEMHIGHLIGHT_PROPERTY, Color.RED);
         arrayProperties.set(AnimationPropertiesKeys.CELLHIGHLIGHT_PROPERTY, Color.YELLOW);
 
-        IntArray iArray = language.newIntArray(new Coordinates(40, 100), array, "intArray", null, arrayProperties);
-
         scProperties = new SourceCodeProperties();
         scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
         scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
         scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
         scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
+
+        headerProperties = new TextProperties();
+        headerProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 14));
+        headerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
+
+        introAndOutroProperties = new TextProperties();
+        introAndOutroProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.PLAIN, 14));
+
+        notificationProperties = new TextProperties();
+        notificationProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 20));
+        notificationProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
 
         pointerCounter++;
         pivotPointerProps = new ArrayMarkerProperties();
@@ -152,7 +189,7 @@ public class QuickselectGenerator implements Generator {
 
         pointerCounter++;
         kSmallestProps = new ArrayMarkerProperties();
-        kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, (kSmallest + 1) + ordinal + " smallest");
+        kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "kSmallest");
         kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
         kSmallestProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
 
@@ -167,6 +204,15 @@ public class QuickselectGenerator implements Generator {
         loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
         loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.MAGENTA);
 
+        language.nextStep("description of algorithm");
+        header = language.newText(new Coordinates(20, 30), "Quickselect", "header", null, headerProperties);
+        introLines = this.getIntroOutroText(descriptionLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+
+        language.nextStep();
+        for (Text intro : introLines) {
+            intro.hide();
+        }
+
         this.varTable = language.newVariables();
 
         this.varTable.declare("int", LEFT_KEY);
@@ -174,8 +220,11 @@ public class QuickselectGenerator implements Generator {
         this.varTable.declare("int", PIVOT_KEY);
         this.varTable.declare("int", PIVOT_VALUE_KEY);
         this.varTable.declare("int", STORE_INDEX_KEY);
+        this.varTable.declare("int", K_SMALLEST_KEY);
 
-        SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
+        IntArray iArray = language.newIntArray(new Coordinates(40, 130), array, "intArray", null, arrayProperties);
+        SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 160), "sourceCode", null, scProperties);
+
         sourceCode.addCodeLine("public int quickSelect(int[] array, int left, int right, int kSmallest) {", null, 0, null); // 0
         sourceCode.addCodeLine("if (left == right)", null, 1, null); // 1
         sourceCode.addCodeLine("return array[left];", null, 2, null); // 2
@@ -203,21 +252,9 @@ public class QuickselectGenerator implements Generator {
         sourceCode.addCodeLine("swap(array, right, storeIndex);", null, 1, null); // 24
         sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 25
         sourceCode.addCodeLine("}", null, 0, null); // 26
-        sourceCode.addCodeLine("public int randomPivot(int left, int right) {", null, 0, null); // 27
-        sourceCode.addCodeLine("return return left + (int) Math.floor(Math.random() * (right - left + 1));", null, 1, null); // 28
-        sourceCode.addCodeLine("}", null, 0, null); // 29
-        sourceCode.addCodeLine("public void swap(int[] array, int a, int b) {", null, 0, null); // 30
-        sourceCode.addCodeLine("int tmp = array[a];", null, 1, null); // 31
-        sourceCode.addCodeLine("array[a] = array[b];", null, 1, null); // 32
-        sourceCode.addCodeLine("array[b] = tmp;", null, 1, null); // 33
-        sourceCode.addCodeLine("}", null, 0, null); // 34
 
-        // TODO: add topic name
-        // TODO: add intro and outro
         // TODO: fix storeIndex with openContext() and closeContext()
-        // TODO: add kSmallest in varTable and animation slides
         // TODO: fix kSmallest as 1 = 1st smallest, no zero!
-        // TODO: delete randomPivot() and swap() from source code but give a hint in source code description of ANIMAL
 
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
@@ -226,23 +263,24 @@ public class QuickselectGenerator implements Generator {
         language.nextStep();
         sourceCode.unhighlight(7);
         language.hideAllPrimitives();
+        header.show();
+
+        language.nextStep("outro");
+        outroLines = this.getIntroOutroText(summaryLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+
+        language.nextStep();
+        for (Text outro : outroLines) {
+            outro.hide();
+        }
+
+        language.hideAllPrimitives();
         language.nextStep();
     }
 
     private int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest) {
-        switch (kSmallest + 1) {
-            case 1:
-                ordinal = "st";
-                break;
-            case 2:
-                ordinal = "nd";
-                break;
-            case 3:
-                ordinal = "rd";
-                break;
-            default:
-                ordinal = "th";
-        }
+        language.nextStep();
+        info = language.newText(new Coordinates(500, 200), "Looking for " + String.valueOf(kSmallest) + "." + "smallest",
+                "kSmallestInformation", null, notificationProperties);
 
         language.nextStep();
         code.highlight(0);
@@ -290,8 +328,15 @@ public class QuickselectGenerator implements Generator {
 
             if (kSmallest == pivot) {
                 pivotMarker.hide();
+                info.hide();
                 kSmallestMarker.move(pivot, null, defaultDuration);
                 kSmallestMarker.show();
+                int kSmallestValue = array.getData(kSmallest);
+                this.varTable.set(K_SMALLEST_KEY, String.valueOf(kSmallestValue));
+
+                language.nextStep();
+                language.newText(new Coordinates(500, 250), "kSmallest value is " + String.valueOf(kSmallestValue),
+                        "kSmallestNotification", null, notificationProperties);
             }
 
             if (kSmallest == pivot) {
@@ -299,7 +344,6 @@ public class QuickselectGenerator implements Generator {
                 pivotMarker.hide();
                 code.unhighlight(6);
                 code.highlight(7);
-
                 kSmallestMarker.hide();
                 return array.getData(kSmallest);
 

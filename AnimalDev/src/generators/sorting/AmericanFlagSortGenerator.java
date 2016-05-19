@@ -138,7 +138,7 @@ public class AmericanFlagSortGenerator implements Generator {
 
         for (int i = 0; i < descriptionLines.length; i++) {
             text[i] = language.newText(new Coordinates(coordinates.getX(), coordinates.getY() + offset * i),
-                    descriptionLines[i], "introLines", null, properties);
+                    descriptionLines[i], "introOutroLines", null, properties);
         }
         return text;
     }
@@ -188,6 +188,7 @@ public class AmericanFlagSortGenerator implements Generator {
         this.varTable.declare("int", SOURCE_KEY);
         this.varTable.declare("int", DESTINATION_KEY);
         this.varTable.declare("int", TMP_KEY);
+        // TODO: declare counts and offsets
 
         arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrasyHeader", null, textProperties);
 
@@ -198,11 +199,9 @@ public class AmericanFlagSortGenerator implements Generator {
                 maxAbsValue = absValue;
             }
         }
-
         radix = maxAbsValue + 1;
 
         IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
-
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
 
         sourceCode.addCodeLine("public void americanFlagSort(int[] array, int radix) {", null, 0, null);   // 0
