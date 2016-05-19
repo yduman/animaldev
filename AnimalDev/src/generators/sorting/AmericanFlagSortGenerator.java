@@ -252,6 +252,7 @@ public class AmericanFlagSortGenerator implements Generator {
 
     private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, SourceCode code, int radix) {
         // TODO: choose radix internally, as biggest abs in array
+        // TODO: add counter for number of accesses
 
         language.nextStep("start of algorithm");
         arrayHeader.show();
@@ -339,8 +340,6 @@ public class AmericanFlagSortGenerator implements Generator {
                 code.unhighlight(9);
                 code.highlight(10);
 
-                // TODO: refactor variable source and to
-                // TODO: add counter for number of accesses
                 int source = origin;
                 this.varTable.set(SOURCE_KEY, String.valueOf(source));
 
