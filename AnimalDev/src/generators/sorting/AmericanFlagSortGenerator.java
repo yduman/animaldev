@@ -40,11 +40,11 @@ public class AmericanFlagSortGenerator implements Generator {
     private Text header, arrayHeader, countsHeader, offsetsHeader;
     private Text[] introLines, outroLines;
     private final static Timing defaultDuration = new TicksTiming(30);
-    private final String ORIGIN_KEY = "origin-key";
-    private final String FROM_KEY = "from-key";
-    private final String NUM_KEY = "num-key";
-    private final String TO_KEY = "to-key";
-    private final String TMP_KEY = "tmp-key";
+    private final String ORIGIN_KEY = "origin";
+    private final String SOURCE_KEY = "source";
+    private final String NUM_KEY = "num";
+    private final String DESTINATION_KEY = "destination";
+    private final String TMP_KEY = "tmp";
 
     private static final String AFS_DESCRIPTION = ""
             + "An American flag sort is an efficient, in-place variant of radix " +
@@ -83,25 +83,22 @@ public class AmericanFlagSortGenerator implements Generator {
             "    for (int i = 0; i < RADIX; i++) {\n" +
             "        while (counts[i] > 0) {\n" +
             "            int origin = offsets[i];\n" +
-            "            int from = origin;\n" +
-            "            int num = array[from];\n" +
-            "            array[from] = -1;\n" +
+            "            int source = origin;\n" +
+            "            int num = array[source];\n" +
+            "            array[source] = -1;\n" +
             "\n" +
             "            do {\n" +
-            "                int to = offsets[num % RADIX]++;\n" +
+            "                int destination = offsets[num % RADIX]++;\n" +
             "                counts[num % RADIX]--;\n" +
-            "                swap(array, to, num);\n" +
-            "                from = to;\n" +
-            "            } while (from != origin);\n" +
+            "                int tmp = array[destination];\n" +
+            "                array[destination] = num;\n" +
+            "                num = tmp;\n" +
+            "                source = destination;\n" +
+            "            } while (source != origin);\n" +
             "        }\n" +
             "    }\n" +
             "}\n" +
-            "\n" +
-            "public void swap(int[] array, int a, int b) {\n" +
-            "    int tmp = array[a];\n" +
-            "    array[a] = array[b];\n" +
-            "    array[b] = tmp;\n" +
-            "}";
+            "\n";
 
     private String[] descriptionLines = {
             "An American flag sort is an efficient, in-place variant of radix sort that distributes items into buckets.",
@@ -188,8 +185,8 @@ public class AmericanFlagSortGenerator implements Generator {
 
         this.varTable.declare("int", ORIGIN_KEY);
         this.varTable.declare("int", NUM_KEY);
-        this.varTable.declare("int", FROM_KEY);
-        this.varTable.declare("int", TO_KEY);
+        this.varTable.declare("int", SOURCE_KEY);
+        this.varTable.declare("int", DESTINATION_KEY);
         this.varTable.declare("int", TMP_KEY);
 
         arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrayHeader", null, textProperties);
@@ -209,27 +206,27 @@ public class AmericanFlagSortGenerator implements Generator {
 
         SourceCode sourceCode = language.newSourceCode(new Coordinates(40, 140), "sourceCode", null, scProperties);
 
-        sourceCode.addCodeLine("public void americanFlagSort(int[] array, int radix) {", null, 0, null);    // 0
-        sourceCode.addCodeLine("int[] counts = new int[radix];", null, 1, null);                            // 1
-        sourceCode.addCodeLine("int[] offsets = new int[radix];", null, 1, null);                            // 2
+        sourceCode.addCodeLine("public void americanFlagSort(int[] array, int radix) {", null, 0, null);   // 0
+        sourceCode.addCodeLine("int[] counts = new int[radix];", null, 1, null);                           // 1
+        sourceCode.addCodeLine("int[] offsets = new int[radix];", null, 1, null);                          // 2
         sourceCode.addCodeLine("for (int num : array)", null, 1, null);                                    // 3
-        sourceCode.addCodeLine("counts[num % radix]++;", null, 2, null);                                    // 4
-        sourceCode.addCodeLine("for (int i = 1; i < radix; i++)", null, 1, null);                            // 5
-        sourceCode.addCodeLine("offsets[i] = offsets[i - 1] + counts[i - 1];", null, 2, null);                // 6
+        sourceCode.addCodeLine("counts[num % radix]++;", null, 2, null);                                   // 4
+        sourceCode.addCodeLine("for (int i = 1; i < radix; i++)", null, 1, null);                          // 5
+        sourceCode.addCodeLine("offsets[i] = offsets[i - 1] + counts[i - 1];", null, 2, null);             // 6
         sourceCode.addCodeLine("for (int i = 0; i < radix; i++) {", null, 1, null);                        // 7
-        sourceCode.addCodeLine("while (counts[i] > 0) {", null, 2, null);                                    // 8
-        sourceCode.addCodeLine("int origin = offsets[i];", null, 3, null);                                    // 9
-        sourceCode.addCodeLine("int from = origin;", null, 3, null);                                        // 10
-        sourceCode.addCodeLine("int num = array[from];", null, 3, null);                                    // 11
-        sourceCode.addCodeLine("array[from] = -1;", null, 3, null);                                        // 12
-        sourceCode.addCodeLine("do {", null, 3, null);                                                        // 13
-        sourceCode.addCodeLine("int to = offsets[num % radix]++;", null, 4, null);                            // 14
-        sourceCode.addCodeLine("counts[num % radix]--;", null, 4, null);                                    // 15
-        sourceCode.addCodeLine("int tmp = array[to];", null, 4, null);                                        // 16
-        sourceCode.addCodeLine("array[to] = num;", null, 4, null);                                            // 17
-        sourceCode.addCodeLine("num = tmp;", null, 4, null);                                                // 18
-        sourceCode.addCodeLine("from = to;", null, 4, null);                                                // 19
-        sourceCode.addCodeLine("} while (from != origin);", null, 3, null);                                // 20
+        sourceCode.addCodeLine("while (counts[i] > 0) {", null, 2, null);                                  // 8
+        sourceCode.addCodeLine("int origin = offsets[i];", null, 3, null);                                 // 9
+        sourceCode.addCodeLine("int source = origin;", null, 3, null);                                     // 10
+        sourceCode.addCodeLine("int num = array[source];", null, 3, null);                                 // 11
+        sourceCode.addCodeLine("array[source] = -1;", null, 3, null);                                      // 12
+        sourceCode.addCodeLine("do {", null, 3, null);                                                     // 13
+        sourceCode.addCodeLine("int destination = offsets[num % radix]++;", null, 4, null);                // 14
+        sourceCode.addCodeLine("counts[num % radix]--;", null, 4, null);                                   // 15
+        sourceCode.addCodeLine("int tmp = array[destination];", null, 4, null);                            // 16
+        sourceCode.addCodeLine("array[destination] = num;", null, 4, null);                                // 17
+        sourceCode.addCodeLine("num = tmp;", null, 4, null);                                               // 18
+        sourceCode.addCodeLine("source = destination;", null, 4, null);                                    // 19
+        sourceCode.addCodeLine("} while (source != origin);", null, 3, null);                              // 20
         sourceCode.addCodeLine("}", null, 2, null);                                                        // 21
         sourceCode.addCodeLine("}", null, 1, null);                                                        // 22
         sourceCode.addCodeLine("}", null, 0, null);                                                        // 23
@@ -342,16 +339,16 @@ public class AmericanFlagSortGenerator implements Generator {
                 code.unhighlight(9);
                 code.highlight(10);
 
-                // TODO: refactor variable from and to
+                // TODO: refactor variable source and to
                 // TODO: add counter for number of accesses
-                int from = origin;
-                this.varTable.set(FROM_KEY, String.valueOf(from));
+                int source = origin;
+                this.varTable.set(SOURCE_KEY, String.valueOf(source));
 
                 language.nextStep();
                 code.unhighlight(10);
                 code.highlight(11);
 
-                int num = array.getData(from);
+                int num = array.getData(source);
                 this.varTable.set(NUM_KEY, String.valueOf(num));
 
                 language.nextStep();
@@ -359,12 +356,12 @@ public class AmericanFlagSortGenerator implements Generator {
                 code.highlight(12);
 
                 language.nextStep();
-                array.highlightCell(from, null, defaultDuration);
-                array.put(from, -1, null, defaultDuration);
+                array.highlightCell(source, null, defaultDuration);
+                array.put(source, -1, null, defaultDuration);
 
                 language.nextStep();
                 code.unhighlight(12);
-                array.unhighlightCell(from, null, defaultDuration);
+                array.unhighlightCell(source, null, defaultDuration);
                 code.highlight(13);
 
                 do {
@@ -372,8 +369,8 @@ public class AmericanFlagSortGenerator implements Generator {
                     code.unhighlight(13);
                     code.highlight(14);
 
-                    int to = offsets.getData(num % radix);
-                    this.varTable.set(TO_KEY, String.valueOf(to));
+                    int destination = offsets.getData(num % radix);
+                    this.varTable.set(DESTINATION_KEY, String.valueOf(destination));
 
                     language.nextStep();
                     offsets.highlightCell(num % radix, null, defaultDuration);
@@ -393,7 +390,7 @@ public class AmericanFlagSortGenerator implements Generator {
                     counts.unhighlightCell(num % radix, null, defaultDuration);
                     code.highlight(16);
 
-                    int tmp = array.getData(to);
+                    int tmp = array.getData(destination);
                     this.varTable.set(TMP_KEY, String.valueOf(tmp));
 
                     language.nextStep();
@@ -401,12 +398,12 @@ public class AmericanFlagSortGenerator implements Generator {
                     code.highlight(17);
 
                     language.nextStep();
-                    array.highlightCell(to, null, defaultDuration);
-                    array.put(to, num, null, defaultDuration);
+                    array.highlightCell(destination, null, defaultDuration);
+                    array.put(destination, num, null, defaultDuration);
 
                     language.nextStep();
                     code.unhighlight(17);
-                    array.unhighlightCell(to, null, defaultDuration);
+                    array.unhighlightCell(destination, null, defaultDuration);
                     code.highlight(18);
 
                     num = tmp;
@@ -417,12 +414,12 @@ public class AmericanFlagSortGenerator implements Generator {
                     language.nextStep();
                     code.highlight(19);
 
-                    from = to;
-                    this.varTable.set(FROM_KEY, String.valueOf(from));
+                    source = destination;
+                    this.varTable.set(SOURCE_KEY, String.valueOf(source));
 
                     language.nextStep();
                     code.unhighlight(19);
-                } while (from != origin);
+                } while (source != origin);
             }
         }
         language.nextStep();
