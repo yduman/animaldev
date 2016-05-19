@@ -149,10 +149,6 @@
 				<value><Font>SansSerif</Font></value>
 			</AnimationPropertyItem>
 		</AnimationProperties>
-		<Primitive type="int">
-			<name>radix</name>
-			<value><int>10</int></value>
-		</Primitive>
 		<Primitive type="intArray">
 			<name>array</name>
 			<value><intArray>9, 8, 7, 6, 5, 4, 3, 2, 1, 0</intArray></value>
