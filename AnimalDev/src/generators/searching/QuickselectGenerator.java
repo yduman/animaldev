@@ -19,6 +19,7 @@ import algoanim.util.TicksTiming;
 import algoanim.util.Timing;
 import generators.framework.Generator;
 import generators.framework.GeneratorType;
+import generators.framework.ValidatingGenerator;
 import generators.framework.properties.AnimationPropertiesContainer;
 
 /**
@@ -254,7 +255,6 @@ public class QuickselectGenerator implements Generator {
         sourceCode.addCodeLine("}", null, 0, null); // 26
 
         // TODO: fix storeIndex with openContext() and closeContext()
-        // TODO: fix kSmallest as 1 = 1st smallest, no zero!
 
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
@@ -278,9 +278,20 @@ public class QuickselectGenerator implements Generator {
     }
 
     private int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest) {
+        if (kSmallest == 0) {
+            language.newText(new Coordinates(300, 200), "It seems like your kSmallest is invalid!",
+                    "errorLog1", null, notificationProperties);
+            language.newText(new Coordinates(300, 250), "Take a value >= 1 and <= length of array",
+                    "errorLog2", null, notificationProperties);
+            return -1;
+        } else {
+            kSmallest -= 1;
+        }
+
         language.nextStep();
-        info = language.newText(new Coordinates(500, 200), "Looking for " + String.valueOf(kSmallest) + "." + "smallest",
+        info = language.newText(new Coordinates(400, 100), "Looking for " + String.valueOf(kSmallest + 1) + ". smallest",
                 "kSmallestInformation", null, notificationProperties);
+        this.varTable.set(K_SMALLEST_KEY, String.valueOf(kSmallest));
 
         language.nextStep();
         code.highlight(0);
@@ -332,10 +343,10 @@ public class QuickselectGenerator implements Generator {
                 kSmallestMarker.move(pivot, null, defaultDuration);
                 kSmallestMarker.show();
                 int kSmallestValue = array.getData(kSmallest);
-                this.varTable.set(K_SMALLEST_KEY, String.valueOf(kSmallestValue));
 
                 language.nextStep();
-                language.newText(new Coordinates(500, 250), "kSmallest value is " + String.valueOf(kSmallestValue),
+                language.newText(new Coordinates(400, 100), String.valueOf(kSmallest + 1) + ". smallest value is " +
+                                String.valueOf(kSmallestValue),
                         "kSmallestNotification", null, notificationProperties);
             }
 
@@ -475,13 +486,14 @@ public class QuickselectGenerator implements Generator {
     }
 
 
-    public static void main(String[] args) {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
-        QuickselectGenerator qs = new QuickselectGenerator(language);
-        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
-        qs.start(array);
-        System.out.println(language);
-    }
+//    public static void main(String[] args) {
+//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
+//        QuickselectGenerator qs = new QuickselectGenerator(language);
+//        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
+//        kSmallest = 10;
+//        qs.start(array);
+//        System.out.println(language);
+//    }
 
     public void init() {
         language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, this.getAlgorithmName(), this.getAnimationAuthor(), 800, 600);

@@ -420,13 +420,13 @@ public class AmericanFlagSortGenerator implements Generator {
         return language.toString();
     }
 
-    public static void main(String[] args) throws Exception {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
-        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
-        int[] array = {9, 8, 17, 42, 5, 4, 3, 12, 1, 0};
-        afs.start(array);
-        System.out.println(language);
-    }
+//    public static void main(String[] args) throws Exception {
+//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
+//        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+//        int[] array = {9, 8, 17, 42, 5, 4, 3, 12, 1, 0};
+//        afs.start(array);
+//        System.out.println(language);
+//    }
 
     public String getName() {
         return "American Flag Sort";
