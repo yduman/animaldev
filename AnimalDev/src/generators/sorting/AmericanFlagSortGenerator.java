@@ -32,7 +32,7 @@ import generators.framework.properties.AnimationPropertiesContainer;
  */
 public class AmericanFlagSortGenerator implements ValidatingGenerator {
     private Language language;
-    private static int radix;
+    private int radix;
     private int[] array;
     private ArrayProperties arrayProperties;
     private SourceCodeProperties scProperties;
@@ -144,7 +144,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         return text;
     }
 
-    private void start(int[] array) {
+    private void start(int[] array, int radix) {
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
         arrayProperties.set(AnimationPropertiesKeys.FILL_PROPERTY, Color.WHITE);
@@ -195,15 +195,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         countsHeader.hide();
         offsetsHeader = language.newText(new Coordinates(420, 80), "offsets", "offsetsHeader", null, textProperties);
         offsetsHeader.hide();
-
-        int maxAbsValue = 0;
-        for (int number : array) {
-            int absValue = Math.abs(number);
-            if (absValue > maxAbsValue) {
-                maxAbsValue = absValue;
-            }
-        }
-        radix = maxAbsValue + 1;
 
         IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
         IntArray counts = language.newIntArray(new Coordinates(220, 100), new int[radix], "countsArray", null, arrayProperties);
@@ -434,27 +425,39 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
     public String generate(AnimationPropertiesContainer props, Hashtable<String, Object> primitives) {
         array = (int[]) primitives.get("array");
+        radix = (Integer) primitives.get("radix");
         arrayProperties = (ArrayProperties) props.getPropertiesByName("arrayProperties");
         scProperties = (SourceCodeProperties) props.getPropertiesByName("scProperties");
 
         init();
-        start(array);
+        start(array, radix);
 
         return language.toString();
     }
 
     public boolean validateInput(AnimationPropertiesContainer props, Hashtable<String, Object> primitives)
             throws IllegalArgumentException {
-        return false;
+        radix = (Integer) primitives.get("radix");
+
+        if (radix > 12) {
+            throw new IllegalArgumentException("" +
+                    "Your radix value is too big to visualize! " +
+                    "Please pick a radix less than 13\n" +
+                    "If you want to have sorting in ascending order, " +
+                    "your highest array element has to be equal to radix!");
+        } else {
+            return true;
+        }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "AFS", "YD", 800, 600);
-//        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
-//        int[] array = {9, 8, 17, 42, 5, 4, 3, 12, 1, 0};
-//        afs.start(array);
-//        System.out.println(language);
-//    }
+    public static void main(String[] args) throws Exception {
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
+        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int radix = 13;
+        afs.start(array, radix);
+        System.out.println(language);
+    }
 
     public String getName() {
         return "American Flag Sort";
