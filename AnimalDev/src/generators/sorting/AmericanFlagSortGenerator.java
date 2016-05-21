@@ -5,10 +5,7 @@
  */
 package generators.sorting;
 
-import algoanim.primitives.IntArray;
-import algoanim.primitives.SourceCode;
-import algoanim.primitives.Text;
-import algoanim.primitives.Variables;
+import algoanim.primitives.*;
 import algoanim.primitives.generators.AnimationType;
 import algoanim.properties.*;
 import algoanim.util.Coordinates;
@@ -38,7 +35,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     private SourceCodeProperties scProperties;
     private TextProperties textProperties, headerProperties, introAndOutroProperties, notificationProperties;
     private Variables varTable;
-    private Text header, arrayHeader, countsHeader, offsetsHeader;
+    private Text header, arrayHeader, countsHeader, offsetsHeader, info;
     private Text[] introLines, outroLines;
     private final static Timing defaultDuration = new TicksTiming(30);
     private final String ORIGIN_KEY = "origin";
@@ -271,8 +268,11 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         code.unhighlight(2);
 
         language.nextStep("initializing counts array");
+        info = language.newText(new Coordinates(500, 250), "initializing counts array",
+                "countsInit", null, notificationProperties);
         for (int i = 0; i < array.getLength(); i++) {
             code.highlight(3);
+            array.highlightCell(i, null, defaultDuration);
             language.nextStep();
             code.unhighlight(3);
 
@@ -281,6 +281,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
             language.nextStep();
             code.highlight(4);
+            array.unhighlightCell(i, null, defaultDuration);
             counts.highlightCell(pos, null, defaultDuration);
 
             counts.put(pos, counts.getData(pos) + 1, null, defaultDuration);
@@ -289,8 +290,11 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             code.unhighlight(4);
             counts.unhighlightCell(pos, null, defaultDuration);
         }
+        info.hide();
 
         language.nextStep("initializing offsets array");
+        info = language.newText(new Coordinates(500, 250), "initializing offsets array",
+                "offsetsInit", null, notificationProperties);
         for (int i = 1; i < radix; i++) {
             code.highlight(5);
             language.nextStep();
@@ -308,8 +312,11 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             code.unhighlight(6);
             offsets.unhighlightCell(i, null, defaultDuration);
         }
+        info.hide();
 
         language.nextStep("execution of American Flag Sort");
+        info = language.newText(new Coordinates(500, 250), "sort by radix",
+                "radixSort", null, notificationProperties);
         for (int i = 0; i < radix; i++) {
             language.nextStep();
             code.highlight(7);
@@ -413,6 +420,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
                 } while (source != origin);
             }
         }
+        info.hide();
         language.nextStep();
         language.newText(new Coordinates(500, 250), "The Array is sorted!", "sortedNotification", null, notificationProperties);
     }
@@ -438,26 +446,41 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     public boolean validateInput(AnimationPropertiesContainer props, Hashtable<String, Object> primitives)
             throws IllegalArgumentException {
         radix = (Integer) primitives.get("radix");
+        array = (int[]) primitives.get("array");
 
-        if (radix > 12) {
+        if (radix > 14) {
             throw new IllegalArgumentException("" +
-                    "Your radix value is too big to visualize! " +
-                    "Please pick a radix less than 13\n" +
-                    "If you want to have sorting in ascending order, " +
-                    "your highest array element has to be equal to radix!");
-        } else {
-            return true;
+                    "Your radix is too big to visualize! " +
+                    "Please pick a radix less than 15.");
         }
+
+        if (radix <= 0) {
+            throw new IllegalArgumentException("" +
+                    "Your radix is inappropriate for visualization!\n" +
+                    "For appropriate visualization the value should be:\n" +
+                    "10 <= radix < 15");
+        }
+
+        for (int num : array) {
+            if (Math.abs(num) >= radix) {
+                throw new IllegalArgumentException("" +
+                        "Please select array-elements, " +
+                        "where its absolute value is less than radix, " +
+                        "in order guarantee a sort in ascending order!");
+            }
+        }
+
+        return true;
     }
 
-    public static void main(String[] args) throws Exception {
-        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
-        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
-        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-        int radix = 13;
-        afs.start(array, radix);
-        System.out.println(language);
-    }
+//    public static void main(String[] args) throws Exception {
+//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
+//        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+//        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+//        int radix = 11;
+//        afs.start(array, radix);
+//        System.out.println(language);
+//    }
 
     public String getName() {
         return "American Flag Sort";
