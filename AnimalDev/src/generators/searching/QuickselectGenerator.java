@@ -25,7 +25,7 @@ import generators.framework.properties.AnimationPropertiesContainer;
 /**
  * @author Yadullah Duman
  */
-public class QuickselectGenerator implements Generator {
+public class QuickselectGenerator implements ValidatingGenerator {
     private Language language;
     private ArrayProperties arrayProperties;
     private ArrayMarkerProperties kSmallestProps, storeIndexProps, loopPointerProps, pivotPointerProps;
@@ -219,8 +219,8 @@ public class QuickselectGenerator implements Generator {
         this.varTable.declare("int", LEFT_KEY);
         this.varTable.declare("int", RIGHT_KEY);
         this.varTable.declare("int", PIVOT_KEY);
-        this.varTable.declare("int", PIVOT_VALUE_KEY);
-        this.varTable.declare("int", STORE_INDEX_KEY);
+        // this.varTable.declare("int", PIVOT_VALUE_KEY);
+        // this.varTable.declare("int", STORE_INDEX_KEY);
         this.varTable.declare("int", K_SMALLEST_KEY);
 
         IntArray iArray = language.newIntArray(new Coordinates(40, 130), array, "intArray", null, arrayProperties);
@@ -254,8 +254,6 @@ public class QuickselectGenerator implements Generator {
         sourceCode.addCodeLine("return storeIndex;", null, 1, null); // 25
         sourceCode.addCodeLine("}", null, 0, null); // 26
 
-        // TODO: fix storeIndex with openContext() and closeContext()
-
         iArray.highlightCell(0, iArray.getLength() - 1, null, null);
 
         quickSelect(iArray, sourceCode, 0, (iArray.getLength() - 1), this.kSmallest);
@@ -278,15 +276,7 @@ public class QuickselectGenerator implements Generator {
     }
 
     private int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest) {
-        if (kSmallest == 0) {
-            language.newText(new Coordinates(300, 200), "It seems like your kSmallest is invalid!",
-                    "errorLog1", null, notificationProperties);
-            language.newText(new Coordinates(300, 250), "Take a value >= 1 and <= length of array",
-                    "errorLog2", null, notificationProperties);
-            return -1;
-        } else {
-            kSmallest -= 1;
-        }
+        kSmallest -= 1;
 
         language.nextStep();
         info = language.newText(new Coordinates(400, 100), "Looking for " + String.valueOf(kSmallest + 1) + ". smallest",
@@ -326,6 +316,8 @@ public class QuickselectGenerator implements Generator {
             code.highlight(5);
 
             pivot = partition(array, left, right, pivot, code);
+            this.varTable.discard(STORE_INDEX_KEY);
+            this.varTable.discard(PIVOT_VALUE_KEY);
             this.varTable.set(PIVOT_KEY, String.valueOf(pivot));
 
             language.nextStep();
@@ -404,6 +396,7 @@ public class QuickselectGenerator implements Generator {
         code.highlight(15);
 
         int pivotValue = array.getData(pivot);
+        this.varTable.declare("int", PIVOT_VALUE_KEY);
         this.varTable.set(PIVOT_VALUE_KEY, String.valueOf(pivotValue));
 
         language.nextStep();
@@ -417,6 +410,7 @@ public class QuickselectGenerator implements Generator {
         code.highlight(17);
 
         int storeIndex = left;
+        this.varTable.declare("int", STORE_INDEX_KEY);
         this.varTable.set(STORE_INDEX_KEY, String.valueOf(storeIndex));
 
         ArrayMarker storeIndexMarker = language.newArrayMarker(array, storeIndex, "storeIndex" + pointerCounter, null, storeIndexProps);
@@ -490,7 +484,7 @@ public class QuickselectGenerator implements Generator {
 //        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "Quickselect", "Yadullah Duman", 800, 600);
 //        QuickselectGenerator qs = new QuickselectGenerator(language);
 //        int[] array = {100, 90, 80, 70, 10, 60, 50, 40, 30, 20};
-//        kSmallest = 10;
+//        kSmallest = 3;
 //        qs.start(array);
 //        System.out.println(language);
 //    }
@@ -514,6 +508,19 @@ public class QuickselectGenerator implements Generator {
         start(array);
 
         return language.toString();
+    }
+
+    public boolean validateInput(AnimationPropertiesContainer props, Hashtable<String, Object> primitives)
+            throws IllegalArgumentException {
+        kSmallest = (int) primitives.get("kSmallest");
+
+        if (kSmallest == 0) {
+            throw new IllegalArgumentException("" +
+                    "Your kSmallest is invalid!\n" +
+                    "Please pick a value >= 1 and <= array-length\n" +
+                    "Imagine saying \"I want the third smallest element\", then pick 3 as kSmallest.");
+        }
+        return true;
     }
 
     public String getAlgorithmName() {
