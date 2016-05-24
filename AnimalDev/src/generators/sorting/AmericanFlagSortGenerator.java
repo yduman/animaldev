@@ -172,7 +172,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
         header = language.newText(new Coordinates(20, 30), "American Flag Sort", "header", null, headerProperties);
         introLines = this.getIntroOutroText(descriptionLines, new Coordinates(20, 80), introAndOutroProperties, 20);
-        language.nextStep("description of algorithm");
+        language.nextStep("intro");
 
         language.nextStep();
         for (Text intro : introLines) {
@@ -245,12 +245,12 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     }
 
     private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, SourceCode code, int radix) {
-        language.nextStep("start of algorithm");
+        language.nextStep();
         arrayHeader.show();
         code.highlight(0);
         code.unhighlight(0);
 
-        language.nextStep();
+        language.nextStep("american flag sort start");
         code.highlight(1);
 
         language.nextStep();
@@ -313,9 +313,10 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         }
         info.hide();
 
-        language.nextStep("execution of American Flag Sort");
+        language.nextStep();
         info = language.newText(new Coordinates(500, 250), "sort by radix",
                 "radixSort", null, notificationProperties);
+        language.nextStep("execution of American Flag Sort");
         for (int i = 0; i < radix; i++) {
             language.nextStep();
             code.highlight(7);
@@ -472,14 +473,14 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         return true;
     }
 
-//    public static void main(String[] args) throws Exception {
-//        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
-//        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
-//        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-//        int radix = 11;
-//        afs.start(array, radix);
-//        System.out.println(language);
-//    }
+    public static void main(String[] args) throws Exception {
+        Language language = Language.getLanguageInstance(AnimationType.ANIMALSCRIPT, "American Flag Sort", "Yadullah Duman", 800, 600);
+        AmericanFlagSortGenerator afs = new AmericanFlagSortGenerator(language);
+        int[] array = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int radix = 11;
+        afs.start(array, radix);
+        System.out.println(language);
+    }
 
     public String getName() {
         return "American Flag Sort";
