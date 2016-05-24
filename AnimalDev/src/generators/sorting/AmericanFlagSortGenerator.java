@@ -170,9 +170,9 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         notificationProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 20));
         notificationProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
 
-        language.nextStep("description of algorithm");
         header = language.newText(new Coordinates(20, 30), "American Flag Sort", "header", null, headerProperties);
         introLines = this.getIntroOutroText(descriptionLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+        language.nextStep("description of algorithm");
 
         language.nextStep();
         for (Text intro : introLines) {
@@ -232,8 +232,8 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         arrayHeader.hide();
         header.show();
 
-        language.nextStep("outro");
         outroLines = this.getIntroOutroText(summaryLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+        language.nextStep("outro");
 
         language.nextStep();
         for (Text outro : outroLines) {
@@ -245,7 +245,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     }
 
     private void americanFlagSort(IntArray array, IntArray counts, IntArray offsets, SourceCode code, int radix) {
-        // TODO: add counter for number of accesses
         language.nextStep("start of algorithm");
         arrayHeader.show();
         code.highlight(0);

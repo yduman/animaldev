@@ -168,9 +168,9 @@ public class QuickselectGenerator implements ValidatingGenerator {
         notificationProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 20));
         notificationProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
 
-        language.nextStep("description of algorithm");
         header = language.newText(new Coordinates(20, 30), "Quickselect", "header", null, headerProperties);
         introLines = this.getIntroOutroText(descriptionLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+        language.nextStep("intro");
 
         language.nextStep();
         for (Text intro : introLines) {
@@ -224,8 +224,8 @@ public class QuickselectGenerator implements ValidatingGenerator {
         language.hideAllPrimitives();
         header.show();
 
-        language.nextStep("outro");
         outroLines = this.getIntroOutroText(summaryLines, new Coordinates(20, 80), introAndOutroProperties, 20);
+        language.nextStep("outro");
 
         language.nextStep();
         for (Text outro : outroLines) {
@@ -298,9 +298,15 @@ public class QuickselectGenerator implements ValidatingGenerator {
                 int kSmallestValue = array.getData(kSmallest);
 
                 language.nextStep();
-                language.newText(new Coordinates(400, 100), String.valueOf(kSmallest + 1) + ". smallest value is " +
-                                String.valueOf(kSmallestValue),
-                        "kSmallestNotification", null, notificationProperties);
+                language.newText(new Coordinates(350, 60),
+                        "kSmallest is equal to the pivot!",
+                        "kSmallestNotification1", null, notificationProperties);
+                language.newText(new Coordinates(350, 80),
+                        "We are finished and found our kSmallest!",
+                        "kSmallestNotification2", null, notificationProperties);
+                language.newText(new Coordinates(350, 100),
+                        String.valueOf(kSmallest + 1) + ". smallest value is " + String.valueOf(kSmallestValue),
+                        "kSmallestNotification3", null, notificationProperties);
             }
 
             if (kSmallest == pivot) {
