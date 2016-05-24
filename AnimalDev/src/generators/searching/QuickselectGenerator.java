@@ -157,20 +157,6 @@ public class QuickselectGenerator implements ValidatingGenerator {
     }
 
     private void start(int[] array) {
-        arrayProperties = new ArrayProperties();
-        arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-        arrayProperties.set(AnimationPropertiesKeys.FILL_PROPERTY, Color.WHITE);
-        arrayProperties.set(AnimationPropertiesKeys.FILLED_PROPERTY, Boolean.TRUE);
-        arrayProperties.set(AnimationPropertiesKeys.ELEMENTCOLOR_PROPERTY, Color.BLACK);
-        arrayProperties.set(AnimationPropertiesKeys.ELEMHIGHLIGHT_PROPERTY, Color.RED);
-        arrayProperties.set(AnimationPropertiesKeys.CELLHIGHLIGHT_PROPERTY, Color.YELLOW);
-
-        scProperties = new SourceCodeProperties();
-        scProperties.set(AnimationPropertiesKeys.CONTEXTCOLOR_PROPERTY, Color.BLUE);
-        scProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 12));
-        scProperties.set(AnimationPropertiesKeys.HIGHLIGHTCOLOR_PROPERTY, Color.RED);
-        scProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-
         headerProperties = new TextProperties();
         headerProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 14));
         headerProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
@@ -181,29 +167,6 @@ public class QuickselectGenerator implements ValidatingGenerator {
         notificationProperties = new TextProperties();
         notificationProperties.set(AnimationPropertiesKeys.FONT_PROPERTY, new Font("SansSerif", Font.BOLD, 20));
         notificationProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
-
-        pointerCounter++;
-        pivotPointerProps = new ArrayMarkerProperties();
-        pivotPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "pivot");
-        pivotPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLUE);
-        pivotPointerProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
-
-        pointerCounter++;
-        kSmallestProps = new ArrayMarkerProperties();
-        kSmallestProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "kSmallest");
-        kSmallestProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.RED);
-        kSmallestProps.set(AnimationPropertiesKeys.LONG_MARKER_PROPERTY, true);
-
-        pointerCounter++;
-        storeIndexProps = new ArrayMarkerProperties();
-        storeIndexProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "storeIndex");
-        storeIndexProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
-        storeIndexProps.set(AnimationPropertiesKeys.SHORT_MARKER_PROPERTY, true);
-
-        pointerCounter++;
-        loopPointerProps = new ArrayMarkerProperties();
-        loopPointerProps.set(AnimationPropertiesKeys.LABEL_PROPERTY, "i");
-        loopPointerProps.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.MAGENTA);
 
         language.nextStep("description of algorithm");
         header = language.newText(new Coordinates(20, 30), "Quickselect", "header", null, headerProperties);
@@ -219,8 +182,6 @@ public class QuickselectGenerator implements ValidatingGenerator {
         this.varTable.declare("int", LEFT_KEY);
         this.varTable.declare("int", RIGHT_KEY);
         this.varTable.declare("int", PIVOT_KEY);
-        // this.varTable.declare("int", PIVOT_VALUE_KEY);
-        // this.varTable.declare("int", STORE_INDEX_KEY);
         this.varTable.declare("int", K_SMALLEST_KEY);
 
         IntArray iArray = language.newIntArray(new Coordinates(40, 130), array, "intArray", null, arrayProperties);
