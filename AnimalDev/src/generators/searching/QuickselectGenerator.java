@@ -238,6 +238,7 @@ public class QuickselectGenerator implements ValidatingGenerator {
 
     private int quickSelect(IntArray array, SourceCode code, int left, int right, int kSmallest) {
         kSmallest -= 1;
+        int outerForLoopCounter = 0;
 
         language.nextStep();
         info = language.newText(new Coordinates(400, 100), "Looking for " + String.valueOf(kSmallest + 1) + ". smallest",
@@ -247,7 +248,7 @@ public class QuickselectGenerator implements ValidatingGenerator {
         language.nextStep();
         code.highlight(0);
 
-        language.nextStep();
+        language.nextStep("start of quickselect");
         code.unhighlight(0);
         code.highlight(1);
 
@@ -259,10 +260,11 @@ public class QuickselectGenerator implements ValidatingGenerator {
         code.unhighlight(1);
 
         for (; ; ) {
+            outerForLoopCounter++;
             language.nextStep();
             code.highlight(3);
 
-            language.nextStep();
+            language.nextStep("quickselect for-loop " + outerForLoopCounter);
             code.unhighlight(3);
             code.highlight(4);
 
@@ -358,7 +360,7 @@ public class QuickselectGenerator implements ValidatingGenerator {
         code.unhighlight(5);
         code.highlight(14);
 
-        language.nextStep();
+        language.nextStep("start of partition");
         code.unhighlight(14);
         code.highlight(15);
 
@@ -395,7 +397,7 @@ public class QuickselectGenerator implements ValidatingGenerator {
             loopMarker.show();
             loopMarker.move(i, null, defaultDuration);
 
-            language.nextStep();
+            language.nextStep("partition for-loop " + i);
             code.unhighlight(18);
             code.highlight(19);
 
