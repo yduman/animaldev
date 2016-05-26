@@ -15,6 +15,8 @@ import generators.framework.Generator;
 import generators.framework.GeneratorType;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Locale;
 
 import algoanim.primitives.generators.Language;
@@ -43,6 +45,9 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     private final String NUM_KEY = "num";
     private final String DESTINATION_KEY = "destination";
     private final String TMP_KEY = "tmp";
+    private final String DIGIT_COUNT_KEY = "digitCount";
+    private final String DIVISOR_KEY = "divisor";
+    private final String DIGIT_KEY = "digit";
 
     private static final String AFS_DESCRIPTION = ""
             + "An American flag sort is an efficient, in-place variant of radix " +
@@ -66,37 +71,77 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             "\n" +
             "source: https://en.wikipedia.org/wiki/American_flag_sort";
 
-    private static final String AFS_SOURCE_CODE = "" +
-            "public void sort(int[] array) {\n" +
-            "    final int RADIX = 4;\n" +
-            "\n" +
-            "    int[] counts = new int[RADIX];\n" +
-            "    for (int num : array)\n" +
-            "        counts[num % RADIX]++;\n" +
-            "\n" +
-            "    int[] offsets = new int[RADIX];\n" +
-            "    for (int i = 1; i < RADIX; i++)\n" +
-            "        offsets[i] = offsets[i - 1] + counts[i - 1];\n" +
-            "\n" +
-            "    for (int i = 0; i < RADIX; i++) {\n" +
-            "        while (counts[i] > 0) {\n" +
-            "            int origin = offsets[i];\n" +
-            "            int source = origin;\n" +
-            "            int num = array[source];\n" +
-            "            array[source] = -1;\n" +
-            "\n" +
-            "            do {\n" +
-            "                int destination = offsets[num % RADIX]++;\n" +
-            "                counts[num % RADIX]--;\n" +
-            "                int tmp = array[destination];\n" +
-            "                array[destination] = num;\n" +
-            "                num = tmp;\n" +
-            "                source = destination;\n" +
-            "            } while (source != origin);\n" +
-            "        }\n" +
+    private static final String AFS_SOURCE_CODE = "    " +
+            "public int[] sort(int[] array, int radix) {\n" +
+            "        int digitCount = getDigitCount(array);\n" +
+            "        int divisor = (int) Math.pow(10, digitCount);\n" +
+            "        americanFlagSort(array, 0, array.length, divisor, radix);\n" +
+            "        return array;\n" +
             "    }\n" +
-            "}\n" +
-            "\n";
+            "\n" +
+            "    private void americanFlagSort(int[] array, int start, int length, int divisor, int radix) {\n" +
+            "\n" +
+            "        // First pass - find counts\n" +
+            "        int[] counts = new int[radix];\n" +
+            "        int[] offsets = new int[radix];\n" +
+            "\n" +
+            "        for (int i = start; i < length; i++) {\n" +
+            "            int digit = getDigit(array[i], divisor, radix);\n" +
+            "            counts[digit]++;\n" +
+            "        }\n" +
+            "\n" +
+            "        offsets[0] = start;\n" +
+            "        for (int i = 1; i < radix; i++) {\n" +
+            "            offsets[i] = counts[i - 1] + offsets[i - 1];\n" +
+            "        }\n" +
+            "\n" +
+            "        // Second pass - move into position\n" +
+            "        for (int i = 0; i < radix; i++) {\n" +
+            "            while (counts[i] > 0) {\n" +
+            "                int origin = offsets[i];\n" +
+            "                int from = origin;\n" +
+            "                int num = array[from];\n" +
+            "                array[from] = -1;\n" +
+            "\n" +
+            "                do {\n" +
+            "                    int digit = getDigit(num, divisor, radix);\n" +
+            "                    int to = offsets[digit]++;\n" +
+            "                    counts[digit]--;\n" +
+            "                    int tmp = array[to];\n" +
+            "                    array[to] = num;\n" +
+            "                    num = tmp;\n" +
+            "                    from = to;\n" +
+            "                } while (from != origin);\n" +
+            "            }\n" +
+            "        }\n" +
+            "\n" +
+            "        if (divisor > 1) {\n" +
+            "            for (int i = 0; i < radix; i++) {\n" +
+            "                int begin = (i > 0) ? offsets[i - 1] : start;\n" +
+            "                int end = offsets[i];\n" +
+            "\n" +
+            "                if (end - begin > 1) {\n" +
+            "                    americanFlagSort(array, begin, end, divisor / 10, radix);\n" +
+            "                }\n" +
+            "            }\n" +
+            "        }\n" +
+            "\n" +
+            "    }\n" +
+            "\n" +
+            "    private int getDigit(int elem, int divisor, int radix) {\n" +
+            "        return (elem / divisor) % radix;\n" +
+            "    }\n" +
+            "\n" +
+            "    private int getDigitCount(int[] array) {\n" +
+            "        int maxDigitCount = Integer.MIN_VALUE;\n" +
+            "        for (int number : array) {\n" +
+            "            int tmp = (int) Math.log10(number) + 1;\n" +
+            "            if (tmp > maxDigitCount) {\n" +
+            "                maxDigitCount = tmp;\n" +
+            "            }\n" +
+            "        }\n" +
+            "        return maxDigitCount;\n" +
+            "    }";
 
     private String[] descriptionLines = {
             "An American flag sort is an efficient, in-place variant of radix sort that distributes items into buckets.",
@@ -143,8 +188,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
     private void start(int[] array, int radix) {
         // TODO: delete properties which are set by XML later
-        // TODO: update varTable
-        // TODO: update source code
         // TODO: highlight & unhighlight code from getDigit() and getDigitCount()
         // TODO: fix counts and offsets initialization
 
@@ -199,6 +242,9 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         this.varTable.declare("int", SOURCE_KEY);
         this.varTable.declare("int", DESTINATION_KEY);
         this.varTable.declare("int", TMP_KEY);
+        this.varTable.declare("int", DIGIT_KEY);
+        this.varTable.declare("int", DIGIT_COUNT_KEY);
+        this.varTable.declare("int", DIVISOR_KEY);
 
         // initialize the heades for each array
         arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrasyHeader", null, textProperties);
@@ -260,22 +306,22 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         sourceCode.addCodeLine("}", null, 1, null);                                                             // 42
         sourceCode.addCodeLine("}", null, 0, null);                                                             // 43
 
-        // getDigit()
-        sourceCode.addCodeLine("private int getDigit(int elem, int divisor, int radix) {", null, 0, null);      // 44
-        sourceCode.addCodeLine("return (elem / divisor) % radix;", null, 1, null);                              // 45
-        sourceCode.addCodeLine("}", null, 0, null);                                                             // 46
-
-        // getDigitCount()
-        sourceCode.addCodeLine("private int getDigitCount(int[] array) {", null, 0, null);                      // 47
-        sourceCode.addCodeLine("int maxDigitCount = Integer.MIN_VALUE;", null, 1, null);                        // 48
-        sourceCode.addCodeLine("for (int number : array) {", null, 1, null);                                    // 49
-        sourceCode.addCodeLine("int tmp = (int) Math.log10(number) + 1;", null, 2, null);                       // 50
-        sourceCode.addCodeLine("if (tmp > maxDigitCount) {", null, 2, null);                                    // 51
-        sourceCode.addCodeLine("maxDigitCount = tmp;", null, 3, null);                                          // 52
-        sourceCode.addCodeLine("}", null, 2, null);                                                             // 53
-        sourceCode.addCodeLine("}", null, 1, null);                                                             // 54
-        sourceCode.addCodeLine("return maxDigitCount;", null, 1, null);                                         // 55
-        sourceCode.addCodeLine("}", null, 0, null);                                                             // 56
+//        // getDigit()
+//        sourceCode.addCodeLine("private int getDigit(int elem, int divisor, int radix) {", null, 0, null);      // 44
+//        sourceCode.addCodeLine("return (elem / divisor) % radix;", null, 1, null);                              // 45
+//        sourceCode.addCodeLine("}", null, 0, null);                                                             // 46
+//
+//        // getDigitCount()
+//        sourceCode.addCodeLine("private int getDigitCount(int[] array) {", null, 0, null);                      // 47
+//        sourceCode.addCodeLine("int maxDigitCount = Integer.MIN_VALUE;", null, 1, null);                        // 48
+//        sourceCode.addCodeLine("for (int number : array) {", null, 1, null);                                    // 49
+//        sourceCode.addCodeLine("int tmp = (int) Math.log10(number) + 1;", null, 2, null);                       // 50
+//        sourceCode.addCodeLine("if (tmp > maxDigitCount) {", null, 2, null);                                    // 51
+//        sourceCode.addCodeLine("maxDigitCount = tmp;", null, 3, null);                                          // 52
+//        sourceCode.addCodeLine("}", null, 2, null);                                                             // 53
+//        sourceCode.addCodeLine("}", null, 1, null);                                                             // 54
+//        sourceCode.addCodeLine("return maxDigitCount;", null, 1, null);                                         // 55
+//        sourceCode.addCodeLine("}", null, 0, null);                                                             // 56
 
         // start algorithm
         sort(iArray, sourceCode, radix);
@@ -288,6 +334,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         header.show();
 
         // show outro
+        language.nextStep();
         outroLines = this.getIntroOutroText(summaryLines, new Coordinates(20, 80), introAndOutroProperties, 20);
         language.nextStep("outro");
 
@@ -300,6 +347,13 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         language.nextStep();
     }
 
+    /***************************************************************
+     *                                                             *
+     *                                                             *
+     *                          START                              *
+     *                                                             *
+     *                                                             *
+     ***************************************************************/
     private void sort(IntArray array, SourceCode code, int radix) {
         language.nextStep();
         arrayHeader.show();
@@ -308,25 +362,25 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
         language.nextStep("sort()");
         code.highlight(1);
-
-        language.nextStep();
         int digitCount = getDigitCount(array);
+        this.varTable.set(DIGIT_COUNT_KEY, String.valueOf(digitCount));
 
         language.nextStep();
         code.unhighlight(1);
         code.highlight(2);
         int divisor = (int) Math.pow(10, digitCount);
+        this.varTable.set(DIVISOR_KEY, String.valueOf(divisor));
 
         language.nextStep();
         code.unhighlight(2);
         code.highlight(3);
-        americanFlagSort(array, 0, array.getLength(), divisor, radix, code);
 
         language.nextStep();
         code.unhighlight(3);
-        code.highlight(4);
+        americanFlagSort(array, 0, array.getLength(), divisor, radix, code);
 
         language.nextStep();
+        code.highlight(4);
         code.unhighlight(4);
     }
 
@@ -352,8 +406,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         code.unhighlight(8);
 
         language.nextStep("initializing counts array");
-        info = language.newText(new Coordinates(500, 250), "initializing counts array", "countsInit", null, notificationProperties);
-
         for (int i = start; i < length; i++)
         {
             code.highlight(9);
@@ -364,6 +416,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             language.nextStep();
             code.highlight(10);
             int digit = getDigit(array.getData(i), divisor, radix);
+            this.varTable.set(DIGIT_KEY, String.valueOf(digit));
 
             language.nextStep();
             code.unhighlight(10);
@@ -377,10 +430,8 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             code.unhighlight(11);
             counts.unhighlightCell(digit, null, defaultDuration);
         }
-        info.hide();
 
         language.nextStep("initializing offsets array");
-        info = language.newText(new Coordinates(500, 250), "initializing offsets array", "offsetsInit", null, notificationProperties);
         code.highlight(13);
         offsets.put(0, start, null, defaultDuration);
 
@@ -403,10 +454,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             code.unhighlight(15);
             offsets.unhighlightCell(i, null, defaultDuration);
         }
-        info.hide();
 
-        language.nextStep();
-        info = language.newText(new Coordinates(500, 250), "sort by radix", "radixSort", null, notificationProperties);
         language.nextStep();
         for (int i = 0; i < radix; i++) {
             language.nextStep();
@@ -459,6 +507,8 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
                     code.highlight(24);
 
                     int digit = getDigit(num, divisor, radix);
+                    this.varTable.set(DIGIT_KEY, String.valueOf(digit));
+
                     int destination = offsets.getData(digit);
                     this.varTable.set(DESTINATION_KEY, String.valueOf(destination));
 
@@ -514,7 +564,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
                 } while (source != origin);
             }
         }
-        info.hide();
 
         if (divisor > 1) {
             language.nextStep();
@@ -546,6 +595,10 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
                     language.nextStep();
                     code.unhighlight(39);
+                    counts.hide();
+                    countsHeader.hide();
+                    offsets.hide();
+                    offsetsHeader.hide();
                     americanFlagSort(array, begin, end, divisor / 10, radix, code);
                 }
             }
@@ -605,7 +658,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         int[] array = {9, 8, 47, 6, 5, 4, 13, 12, 1, 0};
         int radix = 10;
         afs.start(array, radix);
-        System.out.println(language);
+        System.out.println(language.toString());
     }
 
     public String getName() {

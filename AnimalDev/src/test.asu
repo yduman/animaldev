@@ -1,0 +1,3596 @@
+%Animal 2 800*600
+title "American Flag Sort"
+author "Yadullah Duman"
+{
+  text "header" "American Flag Sort" (20, 30) color (0, 0, 255) depth 1 font SansSerif size 14 bold
+  text "introOutroLines" "An American flag sort is an efficient, in-place variant of radix sort that distributes items into buckets." (20, 80) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text1" "With some optimizations, it is twice as fast as quicksort." (20, 100) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text2" "The name comes by analogy with the Dutch national flag problem in the last step:" (20, 120) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text3" "efficiently partition the array into many stripes." (20, 140) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text4" "American flag sort can only sort integers (or objects that can be interpreted as integers)." (20, 160) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text5" "In-place sorting algorithms, including American flag sort, run without allocating a significant" (20, 180) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text6" "amount of memory beyond that used by the original array. This is a significant advantage, both in" (20, 200) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text7" "memory savings and in time saved copying the array." (20, 220) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text8" "American flag sort works by successively dividing a list of objects into buckets based on the first" (20, 240) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text9" "digit of their base-N representation (the base used is referred to as the radix). When N is 2, each" (20, 260) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text10" "object can be swapped into the correct bucket by using the Dutch national flag algorithm." (20, 280) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text11" "where each bucket should begin and end. American flag sort gets around this problem by making two" (20, 300) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text12" "passes through the array. The first pass counts the number of objects that belong in each of the N" (20, 320) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text13" "buckets. The beginning and end of each bucket in the original array is then computed as the sum of" (20, 340) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text14" "sizes of preceding buckets. The second pass swaps each object into place." (20, 360) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text15" "source: https://en.wikipedia.org/wiki/American_flag_sort" (20, 380) color (0, 0, 0) depth 1 font SansSerif size 14
+}
+label "intro"
+{
+}
+{
+  declare origin initvalue "0"
+  update origin to "0"
+  declare num initvalue "0"
+  update origin to "0"
+  update num to "0"
+  declare source initvalue "0"
+  update origin to "0"
+  update num to "0"
+  declare destination initvalue "0"
+  update source to "0"
+  declare tmp initvalue "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  declare digit initvalue "0"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  declare digitCount initvalue "0"
+  update digit to "0"
+  declare divisor initvalue "0"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "0"
+  update digit to "0"
+  text "arrasyHeader" "array" (20, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
+  text "countsHeader" "counts" (220, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
+  text "offsetsHeader" "offsets" (420, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
+  array "intArray" (20, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "9" "8" "47" "6" "5" "4" "13" "12" "1" "0"  depth 1 font SansSerif size 12
+  codegroup "sourceCode" at (40, 140) color (0, 0, 0) highlightColor (255, 0, 0) contextColor (0, 0, 255) font SansSerif size 12 bold depth 1
+  addCodeLine "public int[] sort(int[] array, int radix) {" to "sourceCode"
+  addCodeLine "int digitCount = getDigitCount(array);" to "sourceCode" indentation 1
+  addCodeLine "int divisor = (int) Math.pow(10, digitCount);" to "sourceCode" indentation 1
+  addCodeLine "americanFlagSort(array, 0, array.length, divisor, radix);" to "sourceCode" indentation 1
+  addCodeLine "return array;" to "sourceCode" indentation 1
+  addCodeLine "}" to "sourceCode"
+  addCodeLine "private void americanFlagSort(int[] array, int start, int length, int divisor, int radix) {" to "sourceCode"
+  addCodeLine "int[] counts = new int[radix];" to "sourceCode" indentation 1
+  addCodeLine "int[] offsets = new int[radix];" to "sourceCode" indentation 1
+  addCodeLine "for (int i = start; i < length; i++) {" to "sourceCode" indentation 1
+  addCodeLine "int digit = getDigit(array[i], divisor, radix);" to "sourceCode" indentation 2
+  addCodeLine "counts[digit]++;" to "sourceCode" indentation 2
+  addCodeLine "}" to "sourceCode" indentation 1
+  addCodeLine "offsets[0] = start;" to "sourceCode" indentation 1
+  addCodeLine "for (int i = 1; i < radix; i++) {" to "sourceCode" indentation 1
+  addCodeLine "offsets[i] = counts[i - 1] + offsets[i - 1];" to "sourceCode" indentation 2
+  addCodeLine "}" to "sourceCode" indentation 1
+  addCodeLine "for (int i = 0; i < radix; i++) {" to "sourceCode" indentation 1
+  addCodeLine "while (counts[i] > 0) {" to "sourceCode" indentation 2
+  addCodeLine "int origin = offsets[i];" to "sourceCode" indentation 3
+  addCodeLine "int source = origin;" to "sourceCode" indentation 3
+  addCodeLine "int num = array[source];" to "sourceCode" indentation 3
+  addCodeLine "array[source] = -1;" to "sourceCode" indentation 3
+  addCodeLine "do {" to "sourceCode" indentation 3
+  addCodeLine "int digit = getDigit(num, divisor, radix);" to "sourceCode" indentation 4
+  addCodeLine "int destination = offsets[digit]++;" to "sourceCode" indentation 4
+  addCodeLine "counts[digit]--;" to "sourceCode" indentation 4
+  addCodeLine "int tmp = array[destination];" to "sourceCode" indentation 4
+  addCodeLine "array[destination] = num;" to "sourceCode" indentation 4
+  addCodeLine "num = tmp;" to "sourceCode" indentation 4
+  addCodeLine "source = destination;" to "sourceCode" indentation 4
+  addCodeLine "} while (from != origin);" to "sourceCode" indentation 3
+  addCodeLine "}" to "sourceCode" indentation 2
+  addCodeLine "}" to "sourceCode" indentation 1
+  addCodeLine "if (divisor > 1) {" to "sourceCode" indentation 1
+  addCodeLine "for (int i = 0; i < radix; i++) {" to "sourceCode" indentation 2
+  addCodeLine "int begin = (i > 0) ? offsets[i - 1] : start;" to "sourceCode" indentation 3
+  addCodeLine "int end = offsets[i];" to "sourceCode" indentation 3
+  addCodeLine "if (end - begin > 1) {" to "sourceCode" indentation 3
+  addCodeLine "americanFlagSort(array, begin, end, divisor / 10, radix);" to "sourceCode" indentation 4
+  addCodeLine "}" to "sourceCode" indentation 3
+  addCodeLine "}" to "sourceCode" indentation 2
+  addCodeLine "}" to "sourceCode" indentation 1
+  addCodeLine "}" to "sourceCode"
+  hide "introOutroLines" "Text1" "Text2" "Text3" "Text4" "Text5" "Text6" "Text7" "Text8" "Text9" "Text10" "Text11" "Text12" "Text13" "Text14" "Text15" "countsHeader" "offsetsHeader" 
+}
+{
+  show "arrasyHeader" 
+  highlightCode on "sourceCode" line 0 row 0  
+  unhighlightCode on "sourceCode" line 0 row 0  
+}
+label "sort()"
+{
+  highlightCode on "sourceCode" line 1 row 0  
+  update divisor to "0"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 1 row 0  
+  highlightCode on "sourceCode" line 2 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 2 row 0  
+  highlightCode on "sourceCode" line 3 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 3 row 0  
+}
+{
+  highlightCode on "sourceCode" line 6 row 0  
+  unhighlightCode on "sourceCode" line 6 row 0  
+}
+label "start of american flag sort"
+{
+  highlightCode on "sourceCode" line 7 row 0  
+}
+{
+  show "countsHeader" 
+  array "countsArray" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 7 row 0  
+}
+{
+  highlightCode on "sourceCode" line 8 row 0  
+}
+{
+  show "offsetsHeader" 
+  array "offsetsArray" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 8 row 0  
+}
+label "initializing counts array"
+{
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "1" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 1   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "2" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 2   within 30 ticks
+  highlightArrayCell on "countsArray" position 4   within 30 ticks
+  arrayPut "1" on "countsArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "3" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 4   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "4" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 5   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "5" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 6   within 30 ticks
+  highlightArrayCell on "countsArray" position 1   within 30 ticks
+  arrayPut "1" on "countsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 7   within 30 ticks
+  highlightArrayCell on "countsArray" position 1   within 30 ticks
+  arrayPut "2" on "countsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 8   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "6" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 9   within 30 ticks
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "7" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+}
+label "initializing offsets array"
+{
+  highlightCode on "sourceCode" line 13 row 0  
+  arrayPut "0" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 13 row 0  
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  arrayPut "7" on "offsetsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 2   within 30 ticks
+  arrayPut "9" on "offsetsArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 3   within 30 ticks
+  arrayPut "9" on "offsetsArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 4   within 30 ticks
+  arrayPut "9" on "offsetsArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 5   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 6   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 7   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 8   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray" position 9   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray" position 9   within 30 ticks
+}
+{
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "9"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+  arrayPut "-1" on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "9"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "9"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "1" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "6" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "9"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+  arrayPut "9" on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "-1"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "-1"
+  update destination to "0"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "8"
+  update destination to "0"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 1   within 30 ticks
+  arrayPut "-1" on "intArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "8"
+  update destination to "0"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "8"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "2" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "5" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "8"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 1   within 30 ticks
+  arrayPut "8" on "intArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "-1"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "1"
+  update num to "-1"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "-1"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "-1"
+  update destination to "1"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "47"
+  update destination to "1"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 2   within 30 ticks
+  arrayPut "-1" on "intArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "47"
+  update destination to "1"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "4"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "47"
+  update destination to "9"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 4   within 30 ticks
+  arrayPut "10" on "offsetsArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 4   within 30 ticks
+  arrayPut "0" on "countsArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "2"
+  update num to "47"
+  update destination to "9"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 9   within 30 ticks
+  arrayPut "47" on "intArray" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "2"
+  update num to "0"
+  update destination to "9"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "4"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "2"
+  update num to "0"
+  update destination to "9"
+  update source to "9"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "2"
+  update num to "0"
+  update destination to "9"
+  update source to "9"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "2"
+  update num to "0"
+  update destination to "2"
+  update source to "9"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "3" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "4" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "0"
+  update destination to "2"
+  update source to "9"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 2   within 30 ticks
+  arrayPut "0" on "intArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "-1"
+  update destination to "2"
+  update source to "9"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "2"
+  update num to "-1"
+  update destination to "2"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "2"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "2"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "2"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+  arrayPut "-1" on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "2"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "4" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "3" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+  arrayPut "6" on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "-1"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "5"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 4   within 30 ticks
+  arrayPut "-1" on "intArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "5"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "5"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "5" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "2" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "5"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 4   within 30 ticks
+  arrayPut "5" on "intArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "-1"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "4"
+  update num to "-1"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "-1"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "-1"
+  update destination to "4"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "4"
+  update destination to "4"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 5   within 30 ticks
+  arrayPut "-1" on "intArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "4"
+  update destination to "4"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "4"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "6" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "1" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "4"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 5   within 30 ticks
+  arrayPut "4" on "intArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "-1"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "5"
+  update num to "-1"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "5"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "13"
+  update destination to "5"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 6   within 30 ticks
+  arrayPut "-1" on "intArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "13"
+  update destination to "5"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "13"
+  update destination to "7"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  arrayPut "8" on "offsetsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 1   within 30 ticks
+  arrayPut "1" on "countsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "6"
+  update num to "13"
+  update destination to "7"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 7   within 30 ticks
+  arrayPut "13" on "intArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "6"
+  update num to "12"
+  update destination to "7"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "6"
+  update num to "12"
+  update destination to "7"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "6"
+  update num to "12"
+  update destination to "7"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "1"
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "6"
+  update num to "12"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  arrayPut "9" on "offsetsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 1   within 30 ticks
+  arrayPut "0" on "countsArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "6"
+  update num to "12"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 8   within 30 ticks
+  arrayPut "12" on "intArray" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "6"
+  update num to "1"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "1"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "6"
+  update num to "1"
+  update destination to "8"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "6"
+  update num to "1"
+  update destination to "8"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "6"
+  update num to "1"
+  update destination to "6"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  arrayPut "7" on "offsetsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "countsArray" position 0   within 30 ticks
+  arrayPut "0" on "countsArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "1"
+  update destination to "6"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 6   within 30 ticks
+  arrayPut "1" on "intArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 34 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 34 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 38 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 38 row 0  
+  highlightCode on "sourceCode" line 39 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 39 row 0  
+  hide "countsArray" "countsHeader" "offsetsArray" "offsetsHeader" 
+}
+{
+  highlightCode on "sourceCode" line 6 row 0  
+  unhighlightCode on "sourceCode" line 6 row 0  
+}
+label "start of american flag sort"
+{
+  highlightCode on "sourceCode" line 7 row 0  
+}
+{
+  show "countsHeader" 
+  array "IntArray1" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 7 row 0  
+}
+{
+  highlightCode on "sourceCode" line 8 row 0  
+}
+{
+  show "offsetsHeader" 
+  array "IntArray2" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 8 row 0  
+}
+label "initializing counts array"
+{
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "9"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightArrayCell on "IntArray1" position 9   within 30 ticks
+  arrayPut "1" on "IntArray1" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "8"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 1   within 30 ticks
+  highlightArrayCell on "IntArray1" position 8   within 30 ticks
+  arrayPut "1" on "IntArray1" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 2   within 30 ticks
+  highlightArrayCell on "IntArray1" position 0   within 30 ticks
+  arrayPut "1" on "IntArray1" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "6"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightArrayCell on "IntArray1" position 6   within 30 ticks
+  arrayPut "1" on "IntArray1" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "5"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 4   within 30 ticks
+  highlightArrayCell on "IntArray1" position 5   within 30 ticks
+  arrayPut "1" on "IntArray1" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 5   within 30 ticks
+  highlightArrayCell on "IntArray1" position 4   within 30 ticks
+  arrayPut "1" on "IntArray1" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "6"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 6   within 30 ticks
+  highlightArrayCell on "IntArray1" position 1   within 30 ticks
+  arrayPut "1" on "IntArray1" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray1" position 1   within 30 ticks
+}
+label "initializing offsets array"
+{
+  highlightCode on "sourceCode" line 13 row 0  
+  arrayPut "0" on "IntArray2" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 13 row 0  
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 1   within 30 ticks
+  arrayPut "1" on "IntArray2" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 2   within 30 ticks
+  arrayPut "2" on "IntArray2" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 3   within 30 ticks
+  arrayPut "2" on "IntArray2" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 4   within 30 ticks
+  arrayPut "2" on "IntArray2" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 5   within 30 ticks
+  arrayPut "3" on "IntArray2" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 6   within 30 ticks
+  arrayPut "4" on "IntArray2" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 7   within 30 ticks
+  arrayPut "5" on "IntArray2" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 8   within 30 ticks
+  arrayPut "5" on "IntArray2" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray2" position 9   within 30 ticks
+  arrayPut "6" on "IntArray2" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray2" position 9   within 30 ticks
+}
+{
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "9"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+  arrayPut "-1" on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "9"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "9"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "9"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "9"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 9   within 30 ticks
+  arrayPut "7" on "IntArray2" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 9   within 30 ticks
+  arrayPut "0" on "IntArray1" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "0"
+  update num to "9"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "9"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 6   within 30 ticks
+  arrayPut "9" on "intArray" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "0"
+  update num to "1"
+  update destination to "6"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "9"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "0"
+  update num to "1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "9"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "0"
+  update num to "1"
+  update destination to "6"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+  update divisor to "10"
+  update tmp to "1"
+  update origin to "0"
+  update num to "1"
+  update destination to "1"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 1   within 30 ticks
+  arrayPut "2" on "IntArray2" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 1   within 30 ticks
+  arrayPut "0" on "IntArray1" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "8"
+  update origin to "0"
+  update num to "1"
+  update destination to "1"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 1   within 30 ticks
+  arrayPut "1" on "intArray" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "8"
+  update origin to "0"
+  update num to "8"
+  update destination to "1"
+  update source to "6"
+  update digitCount to "1"
+  update digit to "1"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "8"
+  update origin to "0"
+  update num to "8"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "1"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "8"
+  update origin to "0"
+  update num to "8"
+  update destination to "1"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "8"
+  update divisor to "10"
+  update tmp to "8"
+  update origin to "0"
+  update num to "8"
+  update destination to "5"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "8"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 8   within 30 ticks
+  arrayPut "6" on "IntArray2" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 8   within 30 ticks
+  arrayPut "0" on "IntArray1" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "4"
+  update origin to "0"
+  update num to "8"
+  update destination to "5"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "8"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 5   within 30 ticks
+  arrayPut "8" on "intArray" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "4"
+  update origin to "0"
+  update num to "4"
+  update destination to "5"
+  update source to "1"
+  update digitCount to "1"
+  update digit to "8"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "4"
+  update origin to "0"
+  update num to "4"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "8"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "4"
+  update origin to "0"
+  update num to "4"
+  update destination to "5"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "4"
+  update divisor to "10"
+  update tmp to "4"
+  update origin to "0"
+  update num to "4"
+  update destination to "2"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 4   within 30 ticks
+  arrayPut "3" on "IntArray2" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 4   within 30 ticks
+  arrayPut "0" on "IntArray1" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "4"
+  update destination to "2"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 2   within 30 ticks
+  arrayPut "4" on "intArray" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "2"
+  update source to "5"
+  update digitCount to "1"
+  update digit to "4"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "2"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "4"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "2"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+  update divisor to "10"
+  update tmp to "0"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 0   within 30 ticks
+  arrayPut "1" on "IntArray2" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 0   within 30 ticks
+  arrayPut "0" on "IntArray1" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "0"
+  update destination to "0"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 0   within 30 ticks
+  arrayPut "0" on "intArray" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "0"
+  update source to "2"
+  update digitCount to "1"
+  update digit to "0"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "0"
+  update num to "-1"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "0"
+  update source to "0"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "0"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "0"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "0"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+  arrayPut "-1" on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "0"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "6"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "6"
+  update destination to "4"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "6"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 6   within 30 ticks
+  arrayPut "5" on "IntArray2" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 6   within 30 ticks
+  arrayPut "0" on "IntArray1" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "5"
+  update origin to "3"
+  update num to "6"
+  update destination to "4"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "6"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 4   within 30 ticks
+  arrayPut "6" on "intArray" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "5"
+  update origin to "3"
+  update num to "5"
+  update destination to "4"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "6"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "5"
+  update origin to "3"
+  update num to "5"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "6"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "5"
+  update origin to "3"
+  update num to "5"
+  update destination to "4"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "5"
+  update divisor to "10"
+  update tmp to "5"
+  update origin to "3"
+  update num to "5"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "5"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray2" position 5   within 30 ticks
+  arrayPut "4" on "IntArray2" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray1" position 5   within 30 ticks
+  arrayPut "0" on "IntArray1" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray1" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "5"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "5"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 3   within 30 ticks
+  arrayPut "5" on "intArray" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "4"
+  update digitCount to "1"
+  update digit to "5"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "5"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 38 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 38 row 0  
+  highlightCode on "sourceCode" line 39 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 39 row 0  
+  hide "countsArray" "countsHeader" "offsetsArray" "offsetsHeader" 
+}
+{
+  highlightCode on "sourceCode" line 6 row 0  
+  unhighlightCode on "sourceCode" line 6 row 0  
+}
+label "start of american flag sort"
+{
+  highlightCode on "sourceCode" line 7 row 0  
+}
+{
+  show "countsHeader" 
+  array "IntArray3" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 7 row 0  
+}
+{
+  highlightCode on "sourceCode" line 8 row 0  
+}
+{
+  show "offsetsHeader" 
+  array "IntArray4" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
+  unhighlightCode on "sourceCode" line 8 row 0  
+}
+label "initializing counts array"
+{
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "3"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 7   within 30 ticks
+  highlightArrayCell on "IntArray3" position 3   within 30 ticks
+  arrayPut "1" on "IntArray3" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray3" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
+  highlightArrayCell on "intArray" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 9 row 0  
+}
+{
+  highlightCode on "sourceCode" line 10 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "3"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "intArray" position 8   within 30 ticks
+  highlightArrayCell on "IntArray3" position 2   within 30 ticks
+  arrayPut "1" on "IntArray3" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "IntArray3" position 2   within 30 ticks
+}
+label "initializing offsets array"
+{
+  highlightCode on "sourceCode" line 13 row 0  
+  arrayPut "7" on "IntArray4" position 0   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 13 row 0  
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 1   within 30 ticks
+  arrayPut "7" on "IntArray4" position 1   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 2   within 30 ticks
+  arrayPut "7" on "IntArray4" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 3   within 30 ticks
+  arrayPut "8" on "IntArray4" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 4   within 30 ticks
+  arrayPut "9" on "IntArray4" position 4   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 5   within 30 ticks
+  arrayPut "9" on "IntArray4" position 5   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 6   within 30 ticks
+  arrayPut "9" on "IntArray4" position 6   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 7   within 30 ticks
+  arrayPut "9" on "IntArray4" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 8   within 30 ticks
+  arrayPut "9" on "IntArray4" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 14 row 0  
+}
+{
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "IntArray4" position 9   within 30 ticks
+  arrayPut "9" on "IntArray4" position 9   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "IntArray4" position 9   within 30 ticks
+}
+{
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 18 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 18 row 0  
+}
+{
+  highlightCode on "sourceCode" line 19 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "-1"
+  update destination to "3"
+  update source to "3"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "-1"
+  update destination to "3"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "13"
+  update destination to "3"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 7   within 30 ticks
+  arrayPut "-1" on "intArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 22 row 0  
+  unhighlightArrayCell on "intArray" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 23 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "13"
+  update destination to "3"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "3"
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "13"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "3"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray4" position 3   within 30 ticks
+  arrayPut "9" on "IntArray4" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray4" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray3" position 3   within 30 ticks
+  arrayPut "0" on "IntArray3" position 3   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray3" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "7"
+  update num to "13"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "3"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 8   within 30 ticks
+  arrayPut "13" on "intArray" position 8   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "7"
+  update num to "12"
+  update destination to "8"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "3"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "7"
+  update num to "12"
+  update destination to "8"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "3"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "7"
+  update num to "12"
+  update destination to "8"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "2"
+  update divisor to "10"
+  update tmp to "12"
+  update origin to "7"
+  update num to "12"
+  update destination to "7"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "IntArray4" position 2   within 30 ticks
+  arrayPut "8" on "IntArray4" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "IntArray4" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
+}
+{
+  highlightArrayCell on "IntArray3" position 2   within 30 ticks
+  arrayPut "0" on "IntArray3" position 2   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "IntArray3" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "12"
+  update destination to "7"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
+}
+{
+  highlightArrayCell on "intArray" position 7   within 30 ticks
+  arrayPut "12" on "intArray" position 7   within 30 ticks
+}
+{
+  unhighlightCode on "sourceCode" line 28 row 0  
+  unhighlightArrayCell on "intArray" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 29 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "-1"
+  update destination to "7"
+  update source to "8"
+  update digitCount to "1"
+  update digit to "2"
+  unhighlightCode on "sourceCode" line 29 row 0  
+}
+{
+  highlightCode on "sourceCode" line 30 row 0  
+  update divisor to "10"
+  update tmp to "-1"
+  update origin to "7"
+  update num to "-1"
+  update destination to "7"
+  update source to "7"
+  update digitCount to "1"
+  update digit to "2"
+}
+{
+  unhighlightCode on "sourceCode" line 30 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+}
+{
+  highlightCode on "sourceCode" line 17 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 17 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
+}
+{
+  unhighlightCode on "sourceCode" line 37 row 0  
+}
+{
+  highlightCode on "sourceCode" line 4 row 0  
+  unhighlightCode on "sourceCode" line 4 row 0  
+}
+{
+  hideAll
+  show "header" 
+  hide "arrasyHeader" "countsHeader" "offsetsHeader" 
+}
+{
+  text "Text16" "After the execution of American Flag Sort, with radix equal to the highest absolute value of the array," (20, 80) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text17" "your array should be sorted in ascending order." (20, 100) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text18" "The asymptotic time complexity is O(n log n) for worst, average and best case performance." (20, 120) color (0, 0, 0) depth 1 font SansSerif size 14
+}
+label "outro"
+{
+}
+{
+  hideAll
+  hide "Text16" "Text17" "Text18" 
+}
