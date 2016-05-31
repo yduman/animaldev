@@ -50,7 +50,7 @@ label "intro"
   update destination to "0"
   update source to "0"
   update digit to "0"
-  text "arrasyHeader" "array" (20, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
+  text "arrayHeader" "array" (20, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
   array "intArray" (20, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "9" "8" "47" "6" "5" "4" "13" "12" "1" "0"  depth 1 font SansSerif size 12
   codegroup "sourceCode" at (40, 140) color (0, 0, 0) highlightColor (255, 0, 0) contextColor (0, 0, 255) font SansSerif size 12 bold depth 1
   addCodeLine "public int[] sort(int[] array, int radix) {" to "sourceCode"
@@ -97,16 +97,16 @@ label "intro"
   addCodeLine "}" to "sourceCode" indentation 2
   addCodeLine "}" to "sourceCode" indentation 1
   addCodeLine "}" to "sourceCode"
-  hide "introOutroLines" "Text1" "Text2" "Text3" "Text4" "Text5" "Text6" "Text7" "Text8" "Text9" "Text10" "Text11" "Text12" "Text13" "Text14" "Text15"
+  hide "introOutroLines" "Text1" "Text2" "Text3" "Text4" "Text5" "Text6" "Text7" "Text8" "Text9" "Text10" "Text11" "Text12" "Text13" "Text14" "Text15" 
 }
 {
-  show "arrasyHeader"
-  highlightCode on "sourceCode" line 0 row 0
-  unhighlightCode on "sourceCode" line 0 row 0
+  show "arrayHeader" 
+  highlightCode on "sourceCode" line 0 row 0  
+  unhighlightCode on "sourceCode" line 0 row 0  
 }
 label "start sort()"
 {
-  highlightCode on "sourceCode" line 1 row 0
+  highlightCode on "sourceCode" line 1 row 0  
   update divisor to "0"
   update tmp to "0"
   update origin to "0"
@@ -125,8 +125,8 @@ label "start sort()"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 1 row 0
-  highlightCode on "sourceCode" line 2 row 0
+  unhighlightCode on "sourceCode" line 1 row 0  
+  highlightCode on "sourceCode" line 2 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -137,12 +137,12 @@ label "start sort()"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 2 row 0
-  highlightCode on "sourceCode" line 3 row 0
+  unhighlightCode on "sourceCode" line 2 row 0  
+  highlightCode on "sourceCode" line 3 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 3 row 0
-  highlightCode on "sourceCode" line 6 row 0
+  unhighlightCode on "sourceCode" line 3 row 0  
+  highlightCode on "sourceCode" line 6 row 0  
   discard digitCount
   update divisor to "10"
   update tmp to "0"
@@ -154,32 +154,28 @@ label "start sort()"
 }
 label "start of american flag sort"
 {
-  unhighlightCode on "sourceCode" line 6 row 0
-  highlightCode on "sourceCode" line 7 row 0
-}
-{
+  unhighlightCode on "sourceCode" line 6 row 0  
+  highlightCode on "sourceCode" line 7 row 0  
   text "countsHeader" "counts" (220, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "countsArray" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 7 row 0
+  array "countsArray1" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
 }
 {
-  highlightCode on "sourceCode" line 8 row 0
-}
-{
+  unhighlightCode on "sourceCode" line 7 row 0  
+  highlightCode on "sourceCode" line 8 row 0  
   text "offsetsHeader" "offsets" (420, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "offsetsArray" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 8 row 0
+  array "offsetsArray1" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
 }
 label "initializing counts array"
 {
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 8 row 0  
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -189,23 +185,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "1" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "1" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -215,23 +211,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 1   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "2" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "2" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -241,23 +237,23 @@ label "initializing counts array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 2   within 30 ticks
-  highlightArrayCell on "countsArray" position 4   within 30 ticks
-  arrayPut "1" on "countsArray" position 4   within 30 ticks
+  highlightArrayCell on "countsArray1" position 4   within 30 ticks
+  arrayPut "1" on "countsArray1" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -267,23 +263,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "3" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "3" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -293,23 +289,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 4   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "4" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "4" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -319,23 +315,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 5   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "5" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "5" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -345,23 +341,23 @@ label "initializing counts array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 6   within 30 ticks
-  highlightArrayCell on "countsArray" position 1   within 30 ticks
-  arrayPut "1" on "countsArray" position 1   within 30 ticks
+  highlightArrayCell on "countsArray1" position 1   within 30 ticks
+  arrayPut "1" on "countsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 7   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -371,23 +367,23 @@ label "initializing counts array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 7   within 30 ticks
-  highlightArrayCell on "countsArray" position 1   within 30 ticks
-  arrayPut "2" on "countsArray" position 1   within 30 ticks
+  highlightArrayCell on "countsArray1" position 1   within 30 ticks
+  arrayPut "2" on "countsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -397,23 +393,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 8   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "6" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "6" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -423,157 +419,157 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 9   within 30 ticks
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "7" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "7" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
 }
 label "initializing offsets array"
 {
-  highlightCode on "sourceCode" line 13 row 0
-  arrayPut "0" on "offsetsArray" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 13 row 0  
+  arrayPut "0" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 13 row 0
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 13 row 0  
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  arrayPut "7" on "offsetsArray" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  arrayPut "7" on "offsetsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 2   within 30 ticks
-  arrayPut "9" on "offsetsArray" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 2   within 30 ticks
+  arrayPut "9" on "offsetsArray1" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 3   within 30 ticks
-  arrayPut "9" on "offsetsArray" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 3   within 30 ticks
+  arrayPut "9" on "offsetsArray1" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 4   within 30 ticks
-  arrayPut "9" on "offsetsArray" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 4   within 30 ticks
+  arrayPut "9" on "offsetsArray1" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 5   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 5   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 6   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 6   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 7   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 7   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 7   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 8   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 8   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "offsetsArray" position 9   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray1" position 9   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "offsetsArray" position 9   within 30 ticks
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 9   within 30 ticks
 }
 {
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -583,8 +579,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -594,8 +590,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -605,21 +601,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 0   within 30 ticks
   arrayPut "-1" on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -636,24 +632,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "1" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "1" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "6" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "6" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -663,17 +659,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 0   within 30 ticks
   arrayPut "9" on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -681,10 +677,10 @@ label "initializing offsets array"
   update destination to "0"
   update source to "0"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -694,16 +690,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -713,8 +709,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -724,8 +720,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -735,21 +731,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 1   within 30 ticks
   arrayPut "-1" on "intArray" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -766,24 +762,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "2" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "2" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "5" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "5" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -793,17 +789,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 1   within 30 ticks
   arrayPut "8" on "intArray" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -811,10 +807,10 @@ label "initializing offsets array"
   update destination to "1"
   update source to "1"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "1"
@@ -824,16 +820,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -843,8 +839,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -854,8 +850,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -865,21 +861,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 2   within 30 ticks
   arrayPut "-1" on "intArray" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -896,24 +892,24 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 4   within 30 ticks
-  arrayPut "10" on "offsetsArray" position 4   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 4   within 30 ticks
+  arrayPut "10" on "offsetsArray1" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 4   within 30 ticks
-  arrayPut "0" on "countsArray" position 4   within 30 ticks
+  highlightArrayCell on "countsArray1" position 4   within 30 ticks
+  arrayPut "0" on "countsArray1" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "2"
@@ -923,17 +919,17 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 9   within 30 ticks
   arrayPut "47" on "intArray" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 9   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "2"
@@ -941,10 +937,10 @@ label "initializing offsets array"
   update destination to "9"
   update source to "2"
   update digit to "4"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "2"
@@ -954,11 +950,11 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "2"
@@ -975,24 +971,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "3" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "3" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "4" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "4" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -1002,17 +998,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 2   within 30 ticks
   arrayPut "0" on "intArray" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -1020,10 +1016,10 @@ label "initializing offsets array"
   update destination to "2"
   update source to "9"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "2"
@@ -1033,16 +1029,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1052,8 +1048,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1063,8 +1059,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1074,21 +1070,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 3   within 30 ticks
   arrayPut "-1" on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1105,24 +1101,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "4" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "4" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "3" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "3" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1132,17 +1128,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 3   within 30 ticks
   arrayPut "6" on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1150,10 +1146,10 @@ label "initializing offsets array"
   update destination to "3"
   update source to "3"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -1163,16 +1159,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1182,8 +1178,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1193,8 +1189,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1204,21 +1200,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 4   within 30 ticks
   arrayPut "-1" on "intArray" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1235,24 +1231,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "5" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "5" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "2" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "2" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1262,17 +1258,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 4   within 30 ticks
   arrayPut "5" on "intArray" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1280,10 +1276,10 @@ label "initializing offsets array"
   update destination to "4"
   update source to "4"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "4"
@@ -1293,16 +1289,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1312,8 +1308,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1323,8 +1319,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1334,21 +1330,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 5   within 30 ticks
   arrayPut "-1" on "intArray" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1365,24 +1361,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "6" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "6" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "1" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "1" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1392,17 +1388,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 5   within 30 ticks
   arrayPut "4" on "intArray" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1410,10 +1406,10 @@ label "initializing offsets array"
   update destination to "5"
   update source to "5"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "5"
@@ -1423,16 +1419,16 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1442,8 +1438,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1453,8 +1449,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1464,21 +1460,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 6   within 30 ticks
   arrayPut "-1" on "intArray" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1495,24 +1491,24 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  arrayPut "8" on "offsetsArray" position 1   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  arrayPut "8" on "offsetsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 1   within 30 ticks
-  arrayPut "1" on "countsArray" position 1   within 30 ticks
+  highlightArrayCell on "countsArray1" position 1   within 30 ticks
+  arrayPut "1" on "countsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "12"
   update origin to "6"
@@ -1522,17 +1518,17 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 7   within 30 ticks
   arrayPut "13" on "intArray" position 7   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "12"
   update origin to "6"
@@ -1540,10 +1536,10 @@ label "initializing offsets array"
   update destination to "7"
   update source to "6"
   update digit to "1"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "12"
   update origin to "6"
@@ -1553,11 +1549,11 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "12"
   update origin to "6"
@@ -1574,24 +1570,24 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  arrayPut "9" on "offsetsArray" position 1   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  arrayPut "9" on "offsetsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 1   within 30 ticks
-  arrayPut "0" on "countsArray" position 1   within 30 ticks
+  highlightArrayCell on "countsArray1" position 1   within 30 ticks
+  arrayPut "0" on "countsArray1" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "6"
@@ -1601,17 +1597,17 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 8   within 30 ticks
   arrayPut "12" on "intArray" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "6"
@@ -1619,10 +1615,10 @@ label "initializing offsets array"
   update destination to "8"
   update source to "7"
   update digit to "1"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "6"
@@ -1632,11 +1628,11 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "6"
@@ -1653,24 +1649,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  arrayPut "7" on "offsetsArray" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  arrayPut "7" on "offsetsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "offsetsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "countsArray" position 0   within 30 ticks
-  arrayPut "0" on "countsArray" position 0   within 30 ticks
+  highlightArrayCell on "countsArray1" position 0   within 30 ticks
+  arrayPut "0" on "countsArray1" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "countsArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray1" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1680,17 +1676,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 6   within 30 ticks
   arrayPut "1" on "intArray" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1698,10 +1694,10 @@ label "initializing offsets array"
   update destination to "6"
   update source to "8"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1711,88 +1707,88 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 34 row 0
+  highlightCode on "sourceCode" line 34 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 34 row 0
-  highlightCode on "sourceCode" line 35 row 0
+  unhighlightCode on "sourceCode" line 34 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 38 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 38 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 38 row 0
-  highlightCode on "sourceCode" line 39 row 0
+  unhighlightCode on "sourceCode" line 38 row 0  
+  highlightCode on "sourceCode" line 39 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 39 row 0
-  highlightCode on "sourceCode" line 6 row 0
+  unhighlightCode on "sourceCode" line 39 row 0  
+  highlightCode on "sourceCode" line 6 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1800,36 +1796,32 @@ label "initializing offsets array"
   update destination to "6"
   update source to "6"
   update digit to "0"
-  hide "countsHeader" "offsetsHeader" "countsArray" "offsetsArray"
+  hide "countsHeader" "offsetsHeader" "countsArray1" "offsetsArray1" 
 }
 label "start of american flag sort"
 {
-  unhighlightCode on "sourceCode" line 6 row 0
-  highlightCode on "sourceCode" line 7 row 0
-}
-{
+  unhighlightCode on "sourceCode" line 6 row 0  
+  highlightCode on "sourceCode" line 7 row 0  
   text "Text16" "counts" (220, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "IntArray1" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 7 row 0
+  array "countsArray2" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
 }
 {
-  highlightCode on "sourceCode" line 8 row 0
-}
-{
+  unhighlightCode on "sourceCode" line 7 row 0  
+  highlightCode on "sourceCode" line 8 row 0  
   text "Text17" "offsets" (420, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "IntArray2" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 8 row 0
+  array "offsetsArray2" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
 }
 label "initializing counts array"
 {
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 8 row 0  
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1839,23 +1831,23 @@ label "initializing counts array"
   update digit to "9"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightArrayCell on "IntArray1" position 9   within 30 ticks
-  arrayPut "1" on "IntArray1" position 9   within 30 ticks
+  highlightArrayCell on "countsArray2" position 9   within 30 ticks
+  arrayPut "1" on "countsArray2" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 9   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1865,23 +1857,23 @@ label "initializing counts array"
   update digit to "8"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 1   within 30 ticks
-  highlightArrayCell on "IntArray1" position 8   within 30 ticks
-  arrayPut "1" on "IntArray1" position 8   within 30 ticks
+  highlightArrayCell on "countsArray2" position 8   within 30 ticks
+  arrayPut "1" on "countsArray2" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1891,23 +1883,23 @@ label "initializing counts array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 2   within 30 ticks
-  highlightArrayCell on "IntArray1" position 0   within 30 ticks
-  arrayPut "1" on "IntArray1" position 0   within 30 ticks
+  highlightArrayCell on "countsArray2" position 0   within 30 ticks
+  arrayPut "1" on "countsArray2" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1917,23 +1909,23 @@ label "initializing counts array"
   update digit to "6"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightArrayCell on "IntArray1" position 6   within 30 ticks
-  arrayPut "1" on "IntArray1" position 6   within 30 ticks
+  highlightArrayCell on "countsArray2" position 6   within 30 ticks
+  arrayPut "1" on "countsArray2" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1943,23 +1935,23 @@ label "initializing counts array"
   update digit to "5"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 4   within 30 ticks
-  highlightArrayCell on "IntArray1" position 5   within 30 ticks
-  arrayPut "1" on "IntArray1" position 5   within 30 ticks
+  highlightArrayCell on "countsArray2" position 5   within 30 ticks
+  arrayPut "1" on "countsArray2" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1969,23 +1961,23 @@ label "initializing counts array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 5   within 30 ticks
-  highlightArrayCell on "IntArray1" position 4   within 30 ticks
-  arrayPut "1" on "IntArray1" position 4   within 30 ticks
+  highlightArrayCell on "countsArray2" position 4   within 30 ticks
+  arrayPut "1" on "countsArray2" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 9 row 0  
   highlightArrayCell on "intArray" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 9 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
+  highlightCode on "sourceCode" line 10 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "6"
@@ -1995,157 +1987,157 @@ label "initializing counts array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
+  unhighlightCode on "sourceCode" line 10 row 0  
+  highlightCode on "sourceCode" line 11 row 0  
   unhighlightArrayCell on "intArray" position 6   within 30 ticks
-  highlightArrayCell on "IntArray1" position 1   within 30 ticks
-  arrayPut "1" on "IntArray1" position 1   within 30 ticks
+  highlightArrayCell on "countsArray2" position 1   within 30 ticks
+  arrayPut "1" on "countsArray2" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray1" position 1   within 30 ticks
+  unhighlightCode on "sourceCode" line 11 row 0  
+  unhighlightArrayCell on "countsArray2" position 1   within 30 ticks
 }
 label "initializing offsets array"
 {
-  highlightCode on "sourceCode" line 13 row 0
-  arrayPut "0" on "IntArray2" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 13 row 0  
+  arrayPut "0" on "offsetsArray2" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 13 row 0
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 13 row 0  
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 1   within 30 ticks
-  arrayPut "1" on "IntArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 1   within 30 ticks
+  arrayPut "1" on "offsetsArray2" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 2   within 30 ticks
-  arrayPut "2" on "IntArray2" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 2   within 30 ticks
+  arrayPut "2" on "offsetsArray2" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 2   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 3   within 30 ticks
-  arrayPut "2" on "IntArray2" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 3   within 30 ticks
+  arrayPut "2" on "offsetsArray2" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 3   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 4   within 30 ticks
-  arrayPut "2" on "IntArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 4   within 30 ticks
+  arrayPut "2" on "offsetsArray2" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 5   within 30 ticks
-  arrayPut "3" on "IntArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 5   within 30 ticks
+  arrayPut "3" on "offsetsArray2" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 6   within 30 ticks
-  arrayPut "4" on "IntArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 6   within 30 ticks
+  arrayPut "4" on "offsetsArray2" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 7   within 30 ticks
-  arrayPut "5" on "IntArray2" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 7   within 30 ticks
+  arrayPut "5" on "offsetsArray2" position 7   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 7   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 8   within 30 ticks
-  arrayPut "5" on "IntArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 8   within 30 ticks
+  arrayPut "5" on "offsetsArray2" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 14 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 14 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray2" position 9   within 30 ticks
-  arrayPut "6" on "IntArray2" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 15 row 0  
+  highlightArrayCell on "offsetsArray2" position 9   within 30 ticks
+  arrayPut "6" on "offsetsArray2" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray2" position 9   within 30 ticks
+  unhighlightCode on "sourceCode" line 15 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 9   within 30 ticks
 }
 {
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2155,8 +2147,8 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2166,8 +2158,8 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2177,21 +2169,21 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 0   within 30 ticks
   arrayPut "-1" on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2208,24 +2200,24 @@ label "initializing offsets array"
   update digit to "9"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 9   within 30 ticks
-  arrayPut "7" on "IntArray2" position 9   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 9   within 30 ticks
+  arrayPut "7" on "offsetsArray2" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 9   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 9   within 30 ticks
-  arrayPut "0" on "IntArray1" position 9   within 30 ticks
+  highlightArrayCell on "countsArray2" position 9   within 30 ticks
+  arrayPut "0" on "countsArray2" position 9   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 9   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 9   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "0"
@@ -2235,17 +2227,17 @@ label "initializing offsets array"
   update digit to "9"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 6   within 30 ticks
   arrayPut "9" on "intArray" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "0"
@@ -2253,10 +2245,10 @@ label "initializing offsets array"
   update destination to "6"
   update source to "0"
   update digit to "9"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "0"
@@ -2266,11 +2258,11 @@ label "initializing offsets array"
   update digit to "9"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "1"
   update origin to "0"
@@ -2287,24 +2279,24 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 1   within 30 ticks
-  arrayPut "2" on "IntArray2" position 1   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 1   within 30 ticks
+  arrayPut "2" on "offsetsArray2" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 1   within 30 ticks
-  arrayPut "0" on "IntArray1" position 1   within 30 ticks
+  highlightArrayCell on "countsArray2" position 1   within 30 ticks
+  arrayPut "0" on "countsArray2" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 1   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "8"
   update origin to "0"
@@ -2314,17 +2306,17 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 1   within 30 ticks
   arrayPut "1" on "intArray" position 1   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "8"
   update origin to "0"
@@ -2332,10 +2324,10 @@ label "initializing offsets array"
   update destination to "1"
   update source to "6"
   update digit to "1"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "8"
   update origin to "0"
@@ -2345,11 +2337,11 @@ label "initializing offsets array"
   update digit to "1"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "8"
   update origin to "0"
@@ -2366,24 +2358,24 @@ label "initializing offsets array"
   update digit to "8"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 8   within 30 ticks
-  arrayPut "6" on "IntArray2" position 8   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 8   within 30 ticks
+  arrayPut "6" on "offsetsArray2" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 8   within 30 ticks
-  arrayPut "0" on "IntArray1" position 8   within 30 ticks
+  highlightArrayCell on "countsArray2" position 8   within 30 ticks
+  arrayPut "0" on "countsArray2" position 8   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 8   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "4"
   update origin to "0"
@@ -2393,17 +2385,17 @@ label "initializing offsets array"
   update digit to "8"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 5   within 30 ticks
   arrayPut "8" on "intArray" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "4"
   update origin to "0"
@@ -2411,10 +2403,10 @@ label "initializing offsets array"
   update destination to "5"
   update source to "1"
   update digit to "8"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "4"
   update origin to "0"
@@ -2424,11 +2416,11 @@ label "initializing offsets array"
   update digit to "8"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "4"
   update origin to "0"
@@ -2445,24 +2437,24 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 4   within 30 ticks
-  arrayPut "3" on "IntArray2" position 4   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 4   within 30 ticks
+  arrayPut "3" on "offsetsArray2" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 4   within 30 ticks
-  arrayPut "0" on "IntArray1" position 4   within 30 ticks
+  highlightArrayCell on "countsArray2" position 4   within 30 ticks
+  arrayPut "0" on "countsArray2" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 4   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -2472,17 +2464,17 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 2   within 30 ticks
   arrayPut "4" on "intArray" position 2   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -2490,10 +2482,10 @@ label "initializing offsets array"
   update destination to "2"
   update source to "5"
   update digit to "4"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -2503,11 +2495,11 @@ label "initializing offsets array"
   update digit to "4"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "0"
   update origin to "0"
@@ -2524,24 +2516,24 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 0   within 30 ticks
-  arrayPut "1" on "IntArray2" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 0   within 30 ticks
+  arrayPut "1" on "offsetsArray2" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 0   within 30 ticks
-  arrayPut "0" on "IntArray1" position 0   within 30 ticks
+  highlightArrayCell on "countsArray2" position 0   within 30 ticks
+  arrayPut "0" on "countsArray2" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 0   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2551,17 +2543,17 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 0   within 30 ticks
   arrayPut "0" on "intArray" position 0   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 0   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2569,10 +2561,10 @@ label "initializing offsets array"
   update destination to "0"
   update source to "2"
   update digit to "0"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "0"
@@ -2582,46 +2574,46 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 18 row 0
+  highlightCode on "sourceCode" line 18 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 18 row 0
+  unhighlightCode on "sourceCode" line 18 row 0  
 }
 {
-  highlightCode on "sourceCode" line 19 row 0
+  highlightCode on "sourceCode" line 19 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2631,8 +2623,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
+  unhighlightCode on "sourceCode" line 19 row 0  
+  highlightCode on "sourceCode" line 20 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2642,8 +2634,8 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
+  unhighlightCode on "sourceCode" line 20 row 0  
+  highlightCode on "sourceCode" line 21 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2653,21 +2645,21 @@ label "initializing offsets array"
   update digit to "0"
 }
 {
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 21 row 0  
+  highlightCode on "sourceCode" line 22 row 0  
 }
 {
   highlightArrayCell on "intArray" position 3   within 30 ticks
   arrayPut "-1" on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 22 row 0
+  unhighlightCode on "sourceCode" line 22 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
+  highlightCode on "sourceCode" line 23 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2684,24 +2676,24 @@ label "initializing offsets array"
   update digit to "6"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 6   within 30 ticks
-  arrayPut "5" on "IntArray2" position 6   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 6   within 30 ticks
+  arrayPut "5" on "offsetsArray2" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 6   within 30 ticks
-  arrayPut "0" on "IntArray1" position 6   within 30 ticks
+  highlightArrayCell on "countsArray2" position 6   within 30 ticks
+  arrayPut "0" on "countsArray2" position 6   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 6   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "5"
   update origin to "3"
@@ -2711,17 +2703,17 @@ label "initializing offsets array"
   update digit to "6"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 4   within 30 ticks
   arrayPut "6" on "intArray" position 4   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "5"
   update origin to "3"
@@ -2729,10 +2721,10 @@ label "initializing offsets array"
   update destination to "4"
   update source to "3"
   update digit to "6"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "5"
   update origin to "3"
@@ -2742,11 +2734,11 @@ label "initializing offsets array"
   update digit to "6"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
+  unhighlightCode on "sourceCode" line 23 row 0  
+  highlightCode on "sourceCode" line 24 row 0  
   update divisor to "10"
   update tmp to "5"
   update origin to "3"
@@ -2763,24 +2755,24 @@ label "initializing offsets array"
   update digit to "5"
 }
 {
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray2" position 5   within 30 ticks
-  arrayPut "4" on "IntArray2" position 5   within 30 ticks
+  unhighlightCode on "sourceCode" line 24 row 0  
+  highlightCode on "sourceCode" line 25 row 0  
+  highlightArrayCell on "offsetsArray2" position 5   within 30 ticks
+  arrayPut "4" on "offsetsArray2" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray2" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
+  unhighlightCode on "sourceCode" line 25 row 0  
+  unhighlightArrayCell on "offsetsArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 26 row 0  
 }
 {
-  highlightArrayCell on "IntArray1" position 5   within 30 ticks
-  arrayPut "0" on "IntArray1" position 5   within 30 ticks
+  highlightArrayCell on "countsArray2" position 5   within 30 ticks
+  arrayPut "0" on "countsArray2" position 5   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray1" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
+  unhighlightCode on "sourceCode" line 26 row 0  
+  unhighlightArrayCell on "countsArray2" position 5   within 30 ticks
+  highlightCode on "sourceCode" line 27 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2790,17 +2782,17 @@ label "initializing offsets array"
   update digit to "5"
 }
 {
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 27 row 0  
+  highlightCode on "sourceCode" line 28 row 0  
 }
 {
   highlightArrayCell on "intArray" position 3   within 30 ticks
   arrayPut "5" on "intArray" position 3   within 30 ticks
 }
 {
-  unhighlightCode on "sourceCode" line 28 row 0
+  unhighlightCode on "sourceCode" line 28 row 0  
   unhighlightArrayCell on "intArray" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
+  highlightCode on "sourceCode" line 29 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2808,10 +2800,10 @@ label "initializing offsets array"
   update destination to "3"
   update source to "4"
   update digit to "5"
-  unhighlightCode on "sourceCode" line 29 row 0
+  unhighlightCode on "sourceCode" line 29 row 0  
 }
 {
-  highlightCode on "sourceCode" line 30 row 0
+  highlightCode on "sourceCode" line 30 row 0  
   update divisor to "10"
   update tmp to "-1"
   update origin to "3"
@@ -2821,635 +2813,149 @@ label "initializing offsets array"
   update digit to "5"
 }
 {
-  unhighlightCode on "sourceCode" line 30 row 0
+  unhighlightCode on "sourceCode" line 30 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
 }
 {
-  highlightCode on "sourceCode" line 17 row 0
+  highlightCode on "sourceCode" line 17 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 17 row 0
-  highlightCode on "sourceCode" line 35 row 0
+  unhighlightCode on "sourceCode" line 17 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 38 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 38 row 0
-  highlightCode on "sourceCode" line 39 row 0
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 39 row 0
-  highlightCode on "sourceCode" line 6 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "3"
-  update num to "-1"
-  update destination to "3"
-  update source to "3"
-  update digit to "5"
-  hide "countsHeader" "offsetsHeader" "countsArray" "offsetsArray"
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
-label "start of american flag sort"
 {
-  unhighlightCode on "sourceCode" line 6 row 0
-  highlightCode on "sourceCode" line 7 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  text "Text18" "counts" (220, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "IntArray3" (220, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 7 row 0
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  highlightCode on "sourceCode" line 8 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  text "Text19" "offsets" (420, 80) color (0, 0, 0) depth 1 font SansSerif size 12 bold
-  array "IntArray4" (420, 100)  color (0, 0, 0) fillColor (255, 255, 255) elementColor (0, 0, 0) elemHighlight (255, 0, 0) cellHighlight (255, 255, 0) horizontal length 10 "0" "0" "0" "0" "0" "0" "0" "0" "0" "0"  depth 1 font SansSerif size 12
-  unhighlightCode on "sourceCode" line 8 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
-label "initializing counts array"
 {
-  highlightCode on "sourceCode" line 9 row 0
-  highlightArrayCell on "intArray" position 7   within 30 ticks
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "3"
-  update num to "-1"
-  update destination to "3"
-  update source to "3"
-  update digit to "3"
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "intArray" position 7   within 30 ticks
-  highlightArrayCell on "IntArray3" position 3   within 30 ticks
-  arrayPut "1" on "IntArray3" position 3   within 30 ticks
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray3" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 9 row 0
-  highlightArrayCell on "intArray" position 8   within 30 ticks
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 9 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  highlightCode on "sourceCode" line 10 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "3"
-  update num to "-1"
-  update destination to "3"
-  update source to "3"
-  update digit to "2"
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 10 row 0
-  highlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "intArray" position 8   within 30 ticks
-  highlightArrayCell on "IntArray3" position 2   within 30 ticks
-  arrayPut "1" on "IntArray3" position 2   within 30 ticks
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 11 row 0
-  unhighlightArrayCell on "IntArray3" position 2   within 30 ticks
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
-label "initializing offsets array"
 {
-  highlightCode on "sourceCode" line 13 row 0
-  arrayPut "7" on "IntArray4" position 0   within 30 ticks
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 13 row 0
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 1   within 30 ticks
-  arrayPut "7" on "IntArray4" position 1   within 30 ticks
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 1   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
+  highlightCode on "sourceCode" line 35 row 0  
 }
 {
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 2   within 30 ticks
-  arrayPut "7" on "IntArray4" position 2   within 30 ticks
+  unhighlightCode on "sourceCode" line 35 row 0  
+  highlightCode on "sourceCode" line 36 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
+  unhighlightCode on "sourceCode" line 36 row 0  
+  highlightCode on "sourceCode" line 37 row 0  
 }
 {
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 3   within 30 ticks
-  arrayPut "8" on "IntArray4" position 3   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 4   within 30 ticks
-  arrayPut "9" on "IntArray4" position 4   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 4   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 5   within 30 ticks
-  arrayPut "9" on "IntArray4" position 5   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 5   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 6   within 30 ticks
-  arrayPut "9" on "IntArray4" position 6   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 6   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 7   within 30 ticks
-  arrayPut "9" on "IntArray4" position 7   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 8   within 30 ticks
-  arrayPut "9" on "IntArray4" position 8   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 14 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 14 row 0
-}
-{
-  highlightCode on "sourceCode" line 15 row 0
-  highlightArrayCell on "IntArray4" position 9   within 30 ticks
-  arrayPut "9" on "IntArray4" position 9   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 15 row 0
-  unhighlightArrayCell on "IntArray4" position 9   within 30 ticks
-}
-{
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 18 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 18 row 0
-}
-{
-  highlightCode on "sourceCode" line 19 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "-1"
-  update destination to "3"
-  update source to "3"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 19 row 0
-  highlightCode on "sourceCode" line 20 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "-1"
-  update destination to "3"
-  update source to "7"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 20 row 0
-  highlightCode on "sourceCode" line 21 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "13"
-  update destination to "3"
-  update source to "7"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 21 row 0
-  highlightCode on "sourceCode" line 22 row 0
-}
-{
-  highlightArrayCell on "intArray" position 7   within 30 ticks
-  arrayPut "-1" on "intArray" position 7   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 22 row 0
-  unhighlightArrayCell on "intArray" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 23 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "13"
-  update destination to "3"
-  update source to "7"
-  update digit to "3"
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "13"
-  update destination to "8"
-  update source to "7"
-  update digit to "3"
-}
-{
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray4" position 3   within 30 ticks
-  arrayPut "9" on "IntArray4" position 3   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray4" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
-}
-{
-  highlightArrayCell on "IntArray3" position 3   within 30 ticks
-  arrayPut "0" on "IntArray3" position 3   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray3" position 3   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
-  update divisor to "10"
-  update tmp to "12"
-  update origin to "7"
-  update num to "13"
-  update destination to "8"
-  update source to "7"
-  update digit to "3"
-}
-{
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
-}
-{
-  highlightArrayCell on "intArray" position 8   within 30 ticks
-  arrayPut "13" on "intArray" position 8   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 28 row 0
-  unhighlightArrayCell on "intArray" position 8   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
-  update divisor to "10"
-  update tmp to "12"
-  update origin to "7"
-  update num to "12"
-  update destination to "8"
-  update source to "7"
-  update digit to "3"
-  unhighlightCode on "sourceCode" line 29 row 0
-}
-{
-  highlightCode on "sourceCode" line 30 row 0
-  update divisor to "10"
-  update tmp to "12"
-  update origin to "7"
-  update num to "12"
-  update destination to "8"
-  update source to "8"
-  update digit to "3"
-}
-{
-  unhighlightCode on "sourceCode" line 30 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 23 row 0
-  highlightCode on "sourceCode" line 24 row 0
-  update divisor to "10"
-  update tmp to "12"
-  update origin to "7"
-  update num to "12"
-  update destination to "8"
-  update source to "8"
-  update digit to "2"
-  update divisor to "10"
-  update tmp to "12"
-  update origin to "7"
-  update num to "12"
-  update destination to "7"
-  update source to "8"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 24 row 0
-  highlightCode on "sourceCode" line 25 row 0
-  highlightArrayCell on "IntArray4" position 2   within 30 ticks
-  arrayPut "8" on "IntArray4" position 2   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 25 row 0
-  unhighlightArrayCell on "IntArray4" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 26 row 0
-}
-{
-  highlightArrayCell on "IntArray3" position 2   within 30 ticks
-  arrayPut "0" on "IntArray3" position 2   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 26 row 0
-  unhighlightArrayCell on "IntArray3" position 2   within 30 ticks
-  highlightCode on "sourceCode" line 27 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "12"
-  update destination to "7"
-  update source to "8"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 27 row 0
-  highlightCode on "sourceCode" line 28 row 0
-}
-{
-  highlightArrayCell on "intArray" position 7   within 30 ticks
-  arrayPut "12" on "intArray" position 7   within 30 ticks
-}
-{
-  unhighlightCode on "sourceCode" line 28 row 0
-  unhighlightArrayCell on "intArray" position 7   within 30 ticks
-  highlightCode on "sourceCode" line 29 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "-1"
-  update destination to "7"
-  update source to "8"
-  update digit to "2"
-  unhighlightCode on "sourceCode" line 29 row 0
-}
-{
-  highlightCode on "sourceCode" line 30 row 0
-  update divisor to "10"
-  update tmp to "-1"
-  update origin to "7"
-  update num to "-1"
-  update destination to "7"
-  update source to "7"
-  update digit to "2"
-}
-{
-  unhighlightCode on "sourceCode" line 30 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-}
-{
-  highlightCode on "sourceCode" line 17 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 17 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
-  highlightCode on "sourceCode" line 35 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 35 row 0
-  highlightCode on "sourceCode" line 36 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 36 row 0
-  highlightCode on "sourceCode" line 37 row 0
-}
-{
-  unhighlightCode on "sourceCode" line 37 row 0
+  unhighlightCode on "sourceCode" line 37 row 0  
   hideAll
-  show "header"
-  hide "arrasyHeader" "Text18" "Text19"
+  show "header" 
+  hide "arrayHeader" "Text16" "Text17" 
 }
 {
-  text "Text20" "After the execution of American Flag Sort, your array should be sorted in ascending order." (20, 80) color (0, 0, 0) depth 1 font SansSerif size 14
-  text "Text21" "The asymptotic time complexity is O(n log n) for worst, average and best case performance." (20, 100) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text18" "After the execution of American Flag Sort, your array should be sorted in ascending order." (20, 80) color (0, 0, 0) depth 1 font SansSerif size 14
+  text "Text19" "The asymptotic time complexity is O(n log n) for worst, average and best case performance." (20, 100) color (0, 0, 0) depth 1 font SansSerif size 14
 }
 label "outro"
 {
   hideAll
-  hide "Text20" "Text21"
+  hide "Text18" "Text19" 
 }

@@ -17,6 +17,7 @@ import generators.framework.GeneratorType;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import algoanim.primitives.generators.Language;
@@ -33,6 +34,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     private Language language;
     private int radix;
     private int[] array;
+    private IntArray counts, offsets;
     private ArrayProperties arrayProperties;
     private SourceCodeProperties scProperties;
     private TextProperties textProperties, headerProperties, introAndOutroProperties, notificationProperties;
@@ -186,9 +188,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
     }
 
     private void start(int[] array, int radix) {
-        // TODO: delete properties which are set by XML later
-        // TODO: fix scopes of variables in varTable
-
         // properties for the array
         arrayProperties = new ArrayProperties();
         arrayProperties.set(AnimationPropertiesKeys.COLOR_PROPERTY, Color.BLACK);
@@ -243,7 +242,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         this.varTable.declare("int", DIVISOR_KEY);
 
         // initialize the header for array
-        arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrasyHeader", null, textProperties);
+        arrayHeader = language.newText(new Coordinates(20, 80), "array", "arrayHeader", null, textProperties);
 
         // initialize array and source code
         IntArray iArray = language.newIntArray(new Coordinates(20, 100), array, "intArray", null, arrayProperties);
@@ -337,13 +336,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         language.nextStep();
     }
 
-    /***************************************************************
-     *                                                             *
-     *                                                             *
-     *                          START                              *
-     *                                                             *
-     *                                                             *
-     ***************************************************************/
+    // start sort
     private void sort(IntArray array, SourceCode code, int radix) {
         language.nextStep();
         arrayHeader.show();
@@ -372,29 +365,36 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         americanFlagSort(array, 0, array.getLength(), divisor, radix, code);
     }
 
+    private int arrayCounter = 0;
+    // start afs algorithm
     private void americanFlagSort(IntArray array, int start, int length, int divisor, int radix, SourceCode code) {
+        // TODO: counts and offsets needs fix!
+        // TODO: fix scopes of variables in varTable
+        // TODO: delete properties which are set by XML later
         code.highlight(6);
+        boolean isNewBucket = false;
         this.varTable.discard(DIGIT_COUNT_KEY);
 
         language.nextStep("start of american flag sort");
+        arrayCounter++;
         code.unhighlight(6);
         code.highlight(7);
-
-        // TODO: counts and offsets needs fix!
-        language.nextStep();
         countsHeader = language.newText(new Coordinates(220, 80), "counts", "countsHeader", null, textProperties);
-        IntArray counts = language.newIntArray(new Coordinates(220, 100), new int[radix], "countsArray", null, arrayProperties);
+        counts = language.newIntArray(new Coordinates(220, 100), new int[radix], "countsArray" + arrayCounter, null, arrayProperties);
+
+        if (!counts.getName().equals("countsArray1")) {
+            isNewBucket = true;
+        }
+
+        language.nextStep();
         code.unhighlight(7);
-
-        language.nextStep();
         code.highlight(8);
-
-        language.nextStep();
         offsetsHeader = language.newText(new Coordinates(420, 80), "offsets", "offsetsHeader", null, textProperties);
-        IntArray offsets = language.newIntArray(new Coordinates(420, 100), new int[radix], "offsetsArray", null, arrayProperties);
-        code.unhighlight(8);
+        offsets = language.newIntArray(new Coordinates(420, 100), new int[radix], "offsetsArray" + arrayCounter, null, arrayProperties);
 
+        // fill counts
         language.nextStep("initializing counts array");
+        code.unhighlight(8);
         for (int i = start; i < length; i++)
         {
             code.highlight(9);
@@ -424,6 +424,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         code.highlight(13);
         offsets.put(0, start, null, defaultDuration);
 
+        // fill offsets
         language.nextStep();
         code.unhighlight(13);
         for (int i = 1; i < radix; i++) {
@@ -444,6 +445,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
             offsets.unhighlightCell(i, null, defaultDuration);
         }
 
+        // run algorithm
         language.nextStep();
         for (int i = 0; i < radix; i++) {
             language.nextStep();
@@ -586,6 +588,10 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
                     code.unhighlight(39);
                     countsHeader.hide();
                     offsetsHeader.hide();
+                    if (isNewBucket) {
+                        counts.setName("countsArray" + arrayCounter);
+                        offsets.setName("offsetsArray" + arrayCounter);
+                    }
                     counts.hide();
                     offsets.hide();
 
@@ -648,7 +654,7 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         int[] array = {9, 8, 47, 6, 5, 4, 13, 12, 1, 0};
         int radix = 10;
         afs.start(array, radix);
-        System.out.println(language.toString());
+        System.out.println(language);
     }
 
     public String getName() {
