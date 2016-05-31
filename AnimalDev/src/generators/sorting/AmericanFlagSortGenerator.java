@@ -247,7 +247,8 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
 
         // sort()
         sourceCode.addCodeLine("public int[] sort(int[] array, int radix) {", null, 0, null);                   // 0
-        sourceCode.addCodeLine("int digitCount = getDigitCount(array);", null, 1, null);                        // 1
+        sourceCode.addCodeLine("int digitCount = getDigitCount(array); " +
+                "  // see source code for implementation", null, 1, null);                                      // 1
         sourceCode.addCodeLine("int divisor = (int) Math.pow(10, digitCount);", null, 1, null);                 // 2
         sourceCode.addCodeLine("americanFlagSort(array, 0, array.length, divisor, radix);", null, 1, null);     // 3
         sourceCode.addCodeLine("return array;", null, 1, null);                                                 // 4
@@ -259,7 +260,8 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         sourceCode.addCodeLine("int[] counts = new int[radix];", null, 1, null);                                // 7
         sourceCode.addCodeLine("int[] offsets = new int[radix];", null, 1, null);                               // 8
         sourceCode.addCodeLine("for (int i = start; i < length; i++) {", null, 1, null);                        // 9
-        sourceCode.addCodeLine("int digit = getDigit(array[i], divisor, radix);", null, 2, null);               // 10
+        sourceCode.addCodeLine("int digit = getDigit(array[i], divisor, radix); " +
+                "  // see source code for implementation", null, 2, null);                                      // 10
         sourceCode.addCodeLine("counts[digit]++;", null, 2, null);                                              // 11
         sourceCode.addCodeLine("}", null, 1, null);                                                             // 12
         sourceCode.addCodeLine("offsets[0] = start;", null, 1, null);                                           // 13
