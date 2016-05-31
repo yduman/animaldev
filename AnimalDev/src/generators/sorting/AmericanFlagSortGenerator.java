@@ -296,23 +296,6 @@ public class AmericanFlagSortGenerator implements ValidatingGenerator {
         sourceCode.addCodeLine("}", null, 1, null);                                                             // 42
         sourceCode.addCodeLine("}", null, 0, null);                                                             // 43
 
-//        // getDigit()
-//        sourceCode.addCodeLine("private int getDigit(int elem, int divisor, int radix) {", null, 0, null);      // 44
-//        sourceCode.addCodeLine("return (elem / divisor) % radix;", null, 1, null);                              // 45
-//        sourceCode.addCodeLine("}", null, 0, null);                                                             // 46
-//
-//        // getDigitCount()
-//        sourceCode.addCodeLine("private int getDigitCount(int[] array) {", null, 0, null);                      // 47
-//        sourceCode.addCodeLine("int maxDigitCount = Integer.MIN_VALUE;", null, 1, null);                        // 48
-//        sourceCode.addCodeLine("for (int number : array) {", null, 1, null);                                    // 49
-//        sourceCode.addCodeLine("int tmp = (int) Math.log10(number) + 1;", null, 2, null);                       // 50
-//        sourceCode.addCodeLine("if (tmp > maxDigitCount) {", null, 2, null);                                    // 51
-//        sourceCode.addCodeLine("maxDigitCount = tmp;", null, 3, null);                                          // 52
-//        sourceCode.addCodeLine("}", null, 2, null);                                                             // 53
-//        sourceCode.addCodeLine("}", null, 1, null);                                                             // 54
-//        sourceCode.addCodeLine("return maxDigitCount;", null, 1, null);                                         // 55
-//        sourceCode.addCodeLine("}", null, 0, null);                                                             // 56
-
         // start algorithm
         sort(iArray, sourceCode, radix);
 
