@@ -2,14 +2,14 @@ package algorithms;
 
 public class AFS
 {
-    public int[] sort(int[] array, int radix) {
+    public static int[] sort(int[] array, int radix) {
         int digitCount = getDigitCount(array);
         int divisor = (int) Math.pow(10, digitCount);
         americanFlagSort(array, 0, array.length, divisor, radix);
         return array;
     }
 
-    private void americanFlagSort(int[] array, int start, int length, int divisor, int radix) {
+    private static void americanFlagSort(int[] array, int start, int length, int divisor, int radix) {
 
         // First pass - find counts
         int[] counts = new int[radix];
@@ -58,11 +58,11 @@ public class AFS
 
     }
 
-    private int getDigit(int elem, int divisor, int radix) {
+    private static int getDigit(int elem, int divisor, int radix) {
         return (elem / divisor) % radix;
     }
 
-    private int getDigitCount(int[] array) {
+    private static int getDigitCount(int[] array) {
         int maxDigitCount = Integer.MIN_VALUE;
         for (int number : array) {
             int tmp = (int) Math.log10(number) + 1;
@@ -71,5 +71,13 @@ public class AFS
             }
         }
         return maxDigitCount;
+    }
+
+    public static void main(String[] args)
+    {
+        int[] array = {789, 1555, 9, 132, 8, 47, 6, 5, 4, 13, 12, 1, 0};
+        int radix = 10;
+        sort(array, radix);
+        System.out.println(java.util.Arrays.toString(array));
     }
 }
